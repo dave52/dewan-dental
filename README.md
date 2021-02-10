@@ -1,2 +1,2 @@
-# dewan-dental
-DeWan Dental Wellness; dental office in Milwaukee, WI
+# DeWan Dental Wellness
+A dental office in Milwaukee, WI
