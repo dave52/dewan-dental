@@ -5,3 +5,16 @@ logs
 *.log
 npm-debug.log*
 
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Output of 'npm pack'
+*.tgz
+
+# dotenv environment variable files
+.env*
+
+# gatsby files
+.cache/
+public
