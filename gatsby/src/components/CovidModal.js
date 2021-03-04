@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Layout from '../components/Layout';
-import Nav from '../components/Nav';
+import bgImg from '../assets/images/blurred-background.jpg';
 
 const ContainerStyles = styled.div`
   width: 100vw;
@@ -9,16 +8,17 @@ const ContainerStyles = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background: no-repeat url(${bgImg}) #466287;
 `;
 
 const ModalStyles = styled.div`
   background: white;
 `;
 
-export default function HomePage() {
+export default function CovidModal() {
   return (
-    <Layout>
-      <Nav />
-    </Layout>
+    <ContainerStyles>
+      <ModalStyles>I'm a modal</ModalStyles>
+    </ContainerStyles>
   );
 }
