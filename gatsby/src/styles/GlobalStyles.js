@@ -6,12 +6,13 @@ const GlobalStyles = createGlobalStyle`
         box-sizing: border-box; 
     }
 
-    // add colors
     :root {
         --black: #1F2421;
         --blue: #466287;
         --brown: #A56F51;
         --gray: #E2DDDE;
+
+        --frame-size: 1.8rem;
     }
 
     html {
@@ -27,7 +28,7 @@ const GlobalStyles = createGlobalStyle`
 
     /* Works on Chrome, Edge, and Safari */
     *::-webkit-scrollbar {
-        width: 1.8rem;
+        width: var(--frame-size);
     }
 
     *::-webkit-scrollbar-track {

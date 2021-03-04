@@ -3,10 +3,35 @@ import styled from 'styled-components';
 
 const FrameStyles = styled.div`
   background: var(--gray);
-  padding: 1.8rem 0 1.8rem 1.8rem;
+  // frame-left
+  padding-left: var(--frame-size);
   min-height: 200vh;
+
+  .frame-top,
+  .frame-bottom {
+    display: block;
+    width: 100%;
+    position: fixed;
+    z-index: 999;
+    height: var(--frame-size);
+    background: var(--gray);
+  }
+
+  .frame-top {
+    top: 0;
+  }
+
+  .frame-bottom {
+    bottom: 0;
+  }
 `;
 
 export default function Frame({ children }) {
-  return <FrameStyles>{children}</FrameStyles>;
+  return (
+    <FrameStyles>
+      <div className="frame-top" />
+      {children}
+      <div className="frame-top" />
+    </FrameStyles>
+  );
 }
