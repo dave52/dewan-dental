@@ -3,9 +3,10 @@ import React from 'react';
 import styled from 'styled-components';
 import logo from '../assets/images/dewan-logo-lines.svg';
 
-const NavStyles = styled.div`
+const NavStyles = styled.nav`
   display: flex;
-  width: 100%;
+  position: fixed;
+  width: calc(100% - var(--frame-size));
   font-family: 'Karla';
   font-weight: 500;
   font-size: 1.3rem;
@@ -20,7 +21,7 @@ const NavStyles = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 4rem 7rem;
+    padding: 2.5rem 6rem;
 
     .nav-row {
       display: flex;

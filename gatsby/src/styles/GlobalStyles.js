@@ -6,37 +6,41 @@ const GlobalStyles = createGlobalStyle`
         box-sizing: border-box; 
     }
 
+    // scroll bar styles
+    /* Works on Firefox */
+    html {
+        scrollbar-width: auto;
+        scrollbar-color: var(--blue) var(--gray);
+    }
+
+    /* Works on Chrome, Edge, and Safari */
+    html::-webkit-scrollbar {
+        width: var(--frame-size);
+    }
+
+    html::-webkit-scrollbar-track {
+        background: var(--gray);
+    }
+
+    html::-webkit-scrollbar-thumb {
+        background: var(--blue);
+    }
+
     :root {
         --black: #1F2421;
         --blue: #466287;
+        --blue-90: hsla(214, 32%, 40%, 0.9);
         --brown: #A56F51;
+        --cream: #E3ECD3;
+        --cream-75: hsla(82, 40%, 88%, 0.75);
         --gray: #E2DDDE;
+        --white-85: hsla(0, 0%, 100%, 0.85);
 
         --frame-size: 1.8rem;
     }
 
     html {
         font-size: 10px;
-    }
-
-    // scroll bar styles
-    /* Works on Firefox */
-    * {
-        scrollbar-width: auto;
-        scrollbar-color: var(--blue) var(--gray);
-    }
-
-    /* Works on Chrome, Edge, and Safari */
-    *::-webkit-scrollbar {
-        width: var(--frame-size);
-    }
-
-    *::-webkit-scrollbar-track {
-        background: var(--gray);
-    }
-
-    *::-webkit-scrollbar-thumb {
-        background: var(--blue);
     }
 `;
 
