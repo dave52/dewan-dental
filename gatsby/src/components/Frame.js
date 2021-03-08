@@ -5,7 +5,6 @@ const FrameStyles = styled.div`
   background: var(--gray);
   // frame-left size
   padding-left: var(--frame-size);
-  min-height: 200vh;
 
   .frame-top,
   .frame-bottom {

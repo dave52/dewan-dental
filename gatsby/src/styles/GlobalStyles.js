@@ -42,6 +42,15 @@ const GlobalStyles = createGlobalStyle`
     html {
         font-size: 10px;
     }
+
+    .row {
+        display: flex;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+    }
 `;
 
 export default GlobalStyles;
