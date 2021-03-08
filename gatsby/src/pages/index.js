@@ -269,8 +269,16 @@ export default function HomePage() {
           </p>
         </AboutStyles>
         <AboutImageStyles>
-          <img className="img-desk-plants" src={ImgDeskPlants} />
-          <img className="img-patient-care" src={ImgPatientCare} />
+          <img
+            className="img-desk-plants"
+            src={ImgDeskPlants}
+            alt="An orchid flower on the office front desk"
+          />
+          <img
+            className="img-patient-care"
+            src={ImgPatientCare}
+            alt="A patient receiving dental care"
+          />
         </AboutImageStyles>
       </GridStyles>
     </Layout>
