@@ -6,10 +6,19 @@ import logo from '../assets/images/dewan-logo-lines.svg';
 const NavStyles = styled.nav`
   display: flex;
   position: fixed;
-  width: calc(100% - var(--frame-size));
+  width: 100%;
+  @media (min-width: 100rem) {
+    // 600px
+    width: calc(100% - var(--frame-size));
+  }
   font-family: 'Karla';
   font-weight: 500;
-  font-size: 1.3rem;
+  font-size: 1.1.rem;
+
+  @media (min-width: 75rem) {
+    // 1200px
+    font-size: 1.3rem;
+  }
   text-transform: uppercase;
   line-height: 0.9;
   letter-spacing: 0.1em;

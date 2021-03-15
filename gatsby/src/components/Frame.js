@@ -3,29 +3,38 @@ import styled from 'styled-components';
 
 const FrameStyles = styled.div`
   background: var(--gray);
-  // frame-left size
-  padding-left: var(--frame-size);
-
-  .frame-top,
-  .frame-bottom {
-    display: block;
-    width: 100%;
-    position: fixed;
-    z-index: 999;
-    height: var(--frame-size);
-    background: var(--gray);
-  }
-
-  .frame-top {
-    top: 0;
-  }
-
-  .frame-bottom {
-    bottom: 0;
-  }
 
   .frame-content {
-    padding: var(--frame-size) 0;
+    display: flex;
+  }
+
+  @media (min-width: 100rem) {
+    // 1600px
+
+    // frame-left size
+    padding-left: var(--frame-size);
+
+    .frame-top,
+    .frame-bottom {
+      display: block;
+      width: 100%;
+      position: fixed;
+      z-index: 999;
+      height: var(--frame-size);
+      background: var(--gray);
+    }
+
+    .frame-top {
+      top: 0;
+    }
+
+    .frame-bottom {
+      bottom: 0;
+    }
+
+    .frame-content {
+      padding: var(--frame-size) 0;
+    }
   }
 `;
 
