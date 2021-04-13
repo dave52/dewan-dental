@@ -43,6 +43,10 @@ const GlobalStyles = createGlobalStyle`
         font-size: 10px;
     }
 
+    .overflow-hidden {
+        overflow: hidden;
+    }
+
     .row {
         display: flex;
     }
@@ -50,6 +54,11 @@ const GlobalStyles = createGlobalStyle`
     .column {
         display: flex;
         flex-direction: column;
+    }
+
+    .space-between {
+        display: flex;
+        justify-content: space-between;
     }
 `;
 
