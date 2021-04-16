@@ -8,8 +8,8 @@ import ElementStyles from '../styles/ElementStyles';
 import FontStyles from '../styles/FontStyles';
 import Nav from './Nav';
 
-const ContainerStyles = styled.div`
-  margin-top: 12rem;
+const ContainerStyles = styled.main`
+  /* margin-top: 12rem; */
 `;
 
 export default function Layout({ children }) {

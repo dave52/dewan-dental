@@ -5,12 +5,9 @@ import logo from '../assets/images/dewan-logo-lines.svg';
 
 const NavStyles = styled.nav`
   display: flex;
-  position: fixed;
+  position: sticky;
+  top: var(--frame-size);
   width: 100%;
-  @media (min-width: 100rem) {
-    // 600px
-    width: calc(100% - var(--frame-size));
-  }
   font-family: 'Karla';
   font-weight: 500;
   font-size: 1.1.rem;
@@ -66,8 +63,8 @@ export default function Nav() {
       <div className="left">
         <div className="nav-row">
           <Link to="#">Covid-19 Policy</Link>
-          <Link to="#">Appointment</Link>
-          <Link to="#">Services</Link>
+          <Link to="/appointment">Appointment</Link>
+          <Link to="/services">Services</Link>
           <Link to="#">About</Link>
         </div>
         <img

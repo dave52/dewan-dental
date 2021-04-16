@@ -6,13 +6,14 @@ const FrameStyles = styled.div`
 
   .frame-content {
     display: flex;
+    flex-direction: column;
   }
 
   @media (min-width: 100rem) {
     // 1600px
 
     // frame-left size
-    padding-left: var(--frame-size);
+    padding: 0 var(--frame-size);
 
     .frame-top,
     .frame-bottom {

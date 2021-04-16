@@ -10,7 +10,7 @@ const GlobalStyles = createGlobalStyle`
     /* Works on Firefox */
     html {
         scrollbar-width: auto;
-        scrollbar-color: var(--blue) var(--gray);
+        scrollbar-color: var(--blue) var(--blue-50);
     }
 
     /* Works on Chrome, Edge, and Safari */
@@ -19,7 +19,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     html::-webkit-scrollbar-track {
-        background: var(--gray);
+        background: var(--blue-50);
     }
 
     html::-webkit-scrollbar-thumb {
@@ -30,6 +30,7 @@ const GlobalStyles = createGlobalStyle`
         --black: #1F2421;
         --blue: #466287;
         --blue-90: hsla(214, 32%, 40%, 0.9);
+        --blue-50: hsla(214, 32%, 40%, 0.5);
         --brown: #A56F51;
         --cream: #E3ECD3;
         --cream-75: hsla(82, 40%, 88%, 0.75);
