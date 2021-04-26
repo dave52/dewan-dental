@@ -29,25 +29,50 @@ const ContainerStyles = styled.div`
 `;
 
 const closeSplash = () => {
-  // document.body.classList.toggle('overflow-hidden');
-  console.log('hello');
   document.querySelector('.splash').classList.add('hidden');
 };
 
 const openModal = () => {
-  console.log('anime is finished');
   setTimeout(() => {
     document.querySelector('.modal').classList.remove('hidden');
   }, 500);
 };
 
+const hasAgreed = () => localStorage.getItem('covidAgreement');
+
+const setCovidAgreement = (val = true) => {
+  localStorage.setItem('covidAgreement', val);
+};
+
+const setSession = (val = true) => {
+  sessionStorage.setItem('sustainedSession', val);
+};
+
+const isSustainedSession = () => sessionStorage.getItem('sustainedSession');
+
+const handleOnAnimationEnd = () => {
+  if (hasAgreed()) {
+    closeSplash();
+  } else {
+    openModal();
+  }
+  setSession();
+};
+
+const handleCloseModal = () => {
+  closeSplash();
+  setCovidAgreement();
+};
+
 export default function Splash() {
-  console.log(document.body);
-  document.body.classList.toggle('overflow-hidden');
-  return (
-    <ContainerStyles className="splash">
-      <SplashLogo onAnimeEnd={openModal} />
-      <Modal closeModal={closeSplash} />
-    </ContainerStyles>
-  );
+  if (!isSustainedSession()) {
+    document.body.classList.toggle('overflow-hidden');
+    return (
+      <ContainerStyles className="splash">
+        <SplashLogo onAnimationEnd={handleOnAnimationEnd} />
+        {!hasAgreed() && <Modal closeModal={() => handleCloseModal} />};
+      </ContainerStyles>
+    );
+  }
+  return null;
 }

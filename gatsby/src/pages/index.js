@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import Layout from '../components/Layout';
-import Splash from '../components/Splash';
 import ImgBuilding from '../assets/images/dewan-building.jpg';
 import ImgWood from '../assets/images/background-wooden-slats.jpg';
 import ImgDeskPlants from '../assets/images/desk-plants.jpg';
@@ -181,7 +180,6 @@ const AboutImageStyles = styled.div`
 export default function HomePage() {
   return (
     <Layout>
-      <Splash />
       <GridStyles>
         <div className="building-img-container">
           <img

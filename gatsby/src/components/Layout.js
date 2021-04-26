@@ -7,6 +7,7 @@ import GlobalStyles from '../styles/GlobalStyles';
 import ElementStyles from '../styles/ElementStyles';
 import FontStyles from '../styles/FontStyles';
 import Nav from './Nav';
+import Splash from './Splash';
 
 const ContainerStyles = styled.main`
   /* margin-top: 12rem; */
@@ -20,7 +21,10 @@ export default function Layout({ children }) {
       <ElementStyles />
       <FontStyles />
       <Nav />
-      <ContainerStyles>{children}</ContainerStyles>
+      <ContainerStyles>
+        <Splash />
+        {children}
+      </ContainerStyles>
     </Frame>
   );
 }
