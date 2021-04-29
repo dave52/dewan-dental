@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="#E2DDDE" viewBox="0 0 105 105" aria-labelledby="x-icon-title">
+    <title id="x-icon-title">X icon to close</title>
+    <path d="M76.73,28.24a3.29,3.29,0,0,0-4.49,0L52.5,48,32.76,28.24a3.17,3.17,0,0,0-4.49,4.49L48,52.47,28.27,72.21a3.29,3.29,0,0,0,0,4.49,3.15,3.15,0,0,0,4.49,0L52.5,57,72.24,76.7a3.15,3.15,0,0,0,4.49,0,3.29,3.29,0,0,0,0-4.49L57,52.47,76.73,32.73A3.29,3.29,0,0,0,76.73,28.24Z" stroke="#E2DDDE" stroke-miterlimit="10" stroke-width="2"/>
+    <circle cx="52.5" cy="52.5" r="50" fill="none" stroke="#E2DDDE" stroke-miterlimit="10" stroke-width="5"/>
+</svg>

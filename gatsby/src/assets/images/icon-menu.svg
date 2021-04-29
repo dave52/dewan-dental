@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 105 105" aria-labelledby="icon-menu-title" fill="#E2DDDE">
+    <title id="icon-menu-title">Menu icon illustration, 3 horizontal lines</title>
+    <circle cx="52.5" cy="52.5" r="50" fill="none" stroke="#E2DDDE" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M77.5,40.34h-50a4.5,4.5,0,1,1,0-9h50a4.5,4.5,0,0,1,0,9Z"/>
+    <path d="M77.5,57h-50a4.5,4.5,0,0,1,0-9h50a4.5,4.5,0,0,1,0,9Z"/>
+    <path d="M77.5,73.66h-50a4.5,4.5,0,0,1,0-9h50a4.5,4.5,0,0,1,0,9Z"/>
+</svg>

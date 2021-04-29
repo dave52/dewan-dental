@@ -17,7 +17,7 @@ const GridStyles = styled.div`
   gap: 1.8rem 0;
 
   .building-img-container {
-    min-height: calc(100vh - 15rem);
+    min-height: calc(100vh - 4.625rem);
 
     img.dewan-building {
       object-fit: cover;
