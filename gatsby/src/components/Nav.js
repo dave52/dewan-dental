@@ -100,9 +100,12 @@ const NavStyles = styled.nav`
       color: var(--gray);
       line-height: 1.7;
 
+      @media (min-width: 68.75rem) {
+        color: var(--black);
+      }
+
       @media (min-width: 87.5rem) {
         margin-left: 2.4rem;
-        color: var(--black);
       }
     }
   }
