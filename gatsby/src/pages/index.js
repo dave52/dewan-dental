@@ -19,6 +19,10 @@ const GridStyles = styled.div`
   .building-img-container {
     min-height: calc(100vh - 4.625rem);
 
+    @media (min-width: 68.75rem) {
+      min-height: calc(100vh - 11rem - var(--frame-size) - var(--frame-size));
+    }
+
     img.dewan-building {
       object-fit: cover;
       width: 100%;
@@ -39,8 +43,8 @@ const AppointmentStyles = styled.div`
   }
   display: flex;
   width: 100%;
-  background: var(--brown) url(${ImgWood}) repeat-y;
-  background-size: contain;
+  background: var(--brown) url(${ImgWood}) no-repeat;
+  background-size: cover;
 
   .card-container-outer {
     display: flex;
