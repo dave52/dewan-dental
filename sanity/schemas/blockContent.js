@@ -73,9 +73,29 @@ export default {
     // You can add additional types here. Note that you can't use
     // primitive types such as 'string' and 'number' in the same array
     // as a block type.
+    // {
+    //   type: "image",
+    //   options: { hotspot: true },
+    //   fields: [
+    //     {
+    //       name: 'imageCaption',
+    //       type: 'string',
+    //       title: 'Caption',
+    //       description: 'Provide a brief description of the image for SEO and accessibility'
+    //     },
+    //     {
+    //       name: 'imageUrl',
+    //       type: 'string',
+    //       title: 'Link',
+    //       description: 'Images can optionally function as a clickable link'
+    //     },
+    //   ]
+    // },
     {
-      type: "image",
-      options: { hotspot: true },
+      title: "Image",
+      // description: 'Add page content: images, links and text below',
+      name: "blockContentImage",
+      type: "blockContentImage",
     },
   ],
 };

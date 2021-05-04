@@ -4,26 +4,37 @@ export default {
   type: "document",
   fields: [
     {
-      title: "Navigation category",
+      title: "Parent nav title",
       description: "40 characters or less",
-      name: "navCategory",
+      name: "parentNav",
       type: "string",
-      validation: Rule => Rule.required().max(40).warning('Navigation categories need to be less than 40 characters'),
+      validation: (Rule) =>
+        Rule.required()
+          .max(40)
+          .warning("Navigation categories need to be less than 40 characters"),
     },
     {
-      title: "Slug",
-      description: "URL friendly version of the name, i.e. DeWan Dental Services -> dewan-dental-services",
+      title: "Parent nav slug",
+      description:
+        "URL friendly version of the name, i.e. DeWan Dental Services -> dewan-dental-services",
       name: "slug",
       type: "slug",
       options: {
-        source: "navCategory",
+        source: "parentNav",
       },
     },
     {
-      title: "Navigation order",
-      description: "Optional: can add '1', '2' etc. to create first and second from left to right, and leave the rest blank to just fall into alphabetical order",
+      title: "Parent nav item order",
+      description:
+        "Optional: can add '1', '2' etc. to make nav item first and second from left to right, and leave the rest blank to just fall into alphabetical order",
       name: "order",
       type: "number",
+    },
+    {
+      type: "array",
+      name: "subnav",
+      title: "Subnav items",
+      of: [{ type: "navigation.subnav" }],
     },
   ],
 };
