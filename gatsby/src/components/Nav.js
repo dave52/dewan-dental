@@ -8,6 +8,7 @@ import menuIcon from '../assets/images/icon-menu.svg';
 import bg from '../assets/images/blurred-background.jpg';
 
 const NavStyles = styled.nav`
+  z-index: 5;
   display: grid;
   grid-template-columns: 1fr;
   position: sticky;
