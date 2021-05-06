@@ -8,8 +8,8 @@ import page from "./page";
 import blockContent from "./blockContent";
 import blockContentImage from "./blockContentImage";
 import navigation from "./navigation";
-import navigationLink from "./navigationLink";
-import navigationSubnav from "./navigationSubnav";
+import navigationGrandchildNav from "./navigationGrandchildNav";
+import navigationChildNav from "./navigationChildNav";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -20,8 +20,8 @@ export default createSchema({
   types: schemaTypes.concat([
     page,
     navigation,
-    navigationSubnav,
-    navigationLink,
+    navigationChildNav,
+    navigationGrandchildNav,
     team,
     blockContent,
     blockContentImage,

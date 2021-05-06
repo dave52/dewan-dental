@@ -13,7 +13,7 @@ export default {
   fields: [
     {
       title: "Page title",
-      name: "pageTitle",
+      name: "title",
       type: "string",
       maxLength: 50,
     },
@@ -24,7 +24,7 @@ export default {
       name: "slug",
       type: "slug",
       options: {
-        source: "pageTitle",
+        source: "title",
       },
     },
     {
@@ -55,8 +55,8 @@ export default {
   ],
   preview: {
     select: {
-      title: "pageTitle",
-      subtitle: "navigation.parentNav",
+      title: "title",
+      subtitle: "navigation.title",
     },
   },
   orderings: [
@@ -64,16 +64,16 @@ export default {
       title: "Parent nav items ascending",
       name: "navigationSort",
       by: [
-        { field: "navigation.parentNav", direction: "asc" },
-        { field: "pageTitle", direction: "asc" },
+        { field: "navigation.title", direction: "asc" },
+        { field: "title", direction: "asc" },
       ],
     },
     {
       title: "Parent nav items descending",
       name: "navigationSort",
       by: [
-        { field: "navigation.parentNav", direction: "desc" },
-        { field: "pageTitle", direction: "desc" },
+        { field: "navigation.title", direction: "desc" },
+        { field: "title", direction: "desc" },
       ],
     },
   ],
