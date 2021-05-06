@@ -1,14 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SideNavStyles = styled.nav`
-  display: flex;
-  position: sticky;
-  top: 0;
-  left: 0;
-  background: var(--blue);
+const LayoutStyles = styled.main`
+  display: grid;
+  min-height: calc(100vh - 11rem - 1.8rem - 1.8rem);
+  grid-template-columns: 20rem 1fr;
+  color: var(--gray);
 `;
 
-export default function SideNav({ children }) {
-  return <SideNavStyles>{children}</SideNavStyles>;
+export default function LayoutSideNav({ children }) {
+  return <LayoutStyles>{children}</LayoutStyles>;
 }
