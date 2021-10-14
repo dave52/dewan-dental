@@ -27,13 +27,13 @@ export default {
         source: "title",
       },
     },
-    {
-      title: "Page order in navigation",
-      description:
-        "Optional: can add '1', '2' etc. to determine page list order under their 'Parent nav item', defaults pages to be sorted by alphabetical order",
-      name: "order",
-      type: "number",
-    },
+    // {
+    //   title: "Page order in navigation",
+    //   description:
+    //     "Optional: can add '1', '2' etc. to determine page list order under their 'Parent nav item', defaults pages to be sorted by alphabetical order",
+    //   name: "order",
+    //   type: "number",
+    // },
     {
       title: "Parent nav item",
       description:

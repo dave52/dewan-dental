@@ -10,6 +10,7 @@ import blockContentImage from "./blockContentImage";
 import navigation from "./navigation";
 import navigationGrandchildNav from "./navigationGrandchildNav";
 import navigationChildNav from "./navigationChildNav";
+import teamBio from "./teamBio";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -23,6 +24,7 @@ export default createSchema({
     navigationChildNav,
     navigationGrandchildNav,
     team,
+    teamBio,
     blockContent,
     blockContentImage,
   ]),

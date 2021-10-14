@@ -15,16 +15,23 @@ export default {
     },
     {
       title: "Photo",
-      name: "Photo",
+      name: "photo",
       type: "image",
       options: {
         hotspot: true,
       },
     },
     {
-      title: "Bio or description",
+      title: "Bio",
       name: "bio",
-      type: "string",
+      description: "Team member description and bio.",
+      type: "teamBio",
     },
   ],
+  preview: {
+    select: {
+      title: "name",
+      subtitle: "role",
+    },
+  },
 };
