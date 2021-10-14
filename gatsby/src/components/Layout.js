@@ -6,7 +6,7 @@ import Frame from './Frame';
 import GlobalStyles from '../styles/GlobalStyles';
 import ElementStyles from '../styles/ElementStyles';
 import FontStyles from '../styles/FontStyles';
-import Nav from './Nav';
+import Nav from './Nav/Nav';
 import Splash from './Splash';
 
 const ContainerStyles = styled.main`

@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 const ElementStyles = createGlobalStyle`
+    button.button,
     a.button {
         display: flex;
         justify-content: center;
@@ -14,6 +15,7 @@ const ElementStyles = createGlobalStyle`
         font-weight: 800;
         letter-spacing: 0.15em;
         text-decoration: none;
+        cursor: pointer;
         transition: background .5s ease-out, border .5s ease-in, color .5s ease-out;
 
         &:hover {

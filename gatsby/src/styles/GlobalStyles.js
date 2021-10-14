@@ -57,6 +57,10 @@ const GlobalStyles = createGlobalStyle`
         flex-direction: column;
     }
 
+    .align-flex-start {
+        align-items: flex-start;
+    }
+
     .space-between {
         display: flex;
         justify-content: space-between;

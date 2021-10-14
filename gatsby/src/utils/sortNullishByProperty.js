@@ -1,4 +1,4 @@
-export const sortNullishByProperty = function (property) {
+const sortNullishByProperty = function (property) {
   return function (a, b) {
     if (a[property] === null) {
       return 1;

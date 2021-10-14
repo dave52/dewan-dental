@@ -67,10 +67,6 @@ const FontStyles = createGlobalStyle`
         font-weight: 800;
     }
 
-    .font-weight-medium {
-        font-weight: x;
-    }
-
     .font-spacing-50 {
         letter-spacing: 0.05em;
     }

@@ -1,0 +1,11 @@
+<svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="#E2DDDE"
+      viewBox="0 0 8.38 5.19"
+      aria-labelledby="chevron-icon-title"
+    >
+    <title id="chevron-icon-title">
+        A chevron pointing right or down to represent collapsed or open.
+      </title>
+    <path xmlns="http://www.w3.org/2000/svg" d="M8.08.29a1,1,0,0,0-1.41,0L4.19,2.77,1.71.29A1,1,0,0,0,.29,1.71L3.48,4.9a1,1,0,0,0,.71.29A1,1,0,0,0,4.9,4.9L8.08,1.71A1,1,0,0,0,8.08.29Z" fill="#e3ecd3"/>
+</svg>

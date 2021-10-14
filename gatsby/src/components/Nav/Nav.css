@@ -1,0 +1,29 @@
+/* shared styles between .nav-mobile/NavMobile & .nav-desktop/NavDesktop */
+.nav-mobile,
+.nav-desktop {
+  z-index: 5;
+  display: grid;
+  grid-template-columns: 1fr;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  font-family: "Karla";
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: 0.1em;
+}
+
+@media (min-width: 68.75rem) {
+  /* 1100px */
+  .nav-mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 68.6875rem) {
+  /* 1099px */
+  .nav-desktop {
+    display: none;
+  }
+}

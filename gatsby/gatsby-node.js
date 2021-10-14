@@ -11,12 +11,15 @@ async function turnPagesIntoPages({ graphql, actions }) {
             title
             order
             page {
+              _id
               slug {
                 current
               }
             }
             grandchildNav {
+              title
               page {
+                _id
                 slug {
                   current
                 }
@@ -28,14 +31,14 @@ async function turnPagesIntoPages({ graphql, actions }) {
     }
   `);
 
-  // data.navigation.nodes.forEach(async (parentItem) => {
+  data.navigation.nodes.forEach(async (parentItem) => {
     console.log(`parentNav: ${stringToSlug(parentItem.title)}`);
 
     parentItem.childNav.forEach((childNavItem) => {
       // if there are grandchild nav items
       if (childNavItem.grandchildNav.length > 0) {
         // console.log('has links!');
-        childNavItem.grandchildNav.forEach((grandchildNav) => {
+        childNavItem.grandchildNav.forEach((grandchildNavItem) => {
           // console.log(`childnavitem: ${grandchildNav.page.slug.current}`);
           // console.log(
           //   `  grandchildnavitem: ${stringToSlug(
@@ -46,13 +49,17 @@ async function turnPagesIntoPages({ graphql, actions }) {
           // );
 
           actions.createPage({
-            component: path.resolve('./src/components/Page.js'),
+            component: path.resolve('./src/templates/Page.js'),
             path: `/${stringToSlug(parentItem.title)}/${stringToSlug(
               childNavItem.title
-            )}/${grandchildNav.page.slug.current}`,
+            )}/${grandchildNavItem.page.slug.current}`,
             context: {
-              navigation: parentItem.title,
-              slug: grandchildNav.page.slug.current,
+              pageTitle: grandchildNavItem.title,
+              parentTitle: parentItem.title,
+              slug: grandchildNavItem.page.slug.current,
+              isTeamPage:
+                grandchildNavItem.page._id ===
+                'b0608638-7f4b-47cd-8b2e-a454bf2bb9b3',
             },
           });
         });
@@ -66,13 +73,16 @@ async function turnPagesIntoPages({ graphql, actions }) {
         // );
 
         actions.createPage({
-          component: path.resolve('./src/components/Page.js'),
+          component: path.resolve('./src/templates/Page.js'),
           path: `/${stringToSlug(parentItem.title)}/${
             childNavItem.page.slug.current
           }`,
           context: {
-            navigation: parentItem.title,
+            pageTitle: childNavItem.title,
+            parentTitle: parentItem.title,
             slug: childNavItem.page.slug.current,
+            isTeamPage:
+              childNavItem.page._id === 'b0608638-7f4b-47cd-8b2e-a454bf2bb9b3',
           },
         });
       }
