@@ -2,23 +2,10 @@ import { graphql, Link, useStaticQuery } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
 import logoMobile from '../../assets/images/dewan-logo-lines-mobile.svg';
-import xIcon from '../../assets/images/icon-x.svg';
-import menuIcon from '../../assets/images/icon-menu.svg';
+import chevronIcon from '../../assets/images/chevron-cream.svg';
 import sortNullishByProperty from '../../utils/sortNullishByProperty';
-// import stringToSlug from '../../utils/slugify';
 
 const NavMobileStyles = styled.nav`
-  /* z-index: 5;
-  display: grid;
-  grid-template-columns: 1fr;
-  position: sticky;
-  top: 0;
-  width: 100%;c
-  font-family: 'Karla';
-  font-weight: 500;
-  text-transform: uppercase;
-  line-height: 0.9;
-  letter-spacing: 0.1em; */
   grid-template-columns: 1fr;
   background: var(--blue);
 
@@ -27,6 +14,7 @@ const NavMobileStyles = styled.nav`
     align-items: center;
     margin: 1rem 2rem;
     text-decoration: none;
+    text-transform: uppercase;
     font-size: 1.1rem;
     transition: opacity 0.3s ease, transform 0.3s ease;
 
@@ -43,26 +31,67 @@ const NavMobileStyles = styled.nav`
       margin-left: 1.5rem;
       color: var(--gray);
       line-height: 1.7;
+      letter-spacing: 0.1em;
     }
   }
 
-  .mobile-menu-button,
-  .mobile-close-button {
+  .mobile-menu-button {
+    z-index: 20;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     margin-right: 1.2rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
     text-transform: uppercase;
+    letter-spacing: 0.1em;
     background: none;
     --webkit-appearance: none;
     border: none;
     color: var(--gray);
 
-    img {
+    .action-text-menu {
+      display: inline;
+    }
+
+    .action-text-close {
+      display: none;
+    }
+
+    svg {
+      /* width: 2.7rem; */
       width: 3rem;
       margin-top: 0.2rem;
+
+      & > g {
+        pointer-events: none;
+        transition: transform 0.4s ease-out;
+      }
+    }
+
+    // styles when menu is open, hamburger icon becomes X icon
+    &.is-x-icon {
+      .action-text-menu {
+        display: none;
+      }
+
+      .action-text-close {
+        display: inline;
+        font-size: 0.8rem;
+      }
+
+      svg {
+        .bar-1 {
+          transform: rotate(45deg) translate(11%, -29%);
+        }
+        .bar-2 {
+          transform: translateX(100%);
+        }
+        .bar-3 {
+          transform-origin: bottom left;
+          transform: rotate(-45deg) translate(10%, 30%);
+        }
+      }
     }
   }
 
@@ -80,7 +109,7 @@ const NavMobileStyles = styled.nav`
     height: 100vh;
     overflow: auto;
     padding: 0.3rem 0 1.5rem 1.5rem;
-    border: 1.5rem solid var(--blue);
+    border: 1.2rem solid #ffffff22;
     background: rgb(113, 132, 162)
       radial-gradient(
         circle,
@@ -110,57 +139,86 @@ const NavMobileStyles = styled.nav`
   .hidden {
     display: none;
   }
+
+  // nav items
+  .parent-nav {
+    padding: 0;
+    color: #ffffff;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+
+    a,
+    button {
+      display: flex;
+      align-items: center;
+      padding: 0;
+      border: 0;
+      background: 0;
+      line-height: 0.9;
+      transition: transform 0.3s ease-out, opacity 0.3s ease;
+    }
+
+    a {
+      margin-left: 0;
+    }
+
+    li {
+      margin-left: 2.1rem;
+      padding: 0 1.1rem 0.8rem 0;
+
+      &.list-item-no-dot {
+        list-style: none;
+      }
+
+      .child-nav {
+        font-size: 1.2rem;
+
+        display: none;
+        position: relative;
+        margin-left: -2.5rem;
+        margin: 1rem 0 0 -2.5rem;
+        padding-left: 2rem;
+
+        &.is-visible {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+      button {
+        img.chevron {
+          width: 2.4rem;
+          transform: rotate(0);
+          margin-left: -2.9rem;
+          padding: 0.6rem 0.8rem;
+          transition: transform 0.3s ease-out, opacity 0.3s ease;
+        }
+      }
+
+      button.expanded img.chevron {
+        opacity: 0.9;
+        transform: rotate(180deg);
+      }
+    }
+  }
 `;
 
-// const navItemList = [
-//   {
-//     text: 'Covid-19 Policy',
-//     href: '/covid-19-policy',
-//   },
-//   {
-//     text: 'Appointment',
-//     href: '/appointment',
-//   },
-//   {
-//     text: 'Services',
-//     href: '/services',
-//   },
-//   {
-//     text: 'About',
-//     href: '/about',
-//   },
-//   {
-//     text: 'Community',
-//     href: '/community',
-//   },
-//   {
-//     text: 'Hours',
-//     href: '/hours',
-//   },
-//   {
-//     text: 'Location',
-//     href: '/location',
-//   },
-//   {
-//     text: 'Contact',
-//     href: '/contact',
-//   },
-// ];
-
-const handleMenuClick = () => {
+const handleMenuClick = (event) => {
+  let buttonEl = event.target;
+  if (event.target.tagName === 'SVG' || event.target.tagName === 'svg') {
+    buttonEl = event.target.parentElement;
+  }
   document.querySelector('.mobile-nav').classList.toggle('hidden');
+  buttonEl.classList.toggle('is-x-icon');
 };
 
-const closeMobileNav = () => {
-  document.querySelector('.mobile-nav').classList.add('hidden');
-};
-
-const handleParentNavClick = () => {
-  console.log('parent nav item clicked');
-};
-
-const handleChildNavClick = () => {
-  console.log('child nav item clicked');
+const toggleChildNav = (event) => {
+  let buttonEl = event.target;
+  if (event.target.tagName === 'IMG' || event.target.tagName === 'img') {
+    buttonEl = event.target.parentElement;
+  }
+  buttonEl.classList.toggle('expanded');
+  buttonEl.nextSibling?.classList.toggle('is-visible');
 };
 
 export default function NavMobile() {
@@ -222,33 +280,40 @@ export default function NavMobile() {
           type="button"
           onClick={handleMenuClick}
         >
-          <span>Menu</span>
-          <img
-            src={menuIcon}
-            alt="Three horizontal lines in a circle, to symbolize a menu button"
-          />
+          <span className="action-text-menu">Menu</span>
+          <span className="action-text-close">Close</span>
+          <svg
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 69 46.6"
+            fill="#e2ddde"
+          >
+            <g className="bar-1">
+              <rect x="5" y="2.1" width="59" height="6.2" />
+            </g>
+            <g className="bar-2">
+              <rect x="5" y="20.2" className="st2" width="59" height="6.2" />
+            </g>
+            <g className="bar-3">
+              <rect x="5" y="38.3" className="st2" width="59" height="6.2" />
+            </g>
+          </svg>
         </button>
       </div>
       <div className="mobile-nav hidden">
-        <button
-          type="button"
-          className="mobile-close-button"
-          onClick={closeMobileNav}
-        >
-          <span>Close</span>
-          <img
-            src={xIcon}
-            alt="An X within a circle, symbolize a close button"
-          />
-        </button>
-
-        <ul className="parent-nav-ul">
+        <ul className="parent-nav">
+          {console.log(nav)}
           {nav.nodes
             .sort(sortNullishByProperty('order'))
             .map((parentNavItem) => (
-              <li>
+              <li className={parentNavItem.page === null && 'list-item-no-dot'}>
                 {parentNavItem.page === null ? (
-                  <button type="button" onClick={handleParentNavClick}>
+                  <button type="button" onClick={toggleChildNav}>
+                    <img
+                      className="chevron"
+                      src={chevronIcon}
+                      alt="Chevron icon"
+                    />
                     {parentNavItem.title}
                   </button>
                 ) : (
@@ -260,11 +325,21 @@ export default function NavMobile() {
                   </Link>
                 )}
                 {parentNavItem.page === null && (
-                  <ul className="child-nav-ul">
+                  <ul className="child-nav">
                     {parentNavItem.childNav.map((childNavItem, index) => (
-                      <li key={`${childNavItem.title}-${index}`}>
+                      <li
+                        className={
+                          childNavItem.page === null && 'list-item-no-dot'
+                        }
+                        // key={`${childNavItem.title}-${index}`}
+                      >
                         {childNavItem.page === null ? (
-                          <button type="button" onClick={handleChildNavClick}>
+                          <button type="button" onClick={toggleChildNav}>
+                            <img
+                              className="chevron"
+                              src={chevronIcon}
+                              alt="Chevron icon"
+                            />
                             {childNavItem.title}
                           </button>
                         ) : (
@@ -277,7 +352,7 @@ export default function NavMobile() {
                         )}
 
                         {childNavItem.page === null && (
-                          <ul className="child-nav-ul">
+                          <ul className="child-nav">
                             {childNavItem.grandchildNav.map(
                               (grandchildNavItem, index2) => (
                                 <li
@@ -300,15 +375,6 @@ export default function NavMobile() {
                 )}
               </li>
             ))}
-        </ul>
-
-        <ul className="child-nav-ul">
-          <div>child nav ul</div>
-          <div>{}</div>
-        </ul>
-
-        <ul className="grandchild-nav-ul">
-          <div>grandchild nav ul</div>
         </ul>
       </div>
     </NavMobileStyles>

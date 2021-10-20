@@ -1,25 +1,16 @@
-import { Link } from 'gatsby';
+import { graphql, Link, useStaticQuery } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
 import logo from '../../assets/images/dewan-logo-lines.svg';
 import chevronIcon from '../../assets/images/chevron-black.svg';
+import sortNullishByProperty from '../../utils/sortNullishByProperty';
 
 // 68.75rem mobile -> desktop nav
-
 const NavDesktopStyles = styled.nav`
-  /* z-index: 5;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  position: sticky;
-  top: 0;
-  width: 100%;
-  font-family: 'Karla';
-  font-weight: 500;
-  text-transform: uppercase;
-  line-height: 0.9;
-  letter-spacing: 0.1em; */
   grid-template-columns: 1fr auto 1fr;
   background: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 
   @media (min-width: 100rem) {
     // 1600px
@@ -40,12 +31,17 @@ const NavDesktopStyles = styled.nav`
     a,
     button,
     div {
-      font-size: 1.1rem;
-      color: var(--black);
-      text-decoration: none;
-      cursor: pointer;
-      /* position: relative; */
       display: block;
+      padding: 0;
+      font-size: 1.1rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      line-height: 0.9;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      color: var(--black);
+      background: 0;
+      border: 0;
 
       @media (min-width: 87.5rem) {
         // 1400px
@@ -109,8 +105,12 @@ const NavDesktopStyles = styled.nav`
           display: none;
           position: relative;
           margin-left: -2.5rem;
-          margin: 1rem 0 0 -2.5rem;
+          margin: 0.4rem 0 0 -2.5rem;
           padding-left: 1rem;
+
+          li:last-of-type {
+            padding-bottom: 0;
+          }
         }
 
         &:hover > .grandchild-nav,
@@ -130,13 +130,6 @@ const NavDesktopStyles = styled.nav`
           display: flex;
           align-items: center;
           font-size: 1.2rem;
-          color: var(--black);
-          padding: 0;
-          border: 0;
-          background: 0;
-          text-transform: uppercase;
-          line-height: 0.9;
-          letter-spacing: 0.1em;
           transition: transform 0.3s ease-out, opacity 0.3s ease;
 
           &:hover {
@@ -153,15 +146,6 @@ const NavDesktopStyles = styled.nav`
             padding: 0.6rem 0.8rem;
             transition: transform 0.3s ease-out, opacity 0.3s ease;
           }
-
-          /* &.collapsed {
-            & + .child-ul {
-              display: none;
-            }
-            img.chevron {
-              transform: rotate(0deg);
-            }
-          } */
         }
       }
     }
@@ -234,107 +218,120 @@ const NavDesktopStyles = styled.nav`
   }
 `;
 
-// const navItemList = [
-//   {
-//     text: 'Covid-19 Policy',
-//     href: '/covid-19-policy',
-//   },
-//   {
-//     text: 'Appointment',
-//     href: '/appointment',
-//   },
-//   {
-//     text: 'Services',
-//     href: '/services',
-//   },
-//   {
-//     text: 'About',
-//     href: '/about',
-//   },
-//   {
-//     text: 'Community',
-//     href: '/community',
-//   },
-//   {
-//     text: 'Hours',
-//     href: '/hours',
-//   },
-//   {
-//     text: 'Location',
-//     href: '/location',
-//   },
-//   {
-//     text: 'Contact',
-//     href: '/contact',
-//   },
-// ];
-
-// const firstHalfList = navItemList.slice(0, navItemList.length / 2);
-// const lastHalfList = navItemList.slice(navItemList.length / 2);
-
-const showChildNav = (event) => {
-  event.preventDefault();
-  console.log(event.target);
-
-  console.log(
-    event.target.querySelector('.child-nav')?.classList.toggle('is-visible')
-  );
-  console.log(event.target);
+const toggleChildNav = (event) => {
+  let buttonEl = event.target;
+  if (event.target.tagName === 'IMG' || event.target.tagName === 'img') {
+    buttonEl = event.target.parentElement;
+  }
+  buttonEl.classList.toggle('expanded');
+  buttonEl.nextSibling?.classList.toggle('is-visible');
 };
 
-const showGrandchildNav = (event) => {
-  event.preventDefault();
+const toggleGrandchildNav = (event) => {
   console.log(event.target);
-  event.target.classList.toggle('expanded');
-  event.target.nextSibling.classList.toggle('is-visible');
-
-  console.log(
-    event.target
-      .querySelector('.grandchild-nav')
-      ?.classList.toggle('is-visible')
-  );
+  let buttonEl = event.target;
+  if (event.target.tagName === 'IMG') {
+    buttonEl = event.target.parentElement;
+  }
+  buttonEl.classList.toggle('expanded');
+  buttonEl.nextSibling?.classList.toggle('is-visible');
 };
 
-function NavDesktopItem({ data }) {
-  // return (
-  //   <Link className="parent-nav-item" to="./" onClick={showchild-nav}>
-  //     Drop it!
-  //     <ul className="child-nav">
-  //       <li>
-  //         <Link>Item 1</Link>
-  //       </li>
-  //       <li>
-  //         <Link>Item 2</Link>
-  //       </li>
-  //       <li>
-  //         <button type="button">Item 3</button>
-  //         <ul className="child-nav">
-  //           <li>
-  //             <Link>Child item 1</Link>
-  //           </li>
-  //           <li>
-  //             <Link>Child item 2</Link>
-  //           </li>
-  //         </ul>
-  //       </li>
-  //     </ul>
-  //   </Link>
-  // );
-  console.log(data);
+function NavDesktopItems({ nav }) {
+  console.log(nav);
   return (
-    <div type="button" className="parent-nav-item" onClick={showChildNav}>
+    <>
+      {nav.map((parentNavItem) => (
+        <div className="parent-nav-item">
+          {parentNavItem.page === null ? (
+            <button type="button" onClick={toggleChildNav}>
+              {parentNavItem.title}
+            </button>
+          ) : (
+            <Link key={parentNavItem} to={parentNavItem.page.slug.current}>
+              {parentNavItem.title}
+            </Link>
+          )}
+          {parentNavItem.page === null && (
+            <ul className="child-nav">
+              {parentNavItem.childNav.map((childNavItem, index) => (
+                <li
+                  className={childNavItem.page === null && 'list-item-no-dot'}
+                  key={`${childNavItem.title}-${index}`}
+                >
+                  {childNavItem.page === null ? (
+                    <button type="button" onClick={toggleGrandchildNav}>
+                      <img
+                        className="chevron"
+                        src={chevronIcon}
+                        alt="Chevron icon"
+                      />
+                      {childNavItem.title}
+                    </button>
+                  ) : (
+                    <Link
+                      key={childNavItem}
+                      to={childNavItem.page.slug.current}
+                    >
+                      {childNavItem.title}
+                    </Link>
+                  )}
+
+                  {childNavItem.page === null && (
+                    <ul className="grandchild-nav">
+                      {childNavItem.grandchildNav.map(
+                        (grandchildNavItem, index2) => (
+                          <li key={`${grandchildNavItem.title}-${index2}`}>
+                            <Link
+                              key={grandchildNavItem}
+                              to={grandchildNavItem.page.slug.current}
+                            >
+                              {grandchildNavItem.title}
+                            </Link>
+                          </li>
+                        )
+                      )}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </>
+  );
+}
+
+function NavDesktopItemOld() {
+  return (
+    <div type="button" className="parent-nav-item" onClick={toggleChildNav}>
       Drop it!
       <ul className="child-nav">
         <li>
           <Link>Item 1</Link>
         </li>
+        <li className="list-item-no-dot">
+          <button type="button" onClick={toggleGrandchildNav}>
+            <img className="chevron" src={chevronIcon} alt="Chevron icon" />
+            Item 2
+          </button>
+          <ul className="grandchild-nav">
+            <li>
+              <Link>Child item 1</Link>
+            </li>
+            <li>
+              <Link>Child item 2</Link>
+            </li>
+          </ul>
+        </li>
         <li>
-          <Link>Item 2</Link>
+          <Link>Item 3</Link>
         </li>
         <li className="list-item-no-dot">
-          <button type="button" onClick={showGrandchildNav}>
+          <button type="button" onClick={toggleGrandchildNav}>
             <img className="chevron" src={chevronIcon} alt="Chevron icon" />
-            Item 3
+            Item 4
           </button>
           <ul className="grandchild-nav">
             <li>
@@ -350,56 +347,52 @@ function NavDesktopItem({ data }) {
   );
 }
 
-export default function NavDesktop({ data }) {
-  const { nav } = data;
-  const firstHalfList = nav.nodes.slice(0, nav.nodes.length / 2);
-  const lastHalfList = nav.nodes.slice(nav.nodes.length / 2);
-  // return (
-  //   <NavDesktopStyles className="nav-desktop">
-  //     <div className="left">
-  //       <NavDesktopItem />
-  //       {firstHalfList.map((item) => (
-  //         <Link to={item.href} key={item.text}>
-  //           {item.text}
-  //         </Link>
-  //       ))}
-  //     </div>
-  //     <div className="row space-between">
-  //       <Link to="/" className="logo">
-  //         <img
-  //           src={logo}
-  //           alt="DeWan Dental Logo, outline drawing of abstract faces"
-  //         />
-  //         <div className="logo-text">
-  //           Dewan
-  //           <br />
-  //           Dental
-  //           <br />
-  //           Wellness
-  //         </div>
-  //       </Link>
-  //     </div>
-  //     <div className="right">
-  //       {lastHalfList.map((item) => (
-  //         <Link to={item.href} key={item.text}>
-  //           {item.text}
-  //         </Link>
-  //       ))}
-  //     </div>
-  //   </NavDesktopStyles>
-  // );
+export default function NavDesktop() {
+  const { nav } = useStaticQuery(graphql`
+    query {
+      nav: allSanityNavigation {
+        nodes {
+          title
+          order
+          page {
+            title
+            slug {
+              current
+            }
+          }
+          childNav {
+            title
+            page {
+              slug {
+                current
+              }
+              title
+            }
+            grandchildNav {
+              title
+              order
+              page {
+                title
+                slug {
+                  current
+                }
+              }
+            }
+            order
+          }
+        }
+      }
+    }
+  `);
+  const sortedNav = nav.nodes.sort(sortNullishByProperty('order'));
+  const firstHalfList = [...sortedNav.slice(0, sortedNav.length / 2)];
+  const lastHalfList = [...sortedNav.slice(sortedNav.length / 2)];
+
   return (
     <NavDesktopStyles className="nav-desktop">
       <div className="left">
-        <NavDesktopItem />
-        {firstHalfList.map((item) => (
-          <Link className="parent-nav-item" to="#" key={item.title}>
-            {item.title}
-          </Link>
-        ))}
-        {firstHalfList.map((item) => (
-          <NavDesktopItem data={item} key={item.title} />
-        ))}
+        <NavDesktopItems nav={firstHalfList} />
+        <NavDesktopItemOld />
       </div>
       <div className="row space-between">
         <Link to="/" className="logo">
@@ -417,12 +410,9 @@ export default function NavDesktop({ data }) {
         </Link>
       </div>
       <div className="right">
-        {lastHalfList.map((item) => (
-          <Link to={item.href} key={item.text}>
-            {item.text}
-          </Link>
-        ))}
-        <NavDesktopItem />
+        <NavDesktopItemOld />
+        <NavDesktopItems nav={lastHalfList} />
+        <NavDesktopItemOld />
       </div>
     </NavDesktopStyles>
   );
