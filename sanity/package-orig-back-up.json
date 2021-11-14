@@ -21,20 +21,19 @@
     ]
   },
   "dependencies": {
-    "@sanity/base": "^2.21.9",
-    "@sanity/components": "^2.14.0",
-    "@sanity/core": "^2.21.8",
-    "@sanity/default-layout": "^2.21.9",
-    "@sanity/default-login": "^2.21.9",
-    "@sanity/desk-tool": "^2.21.9",
-    "@sanity/google-maps-input": "^2.21.9",
-    "@sanity/structure": "^2.21.7",
-    "@sanity/vision": "^2.21.9",
+    "@sanity/base": "1.150.7",
+    "@sanity/components": "1.150.7",
+    "@sanity/core": "1.150.7",
+    "@sanity/default-layout": "1.150.7",
+    "@sanity/default-login": "1.150.1",
+    "@sanity/desk-tool": "1.150.7",
+    "@sanity/google-maps-input": "1.150.1",
+    "@sanity/structure": "1.150.1",
+    "@sanity/vision": "1.150.6",
     "prop-types": "^15.7",
     "react": "^16.13",
     "react-dom": "^16.13",
-    "react-icons": "^3.11.0",
-    "styled-components": "^5.3.3"
+    "react-icons": "^3.11.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

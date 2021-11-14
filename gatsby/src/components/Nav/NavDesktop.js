@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import logo from '../../assets/images/dewan-logo-lines.svg';
 import chevronIcon from '../../assets/images/chevron-black.svg';
 import sortNullishByProperty from '../../utils/sortNullishByProperty';
+import stringToSlug from '../../utils/slugify';
 
 // 68.75rem mobile -> desktop nav
 const NavDesktopStyles = styled.nav`
@@ -241,23 +242,31 @@ function NavDesktopItems({ nav }) {
   console.log(nav);
   return (
     <>
-      {nav.map((parentNavItem) => (
-        <div className="parent-nav-item">
+      {nav.map((parentNavItem, index1) => (
+        <div
+          className="parent-nav-item"
+          key={`${parentNavItem.title}-${index1}`}
+        >
           {parentNavItem.page === null ? (
             <button type="button" onClick={toggleChildNav}>
               {parentNavItem.title}
             </button>
           ) : (
-            <Link key={parentNavItem} to={parentNavItem.page.slug.current}>
+            <Link
+              key={parentNavItem}
+              to={`/${parentNavItem.page.slug.current}`}
+            >
               {parentNavItem.title}
             </Link>
           )}
           {parentNavItem.page === null && (
             <ul className="child-nav">
-              {parentNavItem.childNav.map((childNavItem, index) => (
+              {parentNavItem.childNav.map((childNavItem, index2) => (
                 <li
-                  className={childNavItem.page === null && 'list-item-no-dot'}
-                  key={`${childNavItem.title}-${index}`}
+                  className={
+                    childNavItem.page === null ? 'list-item-no-dot' : ''
+                  }
+                  key={`${childNavItem.title}-${index2}`}
                 >
                   {childNavItem.page === null ? (
                     <button type="button" onClick={toggleGrandchildNav}>
@@ -271,7 +280,9 @@ function NavDesktopItems({ nav }) {
                   ) : (
                     <Link
                       key={childNavItem}
-                      to={childNavItem.page.slug.current}
+                      to={`/${stringToSlug(parentNavItem.title)}/${
+                        childNavItem.page.slug.current
+                      }`}
                     >
                       {childNavItem.title}
                     </Link>
@@ -280,11 +291,15 @@ function NavDesktopItems({ nav }) {
                   {childNavItem.page === null && (
                     <ul className="grandchild-nav">
                       {childNavItem.grandchildNav.map(
-                        (grandchildNavItem, index2) => (
-                          <li key={`${grandchildNavItem.title}-${index2}`}>
+                        (grandchildNavItem, index3) => (
+                          <li key={`${grandchildNavItem.title}-${index3}`}>
                             <Link
                               key={grandchildNavItem}
-                              to={grandchildNavItem.page.slug.current}
+                              to={`/${stringToSlug(
+                                parentNavItem.title
+                              )}/${stringToSlug(childNavItem.title)}/${
+                                grandchildNavItem.page.slug.current
+                              }/`}
                             >
                               {grandchildNavItem.title}
                             </Link>
@@ -300,50 +315,6 @@ function NavDesktopItems({ nav }) {
         </div>
       ))}
     </>
-  );
-}
-
-function NavDesktopItemOld() {
-  return (
-    <div type="button" className="parent-nav-item" onClick={toggleChildNav}>
-      Drop it!
-      <ul className="child-nav">
-        <li>
-          <Link>Item 1</Link>
-        </li>
-        <li className="list-item-no-dot">
-          <button type="button" onClick={toggleGrandchildNav}>
-            <img className="chevron" src={chevronIcon} alt="Chevron icon" />
-            Item 2
-          </button>
-          <ul className="grandchild-nav">
-            <li>
-              <Link>Child item 1</Link>
-            </li>
-            <li>
-              <Link>Child item 2</Link>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <Link>Item 3</Link>
-        </li>
-        <li className="list-item-no-dot">
-          <button type="button" onClick={toggleGrandchildNav}>
-            <img className="chevron" src={chevronIcon} alt="Chevron icon" />
-            Item 4
-          </button>
-          <ul className="grandchild-nav">
-            <li>
-              <Link>Child item 1</Link>
-            </li>
-            <li>
-              <Link>Child item 2</Link>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
   );
 }
 
@@ -384,6 +355,7 @@ export default function NavDesktop() {
       }
     }
   `);
+
   const sortedNav = nav.nodes.sort(sortNullishByProperty('order'));
   const firstHalfList = [...sortedNav.slice(0, sortedNav.length / 2)];
   const lastHalfList = [...sortedNav.slice(sortedNav.length / 2)];
@@ -392,7 +364,6 @@ export default function NavDesktop() {
     <NavDesktopStyles className="nav-desktop">
       <div className="left">
         <NavDesktopItems nav={firstHalfList} />
-        <NavDesktopItemOld />
       </div>
       <div className="row space-between">
         <Link to="/" className="logo">
@@ -410,9 +381,7 @@ export default function NavDesktop() {
         </Link>
       </div>
       <div className="right">
-        <NavDesktopItemOld />
         <NavDesktopItems nav={lastHalfList} />
-        <NavDesktopItemOld />
       </div>
     </NavDesktopStyles>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
-import Layout from '../components/Layout';
+import Layout from '../templates/Layout';
 import ImgBuilding from '../assets/images/dewan-building.jpg';
 import ImgWood from '../assets/images/background-wooden-slats.jpg';
 import ImgDeskPlants from '../assets/images/desk-plants.jpg';
@@ -17,6 +17,10 @@ const GridStyles = styled.div`
   gap: 1.8rem 0;
 
   .building-img-container {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
     min-height: calc(100vh - 4.625rem);
 
     @media (min-width: 68.75rem) {
@@ -27,12 +31,77 @@ const GridStyles = styled.div`
       object-fit: cover;
       width: 100%;
       height: 100%;
+
+      @media (max-width: 46.8125rem) {
+        // 749px
+        position: absolute;
+        top: 0;
+      }
+    }
+
+    .building-img-content-mobile {
+      position: relative;
+      margin: 1rem;
+      padding: 5rem;
+      background: var(--blue-90);
+      border: 3px solid var(--cream);
+      color: #fff;
+      font-size: 1.6rem;
+
+      @media (max-width: 28.125rem) {
+        margin: 2rem;
+        padding: 2rem;
+        font-size: 1.4rem;
+      }
+
+      hr {
+        margin: 4rem 0;
+        border-top: 3px solid var(--gray);
+      }
+
+      a {
+        color: var(--cream);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+
+        > *:nth-child(odd) {
+          text-align: right;
+        }
+      }
+
+      .contact .grid {
+        @media (max-width: 28.125rem) {
+          grid-template-columns: 1fr;
+
+          > * {
+            text-align: left;
+          }
+        }
+      }
+
+      @media (min-width: 46.875rem) {
+        // 750px
+        display: none;
+      }
     }
   }
 `;
 
 const AppointmentStyles = styled.div`
   --padding-size: 3rem;
+  display: none;
+  width: 100%;
+  background: var(--brown) url(${ImgWood}) no-repeat;
+  background-size: cover;
+
+  @media (min-width: 46.875rem) {
+    // 750px
+    display: flex;
+  }
   @media (min-width: 62.5rem) {
     // 1000px
     --padding-size: 5rem;
@@ -41,10 +110,6 @@ const AppointmentStyles = styled.div`
     // 1300px
     --padding-size: 7rem;
   }
-  display: flex;
-  width: 100%;
-  background: var(--brown) url(${ImgWood}) no-repeat;
-  background-size: cover;
 
   .card-container-outer {
     display: flex;
@@ -112,11 +177,16 @@ const AppointmentStyles = styled.div`
 `;
 
 const ContactAndLocationStyles = styled.div`
-  display: flex;
+  display: none;
   justify-content: space-between;
   background: var(--blue-90);
   color: var(--cream-75);
   overflow: hidden;
+
+  @media (min-width: 46.875rem) {
+    // 750px
+    display: flex;
+  }
 
   .padding-container {
     flex: 1;
@@ -138,10 +208,15 @@ const ContactAndLocationStyles = styled.div`
 `;
 
 const HoursStyles = styled.div`
-  display: flex;
+  display: none;
   padding: 3rem 5rem;
   background: #fff;
   color: var(--blue);
+
+  @media (min-width: 46.875rem) {
+    // 750px
+    display: flex;
+  }
 
   p:not(:last-of-type) {
     margin-right: 5rem;
@@ -191,6 +266,43 @@ export default function HomePage() {
             alt="Front of DeWan Dental's office, a building with a modernist design"
             className="dewan-building"
           />
+          <div className="building-img-content-mobile">
+            <Link
+              className="button"
+              to="/your-visit/request-a-dentist-appointment"
+            >
+              Request an Appointment
+            </Link>
+            <hr />
+            <div className="contact">
+              <h2>Contact</h2>
+              <div className="grid">
+                <a href="tel:1-414-962-5915">414-962-5915</a>
+                <a href="mailto:office@dewandental.com">
+                  office@dewandental.com
+                </a>
+                <a href="#">
+                  DeWan Dental Wellness
+                  <br />
+                  2445 N. Farwell, Suite 202
+                  <br />
+                  Milwaukee, WI 53211
+                </a>
+              </div>
+            </div>
+            <hr />
+            <div className="hours">
+              <h2>Hours</h2>
+              <div className="grid">
+                <div>Mon. &amp; Tue.</div>
+                <div>9AM to 5:30PM</div>
+                <div>Wed. &amp; Thu.</div>
+                <div>7AM to 3:30PM</div>
+                <div>Fri., Sat. &amp; Sun.</div>
+                <div>Closed</div>
+              </div>
+            </div>
+          </div>
         </div>
         <AppointmentStyles>
           <div className="card-container-outer">
@@ -215,7 +327,7 @@ export default function HomePage() {
                     <p className="font-size-14">
                       If after hours, please leave a detailed voicemail.
                     </p>
-                    <Link to="#" className="button">
+                    <Link to="tel:1-414-962-5915" className="button">
                       Call 414-962-5915
                     </Link>
                   </div>
@@ -226,7 +338,10 @@ export default function HomePage() {
                     <p className="font-size-14">
                       Fill out and submit an online form with your information.
                     </p>
-                    <Link to="#" className="button">
+                    <Link
+                      to="/your-visit/temp-request-an-appointment"
+                      className="button"
+                    >
                       Reservation form
                     </Link>
                   </div>

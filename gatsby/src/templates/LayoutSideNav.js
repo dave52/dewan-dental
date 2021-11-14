@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const LayoutStyles = styled.main`
+const LayoutSideNavStyles = styled.main`
   display: grid;
   grid-template-columns: 1fr;
   color: var(--gray);
@@ -17,5 +17,5 @@ const LayoutStyles = styled.main`
 `;
 
 export default function LayoutSideNav({ children }) {
-  return <LayoutStyles>{children}</LayoutStyles>;
+  return <LayoutSideNavStyles>{children}</LayoutSideNavStyles>;
 }

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import logoMobile from '../../assets/images/dewan-logo-lines-mobile.svg';
 import chevronIcon from '../../assets/images/chevron-cream.svg';
 import sortNullishByProperty from '../../utils/sortNullishByProperty';
+import stringToSlug from '../../utils/slugify';
 
 const NavMobileStyles = styled.nav`
   grid-template-columns: 1fr;
@@ -305,8 +306,13 @@ export default function NavMobile() {
           {console.log(nav)}
           {nav.nodes
             .sort(sortNullishByProperty('order'))
-            .map((parentNavItem) => (
-              <li className={parentNavItem.page === null && 'list-item-no-dot'}>
+            .map((parentNavItem, index1) => (
+              <li
+                className={
+                  parentNavItem.page === null ? 'list-item-no-dot' : ''
+                }
+                key={`${parentNavItem.title}-${index1}`}
+              >
                 {parentNavItem.page === null ? (
                   <button type="button" onClick={toggleChildNav}>
                     <img
@@ -319,19 +325,19 @@ export default function NavMobile() {
                 ) : (
                   <Link
                     key={parentNavItem}
-                    to={parentNavItem.page.slug.current}
+                    to={`/${parentNavItem.page.slug.current}`}
                   >
                     {parentNavItem.title}
                   </Link>
                 )}
                 {parentNavItem.page === null && (
                   <ul className="child-nav">
-                    {parentNavItem.childNav.map((childNavItem, index) => (
+                    {parentNavItem.childNav.map((childNavItem, index2) => (
                       <li
                         className={
-                          childNavItem.page === null && 'list-item-no-dot'
+                          childNavItem.page === null ? 'list-item-no-dot' : ''
                         }
-                        // key={`${childNavItem.title}-${index}`}
+                        key={`${childNavItem.title}-${index2}`}
                       >
                         {childNavItem.page === null ? (
                           <button type="button" onClick={toggleChildNav}>
@@ -345,7 +351,9 @@ export default function NavMobile() {
                         ) : (
                           <Link
                             key={childNavItem}
-                            to={childNavItem.page.slug.current}
+                            to={`/${stringToSlug(parentNavItem.title)}/${
+                              childNavItem.page.slug.current
+                            }`}
                           >
                             {childNavItem.title}
                           </Link>
@@ -354,13 +362,17 @@ export default function NavMobile() {
                         {childNavItem.page === null && (
                           <ul className="child-nav">
                             {childNavItem.grandchildNav.map(
-                              (grandchildNavItem, index2) => (
+                              (grandchildNavItem, index3) => (
                                 <li
-                                  key={`${grandchildNavItem.title}-${index2}`}
+                                  key={`${grandchildNavItem.title}-${index3}`}
                                 >
                                   <Link
                                     key={grandchildNavItem}
-                                    to={grandchildNavItem.page.slug.current}
+                                    to={`/${stringToSlug(
+                                      parentNavItem.title
+                                    )}/${stringToSlug(childNavItem.title)}/${
+                                      grandchildNavItem.page.slug.current
+                                    }`}
                                   >
                                     {grandchildNavItem.title}
                                   </Link>

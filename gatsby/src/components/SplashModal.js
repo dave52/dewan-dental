@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import imgSignature from '../assets/images/signature-handwriting.jpg';
 import imgCare from '../assets/images/care.jpg';
 
-const ModalStyles = styled.div`
+const SplashModalStyles = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -88,9 +88,9 @@ const ModalStyles = styled.div`
   }
 `;
 
-export default function Modal({ closeModal }) {
+export default function SplashModal({ closeModal }) {
   return (
-    <ModalStyles className="modal hidden">
+    <SplashModalStyles className="modal hidden">
       <div className="modal-content-container">
         <h1 className="font-size-32 font-weight-medium font-serif font-color-blue">
           Our commitment to your safety
@@ -140,6 +140,6 @@ export default function Modal({ closeModal }) {
           Continue
         </button>
       </div>
-    </ModalStyles>
+    </SplashModalStyles>
   );
 }

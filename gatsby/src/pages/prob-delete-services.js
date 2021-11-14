@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Layout from '../components/Layout';
-import LayoutSideNav from '../components/LayoutSideNav';
+import Layout from '../templates/Layout';
+import LayoutSideNav from '../templates/LayoutSideNav';
 import SideNav from '../components/SideNav';
 
 export default function ServicesPage() {

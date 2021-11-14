@@ -1,79 +1,72 @@
-import navigation from "./navigation";
+import navigation from './navigation';
 
 export default {
-  name: "page",
-  title: "Pages",
-  type: "document",
+  name: 'page',
+  title: 'Pages',
+  type: 'document',
   fieldsets: [
     {
-      title: "SEO & Metadata",
-      name: "metadata",
+      title: 'SEO & Metadata',
+      name: 'metadata',
     },
   ],
   fields: [
     {
-      title: "Page title",
-      name: "title",
-      type: "string",
+      title: 'Page title',
+      name: 'title',
+      type: 'string',
       maxLength: 50,
     },
     {
-      title: "Slug",
+      title: 'Slug',
       description:
-        "URL friendly version of the name, i.e. DeWan Dental Services -> dewan-dental-services",
-      name: "slug",
-      type: "slug",
+        'URL friendly version of the name, i.e. DeWan Dental Services -> dewan-dental-services',
+      name: 'slug',
+      type: 'slug',
       options: {
-        source: "title",
+        source: 'title',
       },
     },
-    // {
-    //   title: "Page order in navigation",
-    //   description:
-    //     "Optional: can add '1', '2' etc. to determine page list order under their 'Parent nav item', defaults pages to be sorted by alphabetical order",
-    //   name: "order",
-    //   type: "number",
-    // },
     {
-      title: "Parent nav item",
+      title: 'Parent nav item',
       description:
-        "The nav category this page will be placed under, if navigation category and page name are the same the nav link will go directly to page",
-      name: "navigation",
-      type: "reference",
+        'The nav category this page will be placed under, if navigation category and page name are the same the nav link will go directly to page',
+      name: 'navigation',
+      type: 'reference',
       to: [
         {
-          type: "navigation",
+          type: 'navigation',
         },
       ],
     },
     {
-      title: "Content",
-      description: "Add page content: images, links and text below",
-      name: "content",
-      type: "blockContent",
+      title: 'Content',
+      description: 'Add page content: images, links and text below',
+      name: 'content',
+      type: 'blockContent',
     },
   ],
   preview: {
     select: {
-      title: "title",
-      subtitle: "navigation.title",
+      title: 'title',
+      subtitle: 'navigation.title',
     },
   },
   orderings: [
     {
-      title: "Parent nav items ascending",
-      name: "navigationSort",
+      title: 'Parent nav items ascending',
+      name: 'navigationSort',
       by: [
-        { field: "navigation.title", direction: "asc" },
-        { field: "title", direction: "asc" },
+        { field: 'navigation.title', direction: 'asc' },
+        { field: 'title', direction: 'asc' },
       ],
     },
     {
-      title: "Parent nav items descending",
-      name: "navigationSort",
+      title: 'Parent nav items descending',
+      name: 'navigationSort',
       by: [
-        { field: "navigation.title", direction: "desc" },
-        { field: "title", direction: "desc" },
+        { field: 'navigation.title', direction: 'desc' },
+        { field: 'title', direction: 'desc' },
       ],
     },
   ],

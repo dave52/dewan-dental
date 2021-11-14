@@ -6,8 +6,8 @@ async function turnPagesIntoPages({ graphql, actions }) {
     query {
       navigation: allSanityNavigation {
         nodes {
-          order
           title
+          order
           page {
             _id
             slug {
@@ -16,6 +16,7 @@ async function turnPagesIntoPages({ graphql, actions }) {
           }
           childNav {
             title
+            order
             page {
               _id
               slug {
@@ -37,46 +38,27 @@ async function turnPagesIntoPages({ graphql, actions }) {
     }
   `);
 
-  const determineComponentBasedOnPageId = (id) => {
-    const val = id || '';
-    switch (val) {
-      // _id for request a dentist appointment
-      // case '2b3048e1-41af-4bfa-859e-98b4ccab7907':
-      //   // TODO: fix dis shit
-      //   return path.resolve(
-      //     './src/components/Pages/PageRequestADentistAppointment.js'
-      //   );
-      default:
-        return path.resolve('./src/templates/Page.js');
-    }
-  };
+  // const determineComponentViewByPageId = (id) => {
+
+  // }
 
   data.navigation.nodes.forEach(async (parentItem) => {
     console.log(`parentNav: ${stringToSlug(parentItem.title)}`);
 
-    // const buildPagesIfHasChildren = (item) => {
-    //   let children;
-
-    //   if (item.childNav) {
-    //   }
-    // };
-
-    if (parentItem.childNav.length === 0) {
-      // console.log('parentItem');
-      // console.log(parentItem);
-      actions.createPage({
-        component: determineComponentBasedOnPageId(parentItem.page._id),
-        path: `${parentItem.page.slug.current}`,
-        context: {
-          pageTitle: parentItem.title,
-          parentTitle: parentItem.title,
-          slug: parentItem.page.slug.current,
-          fullWidth: true,
-          isTeamPage:
-            parentItem.page._id === 'b0608638-7f4b-47cd-8b2e-a454bf2bb9b3',
-        },
-      });
-    }
+    // if (parentItem.childNav.length === 0) {
+    //   actions.createPage({
+    //     component: path.resolve('./src/templates/Page.js'),
+    //     path: `/${stringToSlug(parentItem.title)}/`,
+    //     context: {
+    //       pageTitle: parentItem.title,
+    //       slug: parentItem.page.slug.current,
+    //       isTeamPage:
+    //         parentItem.page._id === 'b0608638-7f4b-47cd-8b2e-a454bf2bb9b3',
+    //       isContactUsPage:
+    //         parentItem.page._id === 'ce1ee548-4908-460c-aa91-63592d2febc1',
+    //     },
+    //   });
+    // }
 
     parentItem.childNav.forEach((childNavItem) => {
       // if there are grandchild nav items
@@ -93,9 +75,7 @@ async function turnPagesIntoPages({ graphql, actions }) {
           // );
 
           actions.createPage({
-            component: determineComponentBasedOnPageId(
-              grandchildNavItem.page._id
-            ),
+            component: path.resolve('./src/templates/Page.js'),
             path: `/${stringToSlug(parentItem.title)}/${stringToSlug(
               childNavItem.title
             )}/${grandchildNavItem.page.slug.current}`,
@@ -103,7 +83,6 @@ async function turnPagesIntoPages({ graphql, actions }) {
               pageTitle: grandchildNavItem.title,
               parentTitle: parentItem.title,
               slug: grandchildNavItem.page.slug.current,
-              fullWidth: false,
               isTeamPage:
                 grandchildNavItem.page._id ===
                 'b0608638-7f4b-47cd-8b2e-a454bf2bb9b3',
@@ -120,7 +99,7 @@ async function turnPagesIntoPages({ graphql, actions }) {
         // );
 
         actions.createPage({
-          component: determineComponentBasedOnPageId(childNavItem.page._id),
+          component: path.resolve('./src/templates/Page.js'),
           path: `/${stringToSlug(parentItem.title)}/${
             childNavItem.page.slug.current
           }`,
@@ -128,9 +107,10 @@ async function turnPagesIntoPages({ graphql, actions }) {
             pageTitle: childNavItem.title,
             parentTitle: parentItem.title,
             slug: childNavItem.page.slug.current,
-            fullWidth: false,
             isTeamPage:
               childNavItem.page._id === 'b0608638-7f4b-47cd-8b2e-a454bf2bb9b3',
+            isContactUsPage:
+              childNavItem.page._id === 'ce1ee548-4908-460c-aa91-63592d2febc1',
           },
         });
       }

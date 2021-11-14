@@ -29,15 +29,10 @@ const PageLayoutStyles = styled.div`
     max-width: 100ch;
   }
 
-  img {
-    max-width: 100%;
-  }
-
   a {
     z-index: 1;
     position: relative;
     overflow: hidden;
-    white-space: nowrap;
     color: #4859be;
     font-weight: 600;
     transition: color 0.3s ease-out;
@@ -167,19 +162,12 @@ const LayoutSideNavStyles = styled.main`
   color: var(--gray);
   min-height: calc(100vh - 9rem);
 
-  &:not(.full-width) {
-    @media (min-width: 68.75rem) {
-      grid-template-columns: 40rem 1fr;
-    }
-    @media (min-width: 100rem) {
-      min-height: calc(100vh - 11rem - 1.8rem - 1.8rem);
-      grid-template-columns: 50rem 1fr;
-    }
+  @media (min-width: 68.75rem) {
+    grid-template-columns: 40rem 1fr;
   }
-
-  &.full-width .page-layout-styles {
-    display: flex;
-    justify-content: center;
+  @media (min-width: 100rem) {
+    min-height: calc(100vh - 11rem - 1.8rem - 1.8rem);
+    grid-template-columns: 50rem 1fr;
   }
 `;
 
@@ -208,12 +196,9 @@ const serializer = {
   },
 };
 
-export default function Page({ data, pageContext, location }) {
-  console.log('location page');
-  console.log(location);
+export default function Page({ data, pageContext }) {
   return (
     <Layout>
-      {/* <LayoutSideNavStyles className={pageContext.fullWidth && 'full-width'}> */}
       <LayoutSideNavStyles>
         <SideNavStyles className="font-color-cream font-spacing-200 font-uppercase">
           <h3 className="parent-header font-size-20">
@@ -221,7 +206,7 @@ export default function Page({ data, pageContext, location }) {
           </h3>
           <ul className="parent-ul">
             {data.navigation.childNav
-              // .sort(sortNullishByProperty('order'))
+              .sort(sortNullishByProperty('order'))
               .map((childNavItem, index) => (
                 <li
                   key={`${childNavItem.title}-${index}`}
@@ -272,7 +257,7 @@ export default function Page({ data, pageContext, location }) {
               ))}
           </ul>
         </SideNavStyles>
-        <PageLayoutStyles className="page-layout-styles">
+        <PageLayoutStyles>
           {/* <h1 className="font-serif font-color-blue font-uppercase">
             {pageContext.pageTitle}
           </h1> */}

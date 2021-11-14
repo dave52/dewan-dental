@@ -1,19 +1,22 @@
 import React from 'react';
 import 'normalize.css';
 import styled from 'styled-components';
-import TopHat from './TopHat';
+import TopHat from '../components/TopHat';
 import Frame from './Frame';
 import GlobalStyles from '../styles/GlobalStyles';
 import ElementStyles from '../styles/ElementStyles';
 import FontStyles from '../styles/FontStyles';
-import Nav from './Nav/Nav';
-import Splash from './Splash';
+import Nav from '../components/Nav/Nav';
+import Splash from '../components/Splash';
+import BadgeAppointment from '../components/BadgeAppointment';
 
 const ContainerStyles = styled.main`
   /* margin-top: 12rem; */
 `;
 
-export default function Layout({ children }) {
+export default function Layout({ children, location }) {
+  console.log('location layout');
+  console.log(location);
   return (
     <Frame>
       <TopHat />
@@ -21,10 +24,9 @@ export default function Layout({ children }) {
       <ElementStyles />
       <FontStyles />
       <Nav />
-      <ContainerStyles>
-        <Splash />
-        {children}
-      </ContainerStyles>
+      <Splash />
+      <ContainerStyles>{children}</ContainerStyles>
+      <BadgeAppointment location={location} />
     </Frame>
   );
 }

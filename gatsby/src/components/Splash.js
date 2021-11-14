@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import SplashLogo from './SplashLogo';
-import Modal from './Modal';
+import SplashModal from './SplashModal';
 
 const ContainerStyles = styled.div`
   &.hidden {
@@ -39,23 +39,30 @@ const ContainerStyles = styled.div`
   }
 `;
 
+const isBrowser = typeof window !== 'undefined';
+
 const closeSplash = () => {
-  document.body.classList.remove('overflow-hidden');
-  document.querySelector('.splash').classList.add('hidden');
+  if (isBrowser) {
+    document?.body.classList.remove('overflow-hidden');
+    document?.querySelector('.splash').classList.add('hidden');
+  }
 };
 
 const openModal = () => {
-  setTimeout(() => {
-    document.querySelector('.modal').classList.remove('hidden');
-  }, 500);
+  if (isBrowser) {
+    setTimeout(() => {
+      document?.querySelector('.modal').classList.remove('hidden');
+    }, 500);
+  }
 };
 
-const hasAgreed = () => localStorage.getItem('covidAgreement');
+const hasAgreed = () => isBrowser && localStorage.getItem('covidAgreement');
 const setCovidAgreement = (val = true) =>
-  localStorage.setItem('covidAgreement', val);
-const isSustainedSession = () => sessionStorage.getItem('sustainedSession');
+  isBrowser && localStorage.setItem('covidAgreement', val);
+const isSustainedSession = () =>
+  isBrowser && sessionStorage.getItem('sustainedSession');
 const setSession = (val = true) =>
-  sessionStorage.setItem('sustainedSession', val);
+  isBrowser && sessionStorage.setItem('sustainedSession', val);
 
 const handleOnAnimationEnd = () => {
   if (hasAgreed()) {
@@ -67,18 +74,19 @@ const handleOnAnimationEnd = () => {
 };
 
 const handleCloseModal = () => {
-  console.log('hello there');
   closeSplash();
   setCovidAgreement();
 };
 
 export default function Splash() {
   if (!isSustainedSession() || !hasAgreed()) {
-    document.body.classList.toggle('overflow-hidden');
+    if (isBrowser) {
+      document?.body.classList.toggle('overflow-hidden');
+    }
     return (
       <ContainerStyles className="splash">
         <SplashLogo onAnimationEnd={handleOnAnimationEnd} />
-        {!hasAgreed() && <Modal closeModal={handleCloseModal} />}
+        {!hasAgreed() && <SplashModal closeModal={handleCloseModal} />}
       </ContainerStyles>
     );
   }
