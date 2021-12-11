@@ -1,46 +1,60 @@
 import React from 'react';
-import styled from 'styled-components';
-import bg from '../assets/images/background-paper-texture.jpg';
-import Layout from './Layout';
+import styled, { css } from 'styled-components';
 
-const PageFullWidthStyles = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  color: var(--gray);
-  min-height: calc(100vh - 9rem);
-  background: #ffffff;
+const MinimalContentStyles = css`
   padding: 3rem 5rem;
   font-size: 1.6rem;
   color: var(--black);
-  background: url(${bg});
+  line-height: 1.2;
 
-  > * {
-    max-width: 120rem;
-    margin: 0 auto;
+  // 1100px
+  @media (min-width: 68.75rem) {
+    padding: 3rem 7rem;
+  }
+
+  // 1600px
+  @media (min-width: 100rem) {
+    padding: 3rem max(7rem, 7vw);
+  }
+
+  *:not(h1, h2, h3, h4, h5, h6) {
+    line-height: 1.6;
   }
 
   h1 {
     color: var(--blue);
     font-family: Vollkorn, Georgia, 'Times New Roman', Times, serif;
-    font-size: 3.2rem;
+    font-size: 2.4rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
+
+    // 800px
+    @media (min-width: 50rem) {
+      font-size: 3.2rem;
+    }
   }
 
   hr {
     margin: 4rem 0;
     border-top: 3px solid var(--gray);
   }
+`;
 
+const FullContentStyles = css`
   p,
   ul {
     max-width: 100ch;
   }
 
-  a:not(.button) {
+  img {
+    max-width: 100%;
+  }
+
+  a:not(.no-underscore) {
     z-index: 1;
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
     color: #4859be;
     font-weight: 600;
     transition: color 0.3s ease-out;
@@ -70,10 +84,18 @@ const PageFullWidthStyles = styled.div`
   }
 `;
 
-export default function PageFullWidth({ children }) {
+const ContentComponentStyles = styled.div`
+  ${MinimalContentStyles}
+  ${({ fullContentStyles }) => fullContentStyles && FullContentStyles}
+`;
+
+export default function ContentComponent({ fullContentStyles, children }) {
   return (
-    <Layout>
-      <PageFullWidthStyles>{children}</PageFullWidthStyles>
-    </Layout>
+    <ContentComponentStyles
+      className="content"
+      fullContentStyles={fullContentStyles}
+    >
+      {children}
+    </ContentComponentStyles>
   );
 }

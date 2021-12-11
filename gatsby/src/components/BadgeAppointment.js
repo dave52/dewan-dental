@@ -26,7 +26,7 @@ const BadgeAppointmentStyles = styled.a`
 
 export default function BadgeAppointment({ location }) {
   // console.log(window.location.pathname);
-  console.log('location');
+  console.log('location badge');
   console.log(location);
   if (location === '/') {
     return null;

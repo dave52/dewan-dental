@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
-import ContactForm from '../ContactForm';
-import Layout from '../../templates/Layout';
-import Page from '../../templates/Page';
+import ContactForm from '../components/ContactForm';
+import Layout from '../components/Layout';
+import ContentSideNav from '../components/ContentSideNav';
+import ContentComponent from '../components/ContentComponent';
 
 const RequestAnAppointmentPageStyles = styled.div`
   width: 100%;
@@ -15,10 +16,16 @@ const RequestAnAppointmentPageStyles = styled.div`
   }
 `;
 
-export default function RequestAnAppointmentPage({ data, pageContext }) {
+export default function PageRequestADentistAppointment({ data, pageContext }) {
   return (
     <Layout>
-      <Page data pageContext>
+      {pageContext.pageTitle !== pageContext.parentTitle && (
+        <ContentSideNav
+          nav={data.navigation}
+          parentTitle={pageContext.parentTitle}
+        />
+      )}
+      <ContentComponent fullContentStyles>
         <RequestAnAppointmentPageStyles>
           <h1>Request an appointment</h1>
           <p>
@@ -40,14 +47,40 @@ export default function RequestAnAppointmentPage({ data, pageContext }) {
           </p>
           <hr />
           <h2>Call us</h2>
-          <Link to="tel:1-414-962-5915" className="button">
+          <a href="tel:1-414-962-5915" className="button no-underscore">
             Call 414-962-5915
-          </Link>
+          </a>
           <hr />
           <h2>Fill out our online form</h2>
           <ContactForm />
         </RequestAnAppointmentPageStyles>
-      </Page>
+      </ContentComponent>
     </Layout>
   );
 }
+
+export const query = graphql`
+  query ($parentTitle: String!) {
+    navigation: sanityNavigation(title: { eq: $parentTitle }) {
+      title
+      childNav {
+        title
+        page {
+          title
+          slug {
+            current
+          }
+        }
+        grandchildNav {
+          title
+          page {
+            title
+            slug {
+              current
+            }
+          }
+        }
+      }
+    }
+  }
+`;

@@ -150,7 +150,7 @@ const NavMobileStyles = styled.nav`
 
     a,
     button {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       padding: 0;
       border: 0;
@@ -161,6 +161,11 @@ const NavMobileStyles = styled.nav`
 
     a {
       margin-left: 0;
+
+      &.active {
+        line-height: 1.3;
+        border-bottom: 2px solid hsl(82deg 40% 88% / 40%);
+      }
     }
 
     li {
@@ -245,7 +250,6 @@ export default function NavMobile() {
             }
             grandchildNav {
               title
-              order
               page {
                 title
                 slug {
@@ -253,7 +257,6 @@ export default function NavMobile() {
                 }
               }
             }
-            order
           }
         }
       }
@@ -325,7 +328,8 @@ export default function NavMobile() {
                 ) : (
                   <Link
                     key={parentNavItem}
-                    to={`/${parentNavItem.page.slug.current}`}
+                    to={`/${parentNavItem.page.slug.current}/`}
+                    activeClassName="active"
                   >
                     {parentNavItem.title}
                   </Link>
@@ -353,7 +357,8 @@ export default function NavMobile() {
                             key={childNavItem}
                             to={`/${stringToSlug(parentNavItem.title)}/${
                               childNavItem.page.slug.current
-                            }`}
+                            }/`}
+                            activeClassName="active"
                           >
                             {childNavItem.title}
                           </Link>
@@ -372,7 +377,8 @@ export default function NavMobile() {
                                       parentNavItem.title
                                     )}/${stringToSlug(childNavItem.title)}/${
                                       grandchildNavItem.page.slug.current
-                                    }`}
+                                    }/`}
+                                    activeClassName="active"
                                   >
                                     {grandchildNavItem.title}
                                   </Link>

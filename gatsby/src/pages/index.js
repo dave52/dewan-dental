@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
-import Layout from '../templates/Layout';
-import ImgBuilding from '../assets/images/dewan-building.jpg';
+import Layout from '../components/Layout';
+// import ImgBuilding from '../assets/images/dewan-building.jpg';
+import ImgBuilding from '../assets/images/dewan-building-alt.jpg';
+// import ImgBuilding from '../assets/images/dewan-building-ship-alt.jpg';
+// import ImgBuilding from '../assets/images/dewan-building-ship-alt-3.jpg';
+// import ImgWood from '../assets/images/background-wooden-slats.jpg';
 import ImgWood from '../assets/images/background-wooden-slats.jpg';
 import ImgDeskPlants from '../assets/images/desk-plants.jpg';
 import ImgPatientCare from '../assets/images/patient-care.jpg';
@@ -256,7 +260,7 @@ const AboutImageStyles = styled.div`
   }
 `;
 
-export default function HomePage() {
+export default function HomePage({ location }) {
   return (
     <Layout>
       <GridStyles>

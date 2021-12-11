@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Layout from '../templates/Layout';
-import PageFullWidth from '../templates/PageFullWidth';
+import ContentComponent from '../components/ContentComponent';
+import ContentSideNav from '../components/ContentSideNav';
+import Layout from '../components/Layout';
 import imgMap from '../assets/images/location-google-maps.jpg';
 
 // urls
@@ -9,7 +10,7 @@ import imgMap from '../assets/images/location-google-maps.jpg';
 // https://developers.google.com/maps/documentation/maps-static/start
 // https://developers.google.com/maps/documentation/javascript/overview?hl=en_US#maps_map_simple-html
 
-const LocationAndHoursStyles = styled.div`
+const PageLocationAndHoursStyles = styled.div`
   .grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -55,11 +56,17 @@ const LocationAndHoursStyles = styled.div`
   }
 `;
 
-export default function LocationAndHoursPage() {
+export default function PageLocationAndHours({ data, pageContext }) {
   return (
     <Layout>
-      <PageFullWidth>
-        <LocationAndHoursStyles>
+      {pageContext.pageTitle !== pageContext.parentTitle && (
+        <ContentSideNav
+          nav={data.navigation}
+          parentTitle={pageContext.parentTitle}
+        />
+      )}
+      <ContentComponent>
+        <PageLocationAndHoursStyles>
           <h1>Location &amp; Hours</h1>
           <div className="grid">
             <div className="location">
@@ -83,8 +90,37 @@ export default function LocationAndHoursPage() {
               </div>
             </div>
           </div>
-        </LocationAndHoursStyles>
-      </PageFullWidth>
+        </PageLocationAndHoursStyles>
+      </ContentComponent>
     </Layout>
   );
 }
+
+export const query = graphql`
+  query ($parentTitle: String!, $slug: String!) {
+    page: sanityPage(slug: { current: { eq: $slug } }) {
+      _rawContent
+    }
+    navigation: sanityNavigation(title: { eq: $parentTitle }) {
+      title
+      childNav {
+        title
+        page {
+          title
+          slug {
+            current
+          }
+        }
+        grandchildNav {
+          title
+          page {
+            title
+            slug {
+              current
+            }
+          }
+        }
+      }
+    }
+  }
+`;

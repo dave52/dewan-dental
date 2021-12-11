@@ -10,6 +10,7 @@ const ElementStyles = createGlobalStyle`
         border-radius: 0.6rem;
         border: 0.3rem solid var(--button-color, var(--cream-75));
         color: var(--button-color, var(--cream-75));
+        text-align: center;
         text-transform: uppercase;
         font-size: 1.4rem;
         font-weight: 800;

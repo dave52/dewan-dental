@@ -1,37 +1,43 @@
 export default {
-  title: "Team DeWan",
-  name: "team",
-  type: "document",
+  title: 'Team DeWan',
+  name: 'team',
+  type: 'document',
   fields: [
     {
-      title: "First name",
-      name: "name",
-      type: "string",
+      title: 'First name',
+      name: 'name',
+      type: 'string',
     },
     {
-      title: "Role",
-      name: "role",
-      type: "string",
+      title: 'Order',
+      description: 'Order on page',
+      name: 'order',
+      type: 'number',
     },
     {
-      title: "Photo",
-      name: "photo",
-      type: "image",
+      title: 'Role',
+      name: 'role',
+      type: 'string',
+    },
+    {
+      title: 'Photo',
+      name: 'photo',
+      type: 'image',
       options: {
         hotspot: true,
       },
     },
     {
-      title: "Bio",
-      name: "bio",
-      description: "Team member description and bio.",
-      type: "teamBio",
+      title: 'Bio',
+      name: 'bio',
+      description: 'Team member description and bio.',
+      type: 'teamBio',
     },
   ],
   preview: {
     select: {
-      title: "name",
-      subtitle: "role",
+      title: 'name',
+      subtitle: 'role',
     },
   },
 };

@@ -128,15 +128,20 @@ const NavDesktopStyles = styled.nav`
 
         a,
         button {
-          display: flex;
+          display: inline-flex;
           align-items: center;
-          font-size: 1.2rem;
+          letter-spacing: 0.05em;
+          text-transform: initial;
           transition: transform 0.3s ease-out, opacity 0.3s ease;
 
           &:hover {
             transform: translateX(-2px);
             opacity: 0.9;
           }
+        }
+
+        a.active {
+          border-bottom: 2px solid hsl(214deg 32% 40% / 40%);
         }
 
         button {
@@ -254,7 +259,8 @@ function NavDesktopItems({ nav }) {
           ) : (
             <Link
               key={parentNavItem}
-              to={`/${parentNavItem.page.slug.current}`}
+              to={`/${parentNavItem.page.slug.current}/`}
+              activeClassName="active"
             >
               {parentNavItem.title}
             </Link>
@@ -282,7 +288,8 @@ function NavDesktopItems({ nav }) {
                       key={childNavItem}
                       to={`/${stringToSlug(parentNavItem.title)}/${
                         childNavItem.page.slug.current
-                      }`}
+                      }/`}
+                      activeClassName="active"
                     >
                       {childNavItem.title}
                     </Link>
@@ -300,6 +307,7 @@ function NavDesktopItems({ nav }) {
                               )}/${stringToSlug(childNavItem.title)}/${
                                 grandchildNavItem.page.slug.current
                               }/`}
+                              activeClassName="active"
                             >
                               {grandchildNavItem.title}
                             </Link>
@@ -341,7 +349,6 @@ export default function NavDesktop() {
             }
             grandchildNav {
               title
-              order
               page {
                 title
                 slug {
@@ -349,7 +356,6 @@ export default function NavDesktop() {
                 }
               }
             }
-            order
           }
         }
       }

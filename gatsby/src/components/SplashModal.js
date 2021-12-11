@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import imgSignature from '../assets/images/signature-handwriting.jpg';
-import imgCare from '../assets/images/care.jpg';
+import care from '../assets/images/care.jpg';
 
 const SplashModalStyles = styled.div`
   display: flex;
@@ -31,6 +31,24 @@ const SplashModalStyles = styled.div`
     padding: 3rem;
     background: white;
     border-radius: 0.7rem;
+
+    @supports (scrollbar-width: thin) {
+      scrollbar-color: #9494a4 #f4f4f6;
+      scrollbar-width: thin;
+    }
+
+    @supports not (scrollbar-width: thin) {
+      &::-webkit-scrollbar {
+        width: 7px;
+        height: 7px;
+        background-color: #f4f4f6;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #9494a4;
+        border-radius: 10px;
+      }
+    }
 
     // 600px
     @media (min-width: 37.5rem) {
@@ -64,7 +82,7 @@ const SplashModalStyles = styled.div`
         }
       }
 
-      img.care {
+      .care-container {
         width: 100%;
 
         // 600px
@@ -72,6 +90,10 @@ const SplashModalStyles = styled.div`
           grid-area: 1/1;
           width: 45%;
           margin: 4rem auto 0;
+        }
+
+        img {
+          max-width: 100%;
         }
       }
     }
@@ -130,11 +152,13 @@ export default function SplashModal({ closeModal }) {
               alt="The DeWan Dental Team, written in cursive handwriting"
             />
           </p>
-          <img
-            src={imgCare}
-            className="care"
-            alt="A heart drawn in red and blue pastel textures"
-          />
+          <div className="care-container">
+            <img
+              className="care"
+              src={care}
+              alt="A heart drawn in red and blue pastel textures"
+            />
+          </div>
         </div>
         <button className="button" type="button" onClick={closeModal}>
           Continue

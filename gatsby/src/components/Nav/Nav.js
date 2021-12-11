@@ -18,14 +18,12 @@ export default function Nav() {
           }
           childNav {
             title
-            order
             page {
               slug {
                 current
               }
             }
             grandchildNav {
-              order
               page {
                 slug {
                   current
