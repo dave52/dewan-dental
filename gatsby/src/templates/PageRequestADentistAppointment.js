@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'gatsby';
 import styled from 'styled-components';
 import ContactForm from '../components/ContactForm';
 import Layout from '../components/Layout';
@@ -8,7 +7,7 @@ import ContentComponent from '../components/ContentComponent';
 
 const RequestAnAppointmentPageStyles = styled.div`
   width: 100%;
-  max-width: 700px;
+  max-width: 70rem;
   margin: 0 auto;
 
   a {
@@ -16,18 +15,23 @@ const RequestAnAppointmentPageStyles = styled.div`
   }
 `;
 
-export default function PageRequestADentistAppointment({ data, pageContext }) {
+export default function PageRequestADentistAppointment({
+  data,
+  pageContext,
+  location,
+}) {
   return (
     <Layout>
       {pageContext.pageTitle !== pageContext.parentTitle && (
         <ContentSideNav
+          location={location}
           nav={data.navigation}
           parentTitle={pageContext.parentTitle}
         />
       )}
       <ContentComponent fullContentStyles>
         <RequestAnAppointmentPageStyles>
-          <h1>Request an appointment</h1>
+          <h1>Request a Dentist appointment</h1>
           <p>
             Depending on your needs, we can usually schedule a routine exam and
             cleaning within two weeks. If you have a dental emergency, or want

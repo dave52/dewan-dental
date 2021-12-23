@@ -36,11 +36,22 @@ const MinimalContentStyles = css`
 
   hr {
     margin: 4rem 0;
+    border-left: 0;
     border-top: 3px solid var(--gray);
   }
 `;
 
 const FullContentStyles = css`
+  h1:empty,
+  h2:empty,
+  h3:empty,
+  h4:empty,
+  h5:empty,
+  h6:empty,
+  p:empty {
+    display: inline-block;
+  }
+
   p,
   ul {
     max-width: 100ch;

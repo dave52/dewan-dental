@@ -306,7 +306,6 @@ export default function NavMobile() {
       </div>
       <div className="mobile-nav hidden">
         <ul className="parent-nav">
-          {console.log(nav)}
           {nav.nodes
             .sort(sortNullishByProperty('order'))
             .map((parentNavItem, index1) => (

@@ -1,4 +1,3 @@
-import { Link } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
 import BadgeAppointment from '../components/BadgeAppointment';
@@ -9,7 +8,7 @@ import Layout from '../components/Layout';
 
 const PageContactUsStyles = styled.div`
   width: 100%;
-  max-width: 700px;
+  max-width: 70rem;
   margin: 0 auto;
 
   a {
@@ -18,11 +17,12 @@ const PageContactUsStyles = styled.div`
   }
 `;
 
-export default function PageContactUs({ data, pageContext }) {
+export default function PageContactUs({ data, pageContext, location }) {
   return (
     <Layout>
       {pageContext.pageTitle !== pageContext.parentTitle && (
         <ContentSideNav
+          location={location}
           nav={data.navigation}
           parentTitle={pageContext.parentTitle}
         />

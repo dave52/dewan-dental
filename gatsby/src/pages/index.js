@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'gatsby';
+import { graphql, Link, useStaticQuery } from 'gatsby';
 import Layout from '../components/Layout';
 // import ImgBuilding from '../assets/images/dewan-building.jpg';
 import ImgBuilding from '../assets/images/dewan-building-alt.jpg';
@@ -10,6 +10,7 @@ import ImgBuilding from '../assets/images/dewan-building-alt.jpg';
 import ImgWood from '../assets/images/background-wooden-slats.jpg';
 import ImgDeskPlants from '../assets/images/desk-plants.jpg';
 import ImgPatientCare from '../assets/images/patient-care.jpg';
+import stringToSlug from '../utils/slugify';
 
 const GridStyles = styled.div`
   display: grid;
@@ -28,13 +29,20 @@ const GridStyles = styled.div`
     min-height: calc(100vh - 4.625rem);
 
     @media (min-width: 68.75rem) {
-      min-height: calc(100vh - 11rem - var(--frame-size) - var(--frame-size));
+      // 1100rem
+      min-height: unset;
     }
 
     img.dewan-building {
       object-fit: cover;
+      object-position: left;
       width: 100%;
       height: 100%;
+
+      @media (max-width: 160rem) {
+        // 1600px
+        object-position: center;
+      }
 
       @media (max-width: 46.8125rem) {
         // 749px
@@ -60,6 +68,7 @@ const GridStyles = styled.div`
 
       hr {
         margin: 4rem 0;
+        border-left: 0;
         border-top: 3px solid var(--gray);
       }
 
@@ -260,7 +269,22 @@ const AboutImageStyles = styled.div`
   }
 `;
 
-export default function HomePage({ location }) {
+export default function HomePage() {
+  const data = useStaticQuery(graphql`
+    query {
+      page: sanityPage(_id: { eq: "2b3048e1-41af-4bfa-859e-98b4ccab7907" }) {
+        slug {
+          current
+        }
+        navigation {
+          title
+        }
+      }
+    }
+  `);
+  const appointmentUrl = `/${stringToSlug(data.page.navigation.title)}/${
+    data.page.slug.current
+  }`;
   return (
     <Layout>
       <GridStyles>
@@ -271,10 +295,7 @@ export default function HomePage({ location }) {
             className="dewan-building"
           />
           <div className="building-img-content-mobile">
-            <Link
-              className="button"
-              to="/your-visit/request-a-dentist-appointment"
-            >
+            <Link className="button" to={appointmentUrl}>
               Request an Appointment
             </Link>
             <hr />
@@ -285,7 +306,11 @@ export default function HomePage({ location }) {
                 <a href="mailto:office@dewandental.com">
                   office@dewandental.com
                 </a>
-                <a href="#">
+                <a
+                  href="https://goo.gl/maps/bbWeEBpLvbZeGSej9"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   DeWan Dental Wellness
                   <br />
                   2445 N. Farwell, Suite 202
@@ -331,9 +356,9 @@ export default function HomePage({ location }) {
                     <p className="font-size-14">
                       If after hours, please leave a detailed voicemail.
                     </p>
-                    <Link to="tel:1-414-962-5915" className="button">
+                    <a href="tel:1-414-962-5915" className="button">
                       Call 414-962-5915
-                    </Link>
+                    </a>
                   </div>
                   <div className="column">
                     <h3 className="font-uppercase font-weight-medium font-spacing-150">
@@ -342,10 +367,7 @@ export default function HomePage({ location }) {
                     <p className="font-size-14">
                       Fill out and submit an online form with your information.
                     </p>
-                    <Link
-                      to="/your-visit/temp-request-an-appointment"
-                      className="button"
-                    >
+                    <Link to={appointmentUrl} className="button">
                       Reservation form
                     </Link>
                   </div>

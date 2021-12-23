@@ -2,7 +2,6 @@ import { graphql, Link, useStaticQuery } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
 import logo from '../../assets/images/dewan-logo-lines.svg';
-import chevronIcon from '../../assets/images/chevron-black.svg';
 import sortNullishByProperty from '../../utils/sortNullishByProperty';
 import stringToSlug from '../../utils/slugify';
 
@@ -59,7 +58,7 @@ const NavDesktopStyles = styled.nav`
           -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
           border: 1px solid rgba(255, 255, 255, 0);
-          bottom: 0px;
+          bottom: 0;
           content: ' ';
           display: block;
           margin: 0.5rem auto;
@@ -95,23 +94,18 @@ const NavDesktopStyles = styled.nav`
       box-shadow: 0px 1px 4px #000000bb;
 
       li {
-        margin-left: 2.5rem;
-        padding: 0.8rem 1.1rem 0.8rem 0;
-
-        &.list-item-no-dot {
-          list-style: none;
-        }
+        padding: 0.8rem 1.1rem;
+        position: relative;
+        list-style: none;
 
         .grandchild-nav {
           display: none;
-          position: relative;
-          margin-left: -2.5rem;
-          margin: 0.4rem 0 0 -2.5rem;
-          padding-left: 1rem;
-
-          li:last-of-type {
-            padding-bottom: 0;
-          }
+          position: absolute;
+          top: 0;
+          width: 100%;
+          padding: 0;
+          background: #fff;
+          box-shadow: 0px 1px 4px #000000bb;
         }
 
         &:hover > .grandchild-nav,
@@ -120,16 +114,11 @@ const NavDesktopStyles = styled.nav`
           flex-direction: column;
         }
 
-        &:hover button img.chevron,
-        button.expanded img.chevron {
-          opacity: 0.9;
-          transform: rotate(180deg);
-        }
-
         a,
         button {
-          display: inline-flex;
-          align-items: center;
+          display: inline;
+          text-align: left;
+          line-height: 1.3;
           letter-spacing: 0.05em;
           text-transform: initial;
           transition: transform 0.3s ease-out, opacity 0.3s ease;
@@ -143,16 +132,6 @@ const NavDesktopStyles = styled.nav`
         a.active {
           border-bottom: 2px solid hsl(214deg 32% 40% / 40%);
         }
-
-        button {
-          img.chevron {
-            width: 2.4rem;
-            transform: rotate(0);
-            margin-left: -2.5rem;
-            padding: 0.6rem 0.8rem;
-            transition: transform 0.3s ease-out, opacity 0.3s ease;
-          }
-        }
       }
     }
   }
@@ -164,6 +143,10 @@ const NavDesktopStyles = styled.nav`
       @media (min-width: 75rem) {
         margin-right: 4rem;
       }
+    }
+
+    .grandchild-nav {
+      left: 100%;
     }
   }
 
@@ -177,6 +160,10 @@ const NavDesktopStyles = styled.nav`
       @media (min-width: 75rem) {
         margin-left: 4rem;
       }
+    }
+
+    .grandchild-nav {
+      right: 100%;
     }
   }
 
@@ -234,7 +221,6 @@ const toggleChildNav = (event) => {
 };
 
 const toggleGrandchildNav = (event) => {
-  console.log(event.target);
   let buttonEl = event.target;
   if (event.target.tagName === 'IMG') {
     buttonEl = event.target.parentElement;
@@ -244,7 +230,6 @@ const toggleGrandchildNav = (event) => {
 };
 
 function NavDesktopItems({ nav }) {
-  console.log(nav);
   return (
     <>
       {nav.map((parentNavItem, index1) => (
@@ -268,19 +253,9 @@ function NavDesktopItems({ nav }) {
           {parentNavItem.page === null && (
             <ul className="child-nav">
               {parentNavItem.childNav.map((childNavItem, index2) => (
-                <li
-                  className={
-                    childNavItem.page === null ? 'list-item-no-dot' : ''
-                  }
-                  key={`${childNavItem.title}-${index2}`}
-                >
+                <li key={`${childNavItem.title}-${index2}`}>
                   {childNavItem.page === null ? (
                     <button type="button" onClick={toggleGrandchildNav}>
-                      <img
-                        className="chevron"
-                        src={chevronIcon}
-                        alt="Chevron icon"
-                      />
                       {childNavItem.title}
                     </button>
                   ) : (

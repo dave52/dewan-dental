@@ -1,5 +1,3 @@
-import navigation from './navigation';
-
 export default {
   name: 'page',
   title: 'Pages',

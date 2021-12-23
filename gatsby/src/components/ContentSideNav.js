@@ -8,22 +8,50 @@ const ContentSideNavStyles = styled.nav`
   display: flex;
   flex-direction: column;
   position: sticky;
-  top: 0;
+  overflow-y: auto;
+  top: 9rem;
   left: 0;
-  min-height: calc(100vh - 9rem);
+  height: calc(100vh - 9rem);
   padding: 3rem 4rem;
   background: var(--blue);
-  color: var(--gray);
-  /* text-transform: uppercase; */
   color: var(--cream);
   letter-spacing: 0.075em;
 
   @media (min-width: 68.75rem) {
+    // 1100px
     width: 30rem;
   }
+
+  @media (min-width: 87.5rem) {
+    // 1400px
+    top: 11rem;
+    height: calc(100vh - 11rem);
+  }
+
   @media (min-width: 100rem) {
-    min-height: calc(100vh - 11rem - 1.8rem - 1.8rem);
+    // 160ppx
+    top: 13rem;
+    left: 1.8rem;
+    height: calc(100vh - 13rem - 1.8rem);
     width: 40rem;
+  }
+
+  // scroll bar styles
+  // Works on Firefox
+  scrollbar-width: thin;
+  scrollbar-color: #57708d #76889f;
+
+  // Works on Chrome, Edge, and Safari
+  &::-webkit-scrollbar {
+    width: 0.8rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #76889f;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #57708d;
   }
 
   .parent-header {
@@ -41,7 +69,7 @@ const ContentSideNavStyles = styled.nav`
     padding: 0;
 
     a {
-      display: inline-flex;
+      display: inline;
       color: var(--cream);
       text-decoration: none;
       transition: transform 0.3s ease, color 0.3s ease;
@@ -118,16 +146,10 @@ const ContentSideNavStyles = styled.nav`
 `;
 
 const handleNavCategoryClick = (event) => {
-  console.dir(event);
-  console.log(event.target);
-  document
-    .querySelector('button.category-button')
-    .classList.toggle('collapsed');
+  event.target.classList.toggle('collapsed');
 };
 
-export default function ContentSideNav({ nav, parentTitle }) {
-  console.log('nav');
-  console.log(nav);
+export default function ContentSideNav({ nav, parentTitle, location }) {
   return (
     <ContentSideNavStyles className="content-side-nav">
       <h3 className="parent-header font-size-20 font-uppercase font-spacing-200">
@@ -151,7 +173,13 @@ export default function ContentSideNav({ nav, parentTitle }) {
             ) : (
               <button
                 onClick={handleNavCategoryClick}
-                className="category-button"
+                className={
+                  String(location.href).includes(
+                    stringToSlug(childNavItem.title)
+                  )
+                    ? `category-button`
+                    : `category-button collapsed`
+                }
                 type="button"
               >
                 <img className="chevron" src={chevronIcon} alt="Chevron icon" />
@@ -160,9 +188,8 @@ export default function ContentSideNav({ nav, parentTitle }) {
             )}
             {childNavItem.grandchildNav.length > 0 && (
               <ul className="child-ul">
-                {childNavItem.grandchildNav
-                  // .sort(sortNullishByProperty('order'))
-                  .map((grandchildNavItem, gcindex) => (
+                {childNavItem.grandchildNav.map(
+                  (grandchildNavItem, gcindex) => (
                     <li key={`${childNavItem.title}-${gcindex}`}>
                       <Link
                         to={`/${stringToSlug(parentTitle)}/${stringToSlug(
@@ -173,7 +200,8 @@ export default function ContentSideNav({ nav, parentTitle }) {
                         {grandchildNavItem.title}
                       </Link>
                     </li>
-                  ))}
+                  )
+                )}
               </ul>
             )}
           </li>

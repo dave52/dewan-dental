@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import BadgeAppointment from '../components/BadgeAppointment';
 import ContentComponent from '../components/ContentComponent';
 import ContentSideNav from '../components/ContentSideNav';
 import Layout from '../components/Layout';
@@ -8,11 +9,12 @@ const PageNameStyles = styled.div`
   color: red;
 `;
 
-export default function PageName({ data, pageContext }) {
+export default function PageName({ data, pageContext, location }) {
   return (
     <Layout>
       {pageContext.pageTitle !== pageContext.parentTitle && (
         <ContentSideNav
+          location={location}
           nav={data.navigation}
           parentTitle={pageContext.parentTitle}
         />
@@ -20,6 +22,7 @@ export default function PageName({ data, pageContext }) {
       <ContentComponent>
         <PageNameStyles>PageName</PageNameStyles>
       </ContentComponent>
+      <BadgeAppointment />
     </Layout>
   );
 }

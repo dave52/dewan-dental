@@ -32,9 +32,7 @@ const ContainerStyles = styled.main`
   } */
 `;
 
-export default function Layout({ children, location }) {
-  console.log('location layout');
-  console.log(location);
+export default function Layout({ children }) {
   return (
     <Frame>
       <TopHat />

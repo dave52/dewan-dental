@@ -4,6 +4,7 @@ import ContentComponent from '../components/ContentComponent';
 import ContentSideNav from '../components/ContentSideNav';
 import Layout from '../components/Layout';
 import imgMap from '../assets/images/location-google-maps.jpg';
+import BadgeAppointment from '../components/BadgeAppointment';
 
 // urls
 // https://maps.googleapis.com/maps/api/staticmap?center=dewandentalwellness&zoom=17&size=400x400&key=AIzaSyBT7TwQd69gZXXKcxIY-U1Rs5uIzmIEUZ0
@@ -56,11 +57,12 @@ const PageLocationAndHoursStyles = styled.div`
   }
 `;
 
-export default function PageLocationAndHours({ data, pageContext }) {
+export default function PageLocationAndHours({ data, pageContext, location }) {
   return (
     <Layout>
       {pageContext.pageTitle !== pageContext.parentTitle && (
         <ContentSideNav
+          location={location}
           nav={data.navigation}
           parentTitle={pageContext.parentTitle}
         />
@@ -92,6 +94,7 @@ export default function PageLocationAndHours({ data, pageContext }) {
           </div>
         </PageLocationAndHoursStyles>
       </ContentComponent>
+      <BadgeAppointment />
     </Layout>
   );
 }

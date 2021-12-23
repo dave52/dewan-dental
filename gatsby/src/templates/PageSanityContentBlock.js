@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import BlockContent from '@sanity/block-content-to-react';
 import urlBuilder from '@sanity/image-url';
 import Layout from '../components/Layout';
@@ -12,7 +12,6 @@ const urlFor = (source) =>
 
 const serializer = {
   types: {
-    // eslint-disable-next-line react/display-name
     blockContentImage: ({ node }) =>
       node.imageUrl ? (
         <a href={node.imageUrl}>
@@ -22,13 +21,28 @@ const serializer = {
         <img src={urlFor(node.asset)} alt={node.imageCaption} />
       ),
   },
+  marks: {
+    internalLink: ({ mark, children }) => {
+      const source = `${mark?.link?.split('.com')[1]}`;
+      return (
+        <Link to={source} key={source}>
+          {children}
+        </Link>
+      );
+    },
+  },
 };
 
-export default function PageSanityContentBlock({ data, pageContext }) {
+export default function PageSanityContentBlock({
+  data,
+  pageContext,
+  location,
+}) {
   return (
     <Layout>
       {pageContext.pageTitle !== pageContext.parentTitle && (
         <ContentSideNav
+          location={location}
           nav={data.navigation}
           parentTitle={pageContext.parentTitle}
         />

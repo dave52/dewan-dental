@@ -1,8 +1,8 @@
 import React from 'react';
+import { graphql, useStaticQuery } from 'gatsby';
 import NavMobile from './NavMobile';
 import NavDesktop from './NavDesktop';
 import './Nav.css';
-import { graphql, useStaticQuery } from 'gatsby';
 
 export default function Nav() {
   const { nav } = useStaticQuery(graphql`

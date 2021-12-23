@@ -53,17 +53,15 @@ const TeamStyles = styled.ul`
 `;
 
 const toggleModal = function (e) {
-  console.log(e.target);
   e.target?.nextElementSibling.classList.toggle('is-hidden');
 };
 
-export default function PageTeamBios({ data, pageContext }) {
-  const orderedPeople = data.team.nodes.sort(sortNullishByProperty('order'));
-  console.log(orderedPeople);
+export default function PageTeamBios({ data, pageContext, location }) {
   return (
     <Layout>
       {pageContext.pageTitle !== pageContext.parentTitle && (
         <ContentSideNav
+          location={location}
           nav={data.navigation}
           parentTitle={pageContext.parentTitle}
         />
