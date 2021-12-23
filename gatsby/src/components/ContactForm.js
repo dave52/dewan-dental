@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ContactFormStyles = styled.form`
+const ContactFormStyles = styled.div`
   label {
     display: flex;
     flex-direction: column;
@@ -48,29 +48,31 @@ const ContactFormStyles = styled.form`
 export default function ContactForm() {
   return (
     <ContactFormStyles>
-      <label htmlFor="first-name">
-        <div className="label">First name</div>
-        <input name="first-name" id="first-name" type="text" />
-      </label>
-      <label htmlFor="last-name">
-        <div className="label">Last name</div>
-        <input id="last-name" type="text" />
-      </label>
-      <label htmlFor="phone-number">
-        <div className="label">Phone number</div>
-        <input id="phone-number" type="tel" />
-      </label>
-      <label htmlFor="email-address">
-        <div className="label">Email address</div>
-        <input id="email-address" type="email" />
-      </label>
-      <label htmlFor="preferred-times">
-        <div className="label">Days and times that work best for you</div>
-        <textarea id="preferred-times" />
-      </label>
-      <button type="submit" className="button">
-        Submit
-      </button>
+      <form netlify="true">
+        <label htmlFor="first-name">
+          <div className="label">First name</div>
+          <input name="first-name" id="first-name" type="text" />
+        </label>
+        <label htmlFor="last-name">
+          <div className="label">Last name</div>
+          <input id="last-name" type="text" />
+        </label>
+        <label htmlFor="phone-number">
+          <div className="label">Phone number</div>
+          <input id="phone-number" type="tel" />
+        </label>
+        <label htmlFor="email-address">
+          <div className="label">Email address</div>
+          <input id="email-address" type="email" />
+        </label>
+        <label htmlFor="preferred-times">
+          <div className="label">Days and times that work best for you</div>
+          <textarea id="preferred-times" />
+        </label>
+        <button type="submit" className="button">
+          Submit
+        </button>
+      </form>
     </ContactFormStyles>
   );
 }

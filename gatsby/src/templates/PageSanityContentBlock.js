@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link, useStaticQuery } from 'gatsby';
 import BlockContent from '@sanity/block-content-to-react';
 import urlBuilder from '@sanity/image-url';
 import Layout from '../components/Layout';
@@ -22,6 +22,18 @@ const serializer = {
         <img src={urlFor(node.asset)} alt={node.imageCaption} />
       ),
   },
+  marks: {
+    internalLink: ({ mark, children }) => {
+      console.log('mark');
+      console.log(mark);
+      const source = `${mark?.link?.split('.com')[1]}`;
+      return (
+        <Link to={source} key={source}>
+          {children}
+        </Link>
+      );
+    },
+  },
 };
 
 export default function PageSanityContentBlock({ data, pageContext }) {
@@ -40,32 +52,3 @@ export default function PageSanityContentBlock({ data, pageContext }) {
     </Layout>
   );
 }
-
-export const query = graphql`
-  query ($parentTitle: String!, $slug: String!) {
-    page: sanityPage(slug: { current: { eq: $slug } }) {
-      _rawContent
-    }
-    navigation: sanityNavigation(title: { eq: $parentTitle }) {
-      title
-      childNav {
-        title
-        page {
-          title
-          slug {
-            current
-          }
-        }
-        grandchildNav {
-          title
-          page {
-            title
-            slug {
-              current
-            }
-          }
-        }
-      }
-    }
-  }
-`;

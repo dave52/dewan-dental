@@ -57,40 +57,15 @@ export default {
             title: 'Internal link',
             fields: [
               {
-                name: 'reference',
-                type: 'reference',
-                title: 'Reference',
-                to: [
-                  { type: 'page' },
-                  // other types you may want to link to
-                ],
+                name: 'link',
+                type: 'url',
+                title: 'Link',
               },
             ],
           },
         ],
       },
     },
-    // You can add additional types here. Note that you can't use
-    // primitive types such as 'string' and 'number' in the same array
-    // as a block type.
-    // {
-    //   type: "image",
-    //   options: { hotspot: true },
-    //   fields: [
-    //     {
-    //       name: 'imageCaption',
-    //       type: 'string',
-    //       title: 'Caption',
-    //       description: 'Provide a brief description of the image for SEO and accessibility'
-    //     },
-    //     {
-    //       name: 'imageUrl',
-    //       type: 'string',
-    //       title: 'Link',
-    //       description: 'Images can optionally function as a clickable link'
-    //     },
-    //   ]
-    // },
     {
       title: 'Image',
       // description: 'Add page content: images, links and text below',

@@ -11,6 +11,7 @@ import navigation from './navigation';
 import navigationGrandchildNav from './navigationGrandchildNav';
 import navigationChildNav from './navigationChildNav';
 import teamBio from './teamBio';
+import testimonials from './testimonials';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -19,13 +20,14 @@ export default createSchema({
   // Then proceed to concatenate our document type
   // to the ones provided by any plugins that are installed
   types: schemaTypes.concat([
+    blockContent,
+    blockContentImage,
     navigation,
     navigationChildNav,
     navigationGrandchildNav,
     page,
     team,
     teamBio,
-    blockContent,
-    blockContentImage,
+    testimonials,
   ]),
 });

@@ -33,6 +33,7 @@ const GridStyles = styled.div`
 
     img.dewan-building {
       object-fit: cover;
+      object-position: left;
       width: 100%;
       height: 100%;
 

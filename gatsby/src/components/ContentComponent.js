@@ -41,6 +41,16 @@ const MinimalContentStyles = css`
 `;
 
 const FullContentStyles = css`
+  h1:empty,
+  h2:empty,
+  h3:empty,
+  h4:empty,
+  h5:empty,
+  h6:empty,
+  p:empty {
+    display: inline-block;
+  }
+
   p,
   ul {
     max-width: 100ch;

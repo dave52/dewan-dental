@@ -37,29 +37,12 @@ async function turnPagesIntoPages({ graphql, actions }) {
     }
   `);
 
-  // data.navigation.nodes.forEach((parentItem) => {
-  //   function fartSalad(item) {
-  //     const opts = {};
-  //     const slug = '';
-  //     if (item.childNav > 0) {
-  //       // dos hit
-  //       item.childNav.forEach(childNavItem => fartSalad(childNavItem));
-  //     } else if (item.grandchildNav > 0) {
-  //       // dos hit
-  //       item.childNav.forEach(grandchildNavItem => fartSalad(grandchildNavItem));
-  //     }
-  //     actions.createPage({});
-  //   }
-  // });
-
   function determineComponentBasedOnPageId(id) {
     function returnPathToPage(templateComponentName) {
       return path.resolve(`./src/templates/${templateComponentName}`);
     }
 
     switch (id) {
-      case 'ecbda730-dd31-41de-9e06-255148bc5a3e':
-        return returnPathToPage('PageBeforeAndAfter.js');
       case '8ad9d1a3-0677-40f6-8946-4a70674497db':
         return returnPathToPage('PageContactUs.js');
       case '15f0b9b2-744b-475f-8632-1a5fd73bce6f':
@@ -78,15 +61,6 @@ async function turnPagesIntoPages({ graphql, actions }) {
   }
 
   data.navigation.nodes.forEach(async (parentItem) => {
-    console.log(`parentNav: ${stringToSlug(parentItem.title)}`);
-
-    // const buildPagesIfHasChildren = (item) => {
-    //   let children;
-
-    //   if (item.childNav) {
-    //   }
-    // };
-
     if (parentItem.childNav.length === 0) {
       const pageId = parentItem.page._id || '';
 

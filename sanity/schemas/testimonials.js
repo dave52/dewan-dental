@@ -4,22 +4,25 @@ export default {
   type: 'document',
   fields: [
     {
-      title: 'Name',
+      title: "Reviewer's Name",
       name: 'name',
       type: 'string',
-      description: "Reviewer's name",
     },
     {
       title: 'Quote',
       name: 'quote',
       type: 'string',
-      description: 'Highlighted quote to feature',
     },
     {
-      title: 'Review',
+      title: 'Full review',
       name: 'review',
-      description: 'Full review',
-      type: 'string',
+      type: 'text',
     },
   ],
+  preview: {
+    select: {
+      title: 'name',
+      subtitle: 'quote',
+    },
+  },
 };
