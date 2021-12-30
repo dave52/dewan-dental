@@ -20,8 +20,9 @@ export default function PageRequestADentistAppointment({
   pageContext,
   location,
 }) {
+  const info = data.info.nodes[0];
   return (
-    <Layout>
+    <Layout title={pageContext.pageTitle}>
       {pageContext.pageTitle !== pageContext.parentTitle && (
         <ContentSideNav
           location={location}
@@ -31,12 +32,12 @@ export default function PageRequestADentistAppointment({
       )}
       <ContentComponent fullContentStyles>
         <RequestAnAppointmentPageStyles>
-          <h1>Request a Dentist appointment</h1>
+          <h1>{pageContext.pageTitle}</h1>
           <p>
             Depending on your needs, we can usually schedule a routine exam and
             cleaning within two weeks. If you have a dental emergency, or want
             to speak with a member of our front office team, call us today at{' '}
-            <a href="tel:1-414-962-5915">414-962-5915</a>.
+            <a href={`tel:1-${info.phoneNumber}`}>{info.phoneNumber}</a>.
           </p>
           <p>
             After you make a dentist appointment for your first visit, we will
@@ -51,8 +52,11 @@ export default function PageRequestADentistAppointment({
           </p>
           <hr />
           <h2>Call us</h2>
-          <a href="tel:1-414-962-5915" className="button no-underscore">
-            Call 414-962-5915
+          <a
+            href={`tel:1-${info.phoneNumber}`}
+            className="button no-underscore"
+          >
+            Call {info.phoneNumber}
           </a>
           <hr />
           <h2>Fill out our online form</h2>
@@ -65,6 +69,20 @@ export default function PageRequestADentistAppointment({
 
 export const query = graphql`
   query ($parentTitle: String!) {
+    info: allSanityContactInfo {
+      nodes {
+        hours {
+          days
+          timeClosed
+          timeOpen
+        }
+        cityStateZip
+        emailAddress
+        phoneNumber
+        name
+        streetAddress
+      }
+    }
     navigation: sanityNavigation(title: { eq: $parentTitle }) {
       title
       childNav {

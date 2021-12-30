@@ -1,12 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { graphql, Link, useStaticQuery } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import Layout from '../components/Layout';
-// import ImgBuilding from '../assets/images/dewan-building.jpg';
 import ImgBuilding from '../assets/images/dewan-building-alt.jpg';
-// import ImgBuilding from '../assets/images/dewan-building-ship-alt.jpg';
-// import ImgBuilding from '../assets/images/dewan-building-ship-alt-3.jpg';
-// import ImgWood from '../assets/images/background-wooden-slats.jpg';
 import ImgWood from '../assets/images/background-wooden-slats.jpg';
 import ImgDeskPlants from '../assets/images/desk-plants.jpg';
 import ImgPatientCare from '../assets/images/patient-care.jpg';
@@ -214,9 +210,16 @@ const ContactAndLocationStyles = styled.div`
     background: var(--cream-75);
   }
 
-  img {
-    object-fit: cover;
-    max-width: 22rem;
+  p {
+    font-size: 1.6rem;
+  }
+
+  a {
+    color: var(--cream-75);
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 `;
 
@@ -231,8 +234,12 @@ const HoursStyles = styled.div`
     display: flex;
   }
 
-  p:not(:last-of-type) {
-    margin-right: 5rem;
+  p {
+    font-size: 1.6rem;
+
+    &:not(:last-of-type) {
+      margin-right: 5rem;
+    }
   }
 `;
 
@@ -250,6 +257,10 @@ const AboutStyles = styled.div`
     max-width: 40rem;
     line-height: 1.3;
     color: var(--blue);
+  }
+
+  p {
+    font-size: 1.6rem;
   }
 `;
 
@@ -269,24 +280,13 @@ const AboutImageStyles = styled.div`
   }
 `;
 
-export default function HomePage() {
-  const data = useStaticQuery(graphql`
-    query {
-      page: sanityPage(_id: { eq: "2b3048e1-41af-4bfa-859e-98b4ccab7907" }) {
-        slug {
-          current
-        }
-        navigation {
-          title
-        }
-      }
-    }
-  `);
-  const appointmentUrl = `/${stringToSlug(data.page.navigation.title)}/${
-    data.page.slug.current
-  }`;
+export default function HomePage({ data }) {
+  const info = data.info.nodes[0];
+  const appointmentUrl = `/${stringToSlug(
+    data.appointmentPage.navigation.title
+  )}/${data.appointmentPage.slug.current}`;
   return (
-    <Layout>
+    <Layout title="Welcome">
       <GridStyles>
         <div className="building-img-container">
           <img
@@ -302,20 +302,18 @@ export default function HomePage() {
             <div className="contact">
               <h2>Contact</h2>
               <div className="grid">
-                <a href="tel:1-414-962-5915">414-962-5915</a>
-                <a href="mailto:office@dewandental.com">
-                  office@dewandental.com
-                </a>
+                <a href={`tel:1-${info.phoneNumber}`}>{info.phoneNumber}</a>
+                <a href={`mailto:${info.emailAddress}`}>{info.emailAddress}</a>
                 <a
                   href="https://goo.gl/maps/bbWeEBpLvbZeGSej9"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  DeWan Dental Wellness
+                  {info.name}
                   <br />
-                  2445 N. Farwell, Suite 202
+                  {info.streetAddress}
                   <br />
-                  Milwaukee, WI 53211
+                  {info.cityStateZip}
                 </a>
               </div>
             </div>
@@ -323,12 +321,28 @@ export default function HomePage() {
             <div className="hours">
               <h2>Hours</h2>
               <div className="grid">
-                <div>Mon. &amp; Tue.</div>
-                <div>9AM to 5:30PM</div>
-                <div>Wed. &amp; Thu.</div>
-                <div>7AM to 3:30PM</div>
-                <div>Fri., Sat. &amp; Sun.</div>
-                <div>Closed</div>
+                {info.hours.map((item) => (
+                  <>
+                    <div>
+                      {item.days.map((day, index) => {
+                        const abbrDay = `${day.substring(0, 3)}.`;
+                        const { length } = item.days;
+                        if (length === 1 || index === length - 1) {
+                          return abbrDay;
+                        }
+                        if (index === length - 2) {
+                          return `${abbrDay} & `;
+                        }
+                        return `${abbrDay}, `;
+                      })}
+                    </div>
+                    <div>
+                      {item.timeOpen === item.timeClosed
+                        ? item.timeOpen
+                        : `${item.timeOpen} to ${item.timeClosed}`}
+                    </div>
+                  </>
+                ))}
               </div>
             </div>
           </div>
@@ -356,8 +370,8 @@ export default function HomePage() {
                     <p className="font-size-14">
                       If after hours, please leave a detailed voicemail.
                     </p>
-                    <a href="tel:1-414-962-5915" className="button">
-                      Call 414-962-5915
+                    <a href={`tel:1-${info.phoneNumber}`} className="button">
+                      Call {info.phoneNumber}
                     </a>
                   </div>
                   <div className="column">
@@ -368,7 +382,7 @@ export default function HomePage() {
                       Fill out and submit an online form with your information.
                     </p>
                     <Link to={appointmentUrl} className="button">
-                      Reservation form
+                      Request a Dentist Appointment
                     </Link>
                   </div>
                 </div>
@@ -383,9 +397,9 @@ export default function HomePage() {
                 Contact
               </h2>
               <p className="font-size-12 font-spacing-100">
-                414-962-5915
+                <a href={`tel:1-${info.phoneNumber}`}>{info.phoneNumber}</a>
                 <br />
-                office@dewandental.com
+                <a href={`mailto:${info.emailAddress}`}>{info.emailAddress}</a>
               </p>
             </div>
             <div className="divider" />
@@ -394,11 +408,15 @@ export default function HomePage() {
                 Location
               </h2>
               <p className="font-size-12 font-spacing-100">
-                DeWan Dental Wellness 2445 N. Farwell
-                <br />
-                Suite 202
-                <br />
-                Milwaukee, WI 53211
+                <a
+                  href="https://goo.gl/maps/bbWeEBpLvbZeGSej9"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {info.streetAddress}
+                  <br />
+                  {info.cityStateZip}
+                </a>
               </p>
             </div>
           </div>
@@ -409,18 +427,25 @@ export default function HomePage() {
               Hours
             </h2>
             <div className="row">
-              <p className="font-size-12 font-spacing-100 column">
-                <strong>Monday &amp; Tuesday:</strong>
-                9AM - 5:30PM
-              </p>
-              <p className="font-size-12 font-spacing-100 column">
-                <strong>Wednesday &amp; Thursday:</strong>
-                7AM - 5:30PM
-              </p>
-              <p className="font-size-12 font-spacing-100 column">
-                <strong>Friday, Saturday &amp; Sunday:</strong>
-                Closed
-              </p>
+              {info.hours.map((item) => (
+                <p className="font-size-12 font-spacing-100 column">
+                  <strong>
+                    {item.days.map((day, index) => {
+                      const { length } = item.days;
+                      if (length === 1 || index === length - 1) {
+                        return `${day}:`;
+                      }
+                      if (index === length - 2) {
+                        return `${day} & `;
+                      }
+                      return `${day}, `;
+                    })}
+                  </strong>
+                  {item.timeOpen === item.timeClosed
+                    ? item.timeOpen
+                    : `${item.timeOpen} to ${item.timeClosed}`}
+                </p>
+              ))}
             </div>
           </div>
         </HoursStyles>
@@ -445,9 +470,12 @@ export default function HomePage() {
           </p>
 
           <p>
-            To get started, request an appointment, call us at 414-962-5915, or
-            stop in to meet our professional wellness team and get acquainted
-            with our facility today.
+            To get started, request an appointment, call us at{' '}
+            <a className="underscore" href={`tel:1-${info.phoneNumber}`}>
+              {info.phoneNumber}
+            </a>
+            , or stop in to meet our professional wellness team and get
+            acquainted with our facility today.
           </p>
         </AboutStyles>
         <AboutImageStyles>
@@ -466,3 +494,32 @@ export default function HomePage() {
     </Layout>
   );
 }
+
+export const query = graphql`
+  query {
+    info: allSanityContactInfo {
+      nodes {
+        hours {
+          days
+          timeClosed
+          timeOpen
+        }
+        cityStateZip
+        emailAddress
+        phoneNumber
+        name
+        streetAddress
+      }
+    }
+    appointmentPage: sanityPage(
+      _id: { eq: "2b3048e1-41af-4bfa-859e-98b4ccab7907" }
+    ) {
+      slug {
+        current
+      }
+      navigation {
+        title
+      }
+    }
+  }
+`;

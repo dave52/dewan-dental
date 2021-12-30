@@ -1,18 +1,20 @@
 import createSchema from 'part:@sanity/base/schema-creator';
 import schemaTypes from 'all:part:@sanity/base/schema-type';
 
-import team from './team';
-import page from './page';
 import blockContent from './blockContent';
 import blockContentImage from './blockContentImage';
-import navigation from './navigation';
-import navigationGrandchildNav from './navigationGrandchildNav';
-import navigationChildNav from './navigationChildNav';
-import teamBio from './teamBio';
-import testimonials from './testimonials';
 import community from './community';
 import communityImages from './communityImages';
 import communityPartners from './communityPartners';
+import contactInfo from './contactInfo';
+import contactInfoHours from './contactInfoHours';
+import navigation from './navigation';
+import navigationGrandchildNav from './navigationGrandchildNav';
+import navigationChildNav from './navigationChildNav';
+import page from './page';
+import team from './team';
+import teamBio from './teamBio';
+import testimonials from './testimonials';
 
 export default createSchema({
   name: 'default',
@@ -22,6 +24,8 @@ export default createSchema({
     community,
     communityImages,
     communityPartners,
+    contactInfo,
+    contactInfoHours,
     navigation,
     navigationChildNav,
     navigationGrandchildNav,

@@ -145,8 +145,7 @@ const NavMobileStyles = styled.nav`
   .parent-nav {
     padding: 0;
     color: #ffffff;
-    font-size: 1.4rem;
-    letter-spacing: 0.05em;
+    width: 100%;
 
     a,
     button {
@@ -155,7 +154,11 @@ const NavMobileStyles = styled.nav`
       padding: 0;
       border: 0;
       background: 0;
-      line-height: 0.9;
+      font-size: 1.8rem;
+      text-align: left;
+      letter-spacing: 0.05em;
+      font-weight: bold;
+      line-height: 1.4;
       transition: transform 0.3s ease-out, opacity 0.3s ease;
     }
 
@@ -168,26 +171,39 @@ const NavMobileStyles = styled.nav`
       }
     }
 
+    & > li {
+      margin: 1rem 2.1rem;
+      padding: 0.5rem 0 1rem;
+      border-bottom: 4px solid #878ea8;
+
+      &:last-of-type {
+        border: 0;
+      }
+    }
+
     li {
       margin-left: 2.1rem;
-      padding: 0 1.1rem 0.8rem 0;
+      padding: 0 1.1rem 0.8rem 0.4rem;
 
       &.list-item-no-dot {
         list-style: none;
       }
 
       .child-nav {
-        font-size: 1.2rem;
-
         display: none;
         position: relative;
         margin-left: -2.5rem;
         margin: 1rem 0 0 -2.5rem;
-        padding-left: 2rem;
+        padding-left: 3rem;
 
         &.is-visible {
           display: flex;
           flex-direction: column;
+        }
+
+        a,
+        button {
+          font-size: 1.4rem;
         }
       }
 
@@ -210,11 +226,18 @@ const NavMobileStyles = styled.nav`
 `;
 
 const handleMenuClick = (event) => {
+  const menuLinks = document.querySelector('.mobile-nav').querySelectorAll('a');
   let buttonEl = event.target;
   if (event.target.tagName === 'SVG' || event.target.tagName === 'svg') {
     buttonEl = event.target.parentElement;
   }
+  menuLinks.forEach((link) =>
+    link.addEventListener('click', function () {
+      document.body.classList.remove('overflow-hidden');
+    })
+  );
   document.querySelector('.mobile-nav').classList.toggle('hidden');
+  document.body.classList.toggle('overflow-hidden');
   buttonEl.classList.toggle('is-x-icon');
 };
 

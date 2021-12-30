@@ -12,8 +12,12 @@ import bg from '../assets/images/background-paper-texture.jpg';
 
 const ContainerStyles = styled.main`
   display: flex;
-  min-height: calc(100vh - 9rem);
+  min-height: calc(100vh - 7.6rem);
   background: url(${bg});
+
+  @media (min-width: 68.75rem) {
+    min-height: calc(100vh - 9rem);
+  }
 
   @media (min-width: 100rem) {
     min-height: calc(100vh - 11rem - 1.8rem - 1.8rem);
@@ -26,16 +30,12 @@ const ContainerStyles = styled.main`
   .content-side-nav {
     flex-shrink: 0;
   }
-
-  /* .content-side-nav + .content {
-    margin: unset;
-  } */
 `;
 
-export default function Layout({ children }) {
+export default function Layout({ title, children }) {
   return (
     <Frame>
-      <TopHat />
+      <TopHat title={title} />
       <GlobalStyles />
       <ElementStyles />
       <FontStyles />

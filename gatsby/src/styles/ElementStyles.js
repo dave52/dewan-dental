@@ -25,6 +25,39 @@ const ElementStyles = createGlobalStyle`
             color: var(--button-background-color, var(--blue));
         }
     }
+
+    a.underscore {
+        z-index: 1;
+        position: relative;
+        overflow: hidden;
+        white-space: nowrap;
+        color: #4859be;
+        font-weight: 600;
+        transition: color 0.3s ease-out;
+
+        &::after {
+            content: '';
+            background: #d1d9f3;
+            position: absolute;
+            left: 4px;
+            bottom: -5px;
+            width: 100%;
+            height: calc(100% - 12px);
+            z-index: -1;
+            transition: 0.35s cubic-bezier(0.25, 0.1, 0, 2.05);
+        }
+
+        &:hover {
+            color: #581414;
+
+            :after {
+                left: -3px;
+                bottom: -3px;
+                width: calc(100% + 6px);
+                height: 106%;
+            }
+        }
+    }
 `;
 
 export default ElementStyles;

@@ -48,6 +48,10 @@ export default {
                 title: 'URL',
                 name: 'href',
                 type: 'url',
+                validation: (Rule) =>
+                  Rule.uri({
+                    scheme: ['http', 'https', 'mailto', 'tel'],
+                  }),
               },
             ],
           },
@@ -57,9 +61,10 @@ export default {
             title: 'Internal link',
             fields: [
               {
-                name: 'link',
-                type: 'url',
-                title: 'Link',
+                name: 'reference',
+                type: 'reference',
+                title: 'Page reference',
+                to: [{ type: 'page' }],
               },
             ],
           },

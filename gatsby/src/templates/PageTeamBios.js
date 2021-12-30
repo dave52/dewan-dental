@@ -1,4 +1,4 @@
-import { graphql } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
@@ -9,28 +9,64 @@ import BadgeAppointment from '../components/BadgeAppointment';
 import ContentSideNav from '../components/ContentSideNav';
 import sortNullishByProperty from '../utils/sortNullishByProperty';
 
-// https://blog.bitsrc.io/build-a-simple-modal-component-with-react-16decdc111a6
-
 const TeamStyles = styled.ul`
+  width: 100%;
+  max-width: 120rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 3rem;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 4rem;
+  padding: 0;
   list-style-type: none;
 
+  @media (min-width: 37.5rem) {
+    // 600px
+    gap: 3rem;
+  }
+
   li {
-    padding: 2rem;
+    flex: 0 1 13rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
     background: #fff;
-    border: 3px solid var(--cream);
-    border-radius: 2rem;
+    border: 3px solid #bdcbc1;
+    border-radius: 6px;
+
+    @media (min-width: 31.25rem) {
+      // 500px
+      flex: 0 1 15rem;
+    }
+
+    @media (min-width: 37.5rem) {
+      // 600px
+      padding: 2rem;
+      flex: 0 1 20rem;
+    }
   }
 
-  h2 {
-    margin: 0;
-  }
+  .text {
+    h2 {
+      margin: 0;
 
-  h3 {
-    margin: 0 0 2rem;
-    line-height: 1;
+      @media (max-width: 31.25rem) {
+        // 500px
+        font-size: 1.8rem;
+      }
+    }
+
+    h3 {
+      margin: 0 0 2rem;
+      line-height: 1;
+
+      @media (max-width: 31.25rem) {
+        // 500px
+        font-size: 1.1rem;
+      }
+    }
   }
 
   .bio {
@@ -47,18 +83,31 @@ const TeamStyles = styled.ul`
     flex-shrink: 0;
   }
 
+  .button {
+    display: inline-flex;
+    margin-top: 2rem;
+    padding: 1.5rem;
+
+    @media (max-width: 31.25rem) {
+      // 500px
+      font-size: 1.2rem;
+    }
+  }
+
   .is-hidden {
     display: none;
   }
 `;
 
-const toggleModal = function (e) {
-  e.target?.nextElementSibling.classList.toggle('is-hidden');
+const openModal = function (e) {
+  e.target?.nextElementSibling.classList.remove('is-hidden');
+  document.body.classList.add('overflow-hidden');
 };
 
 export default function PageTeamBios({ data, pageContext, location }) {
+  const orderedPeople = data.team.nodes.sort(sortNullishByProperty('order'));
   return (
-    <Layout>
+    <Layout title={pageContext.pageTitle}>
       {pageContext.pageTitle !== pageContext.parentTitle && (
         <ContentSideNav
           location={location}
@@ -67,18 +116,23 @@ export default function PageTeamBios({ data, pageContext, location }) {
         />
       )}
       <ContentComponent>
+        <h1>{pageContext.pageTitle}</h1>
         <TeamStyles>
-          {data.team.nodes.map((person) => (
+          {orderedPeople.map((person) => (
             <li className="font-color-blue" key={person.name}>
-              <h2 className="font-size-20 font-serif">{person.name}</h2>
-              <h3 className="font-size-14 font-weight-medium font-uppercase font-spacing-100">
-                {person.role}
-              </h3>
-              <Img className="photo" fluid={person.photo.asset.fluid} />
-              <button className="button" type="button" onClick={toggleModal}>
-                View bio
-              </button>
-              <ModalTeam person={person} />
+              <div className="text">
+                <h2 className="font-size-20 font-serif">{person.name}</h2>
+                <h3 className="font-size-14 font-weight-medium font-uppercase font-spacing-100">
+                  {person.role}
+                </h3>
+              </div>
+              <div className="photo-button-container">
+                <Img className="photo" fluid={person.photo.asset.fluid} />
+                <button className="button" type="button" onClick={openModal}>
+                  View bio
+                </button>
+                <ModalTeam person={person} />
+              </div>
             </li>
           ))}
         </TeamStyles>

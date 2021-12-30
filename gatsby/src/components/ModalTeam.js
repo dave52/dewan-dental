@@ -12,7 +12,7 @@ const ModalTeamStyles = styled.div`
   height: 100%;
   width: 100%;
   transition: opacity 0.5s ease, transform 1s ease;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background: var(--blue-50);
@@ -37,56 +37,63 @@ const ModalTeamStyles = styled.div`
     padding: 3rem;
     background: white;
     border-radius: 0.7rem;
+    scrollbar-width: auto;
+    scrollbar-color: var(--blue) #7e95b3;
+
+    &::-webkit-scrollbar {
+      width: var(--frame-size);
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #7e95b3;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--blue);
+    }
 
     // 600px
     @media (min-width: 37.5rem) {
       padding: 3rem 5rem;
     }
 
-    h1 {
-      // 600px
-      @media (max-width: 37.5rem) {
-        line-height: 1.3;
-        font-size: 2.4rem;
-      }
+    @media (min-width: 56.25rem) {
+      // 900px
+      max-width: 80rem;
     }
 
-    .grid-care {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 5rem;
-
-      // 600px
-      @media (min-width: 37.5rem) {
-        grid-template-columns: 1fr 18rem;
-      }
-
-      p {
-        margin-top: 0;
-        max-width: 75ch;
-
-        > p {
-          margin-top: 4rem;
-        }
-      }
-
-      img.care {
-        width: 100%;
-
-        // 600px
-        @media (max-width: 37.5rem) {
-          grid-area: 1/1;
-          width: 45%;
-          margin: 4rem auto 0;
-        }
-      }
+    h2,
+    h3 {
+      margin-top: 0;
     }
 
-    img.signature {
-      max-width: 20rem;
+    h2 {
+      margin: 0;
+    }
+
+    .photo-and-bio-container {
+      display: flex;
+      align-items: flex-start;
+
+      @media (max-width: 50rem) {
+        // 800px
+        flex-direction: column;
+        align-items: center;
+      }
+      .photo {
+        display: block;
+        margin-bottom: 3rem;
+
+        @media (min-width: 50rem) {
+          // 800px
+          margin-right: 3rem;
+        }
+      }
     }
 
     button {
+      position: sticky;
+      bottom: 0;
       margin-top: 2rem;
       justify-self: end;
       align-self: end;
@@ -96,9 +103,10 @@ const ModalTeamStyles = styled.div`
 
 const closeModal = (event) => {
   event.target.parentElement.parentElement.classList.add('is-hidden');
+  document.body.classList.remove('overflow-hidden');
 };
 
-export default function ModalTeam({ show, person }) {
+export default function ModalTeam({ person }) {
   return (
     <ModalTeamStyles className="modal is-hidden">
       <div className="modal-content-container">
@@ -106,7 +114,7 @@ export default function ModalTeam({ show, person }) {
         <h3 className="font-size-14 font-weight-medium font-uppercase font-spacing-100">
           {person.role}
         </h3>
-        <div className="row align-flex-start">
+        <div className="photo-and-bio-container">
           <Img className="photo" fluid={person.photo.asset.fluid} />
           <div className="bio">
             <BlockContent blocks={person._rawBio} />
@@ -118,26 +126,4 @@ export default function ModalTeam({ show, person }) {
       </div>
     </ModalTeamStyles>
   );
-  // if (show) {
-  //   return (
-  //     <ModalTeamStyles className={show ? '' : 'is-hidden'}>
-  //       <div className="modal-content-container">
-  //         <h2 className="font-size-20 font-serif">{person.name}</h2>
-  //         <h3 className="font-size-14 font-weight-medium font-uppercase font-spacing-100">
-  //           {person.role}
-  //         </h3>
-  //         <div className="row align-flex-start">
-  //           <Img className="photo" fluid={person.photo.asset.fluid} />
-  //           <div className="bio">
-  //             <BlockContent blocks={person._rawBio} />
-  //           </div>
-  //         </div>
-  //         <button className="button" type="button" onClick={closeModal}>
-  //           Close
-  //         </button>
-  //       </div>
-  //     </ModalTeamStyles>
-  //   );
-  // }
-  // return null;
 }

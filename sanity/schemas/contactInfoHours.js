@@ -5,25 +5,39 @@ export default {
   fields: [
     {
       title: 'Day(s)',
-      name: 'day',
-      type: 'string',
-      description:
-        'Can be a single day i.e. "Tue." or a range i.e. "Mon. - Wed."',
+      name: 'days',
+      type: 'array',
+      description: 'Add as many days as the hours apply to',
+      of: [
+        {
+          type: 'string',
+          title: 'Day of the week',
+          name: 'day',
+          description: 'Day written in long form, i.e. Wednesday',
+        },
+      ],
     },
     {
-      title: 'Hours',
-      name: 'hours',
+      title: 'Opening time',
+      name: 'timeOpen',
       type: 'string',
-      description: 'i.e. "8AM - 4:30PM"',
+      description: 'i.e. 8AM or Closed',
+    },
+    {
+      title: 'Closing time',
+      name: 'timeClosed',
+      type: 'string',
+      description: 'i.e. 5:30PM or Closed',
     },
   ],
   preview: {
     select: {
-      day: 'day',
-      hours: 'hours'
+      days: 'days',
+      timeOpen: 'timeOpen',
+      timeClosed: 'timeClosed',
     },
-    prepare: ({ day, hours }) => ({
-      title: `${day}: ${hours}`,
-    }
-  }),
+    prepare: ({ days, timeOpen, timeClosed }) => ({
+      title: `${days}: ${timeOpen} - ${timeClosed}`,
+    }),
+  },
 };

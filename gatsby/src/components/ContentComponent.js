@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 const MinimalContentStyles = css`
+  max-width: 100%;
   padding: 3rem 5rem;
   font-size: 1.6rem;
   color: var(--black);

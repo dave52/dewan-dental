@@ -50,9 +50,8 @@ const PageTestimonialsStyles = styled.ul`
 `;
 
 export default function PageTestimonials({ data, pageContext, location }) {
-  console.log(data.testimonials);
   return (
-    <Layout>
+    <Layout title={pageContext.pageTitle}>
       {pageContext.pageTitle !== pageContext.parentTitle && (
         <ContentSideNav
           location={location}
@@ -61,7 +60,7 @@ export default function PageTestimonials({ data, pageContext, location }) {
         />
       )}
       <ContentComponent>
-        <h1>{pageContext.title}</h1>
+        <h1>{pageContext.pageTitle}</h1>
         <PageTestimonialsStyles>
           {data.testimonials.nodes.map((testimonial, index) => (
             <li key={`${testimonial.name}-${index}`}>

@@ -25,7 +25,7 @@ const BadgeAppointmentStyles = styled.div`
   }
 
   @media (max-width: 68.6875rem) {
-    /* 1099px */
+    // 1099px
     display: none;
   }
 `;

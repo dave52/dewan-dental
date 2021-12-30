@@ -1,3 +1,4 @@
+import { graphql } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
 import BadgeAppointment from '../components/BadgeAppointment';
@@ -11,7 +12,7 @@ const PageNameStyles = styled.div`
 
 export default function PageName({ data, pageContext, location }) {
   return (
-    <Layout>
+    <Layout title={pageContext.pageTitle}>
       {pageContext.pageTitle !== pageContext.parentTitle && (
         <ContentSideNav
           location={location}
@@ -20,7 +21,7 @@ export default function PageName({ data, pageContext, location }) {
         />
       )}
       <ContentComponent>
-        <PageNameStyles>PageName</PageNameStyles>
+        <PageNameStyles>{pageContext.pageTitle}</PageNameStyles>
       </ContentComponent>
       <BadgeAppointment />
     </Layout>

@@ -18,7 +18,8 @@ const PageOurCommunityStyles = styled.div`
     grid-template-columns: auto;
     gap: 4rem;
 
-    @media (min-width: 1000px) {
+    @media (min-width: 62.5rem) {
+      // 1000px
       grid-template-columns: 1fr auto;
       gap: max(10vw, 20rem);
     }
@@ -37,7 +38,8 @@ const PageOurCommunityStyles = styled.div`
       color: var(--cream);
       font-size: 2rem;
 
-      @media (min-width: 1000px) {
+      @media (min-width: 62.5rem) {
+        // 1000px
         padding: 3rem 4rem;
         font-size: 2.4rem;
         margin: 10rem 0;
@@ -50,7 +52,8 @@ const PageOurCommunityStyles = styled.div`
     grid-template-columns: auto;
     gap: 4rem;
 
-    @media (min-width: 1000px) {
+    @media (min-width: 62.5rem) {
+      // 1000px
       grid-template-columns: 1fr 1fr;
       gap: max(10vw, 40rem);
 
@@ -71,7 +74,7 @@ const PageOurCommunityStyles = styled.div`
 
 export default function PageOurCommunity({ data, pageContext, location }) {
   return (
-    <Layout>
+    <Layout title={pageContext.pageTitle}>
       {pageContext.pageTitle !== pageContext.parentTitle && (
         <ContentSideNav
           location={location}
@@ -83,7 +86,7 @@ export default function PageOurCommunity({ data, pageContext, location }) {
         <PageOurCommunityStyles>
           <div className="intro">
             <div>
-              <h1>Our Community</h1>
+              <h1>{pageContext.pageTitle}</h1>
               <p>
                 We love Milwaukee's vibrant East Side community and our diverse
                 mix of residential and business neighbors. DeWan Dental Wellness
@@ -100,13 +103,13 @@ export default function PageOurCommunity({ data, pageContext, location }) {
             </div>
           </div>
           {data.comm.nodes.map((comm) => (
-            <div className="comm">
+            <div className="comm" key={comm.group}>
               <div className="text">
                 <h2>{comm.group}</h2>
                 <p>{comm.description}</p>
                 <ul>
                   {comm.partners.map((partner) => (
-                    <li>
+                    <li key={partner.title}>
                       <ConditionalWrapper
                         condition={!!partner.link}
                         wrapper={(children) => (
