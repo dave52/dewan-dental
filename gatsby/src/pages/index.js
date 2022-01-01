@@ -11,8 +11,10 @@ import stringToSlug from '../utils/slugify';
 const GridStyles = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  @media (min-width: 46.875rem) {
-    // 750px
+  background: var(--gray);
+
+  @media (min-width: 68.75rem) {
+    // 1100px
     grid-template-columns: 50% 50%;
   }
   gap: 1.8rem 0;
@@ -40,8 +42,8 @@ const GridStyles = styled.div`
         object-position: center;
       }
 
-      @media (max-width: 46.8125rem) {
-        // 749px
+      @media (max-width: 68.6875rem) {
+        // 1099px
         position: absolute;
         top: 0;
       }
@@ -92,8 +94,8 @@ const GridStyles = styled.div`
         }
       }
 
-      @media (min-width: 46.875rem) {
-        // 750px
+      @media (min-width: 68.75rem) {
+        // 1100px
         display: none;
       }
     }
@@ -353,13 +355,10 @@ export default function HomePage({ data }) {
               <h2 className="font-serif font-weight-semibold font-uppercase font-spacing-200">
                 Appointments
               </h2>
-              <h3 className="font-uppercase font-weight-medium font-spacing-150">
-                Information
-              </h3>
               <p className="info-text font-color-black font-size-17">
-                Depending on your needs, we can usually schedule a routine exam
-                and cleaning within two weeks. If you have an emergency, we will
-                see you as soon as possible.
+                For an appointment please call or fill out our online form, see
+                buttons below. We are welcome to serve both new and existing
+                patients!
               </p>
               <div className="banner-container-outer">
                 <div className="banner-container-inner font-color-cream-75">
@@ -470,7 +469,11 @@ export default function HomePage({ data }) {
           </p>
 
           <p>
-            To get started, request an appointment, call us at{' '}
+            To get started,{' '}
+            <Link className="underscore" to={appointmentUrl}>
+              request an appointment
+            </Link>
+            , call us at{' '}
             <a className="underscore" href={`tel:1-${info.phoneNumber}`}>
               {info.phoneNumber}
             </a>
