@@ -59,7 +59,7 @@ const BadgeAppointmentStyles = styled.div`
       justify-content: center;
       width: 4.5rem;
       height: 4.5rem;
-      margin-right: -2px;
+      margin-right: -3px;
       padding: 0.5rem;
       border: 2px solid #d7e1ef;
       border-radius: 50%;
