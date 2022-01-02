@@ -3,7 +3,6 @@
 .nav-desktop {
   z-index: 5;
   display: grid;
-  grid-template-columns: 1fr;
   position: sticky;
   top: 0;
   width: 100%;

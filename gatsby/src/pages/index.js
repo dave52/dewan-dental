@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { graphql, Link } from 'gatsby';
+import { StaticImage } from 'gatsby-plugin-image';
 import Layout from '../components/Layout';
-import ImgBuilding from '../assets/images/dewan-building-alt.jpg';
 import ImgWood from '../assets/images/background-wooden-slats.jpg';
-import ImgDeskPlants from '../assets/images/desk-plants.jpg';
-import ImgPatientCare from '../assets/images/patient-care.jpg';
 import stringToSlug from '../utils/slugify';
 
 const GridStyles = styled.div`
@@ -31,7 +29,7 @@ const GridStyles = styled.div`
       min-height: unset;
     }
 
-    img.dewan-building {
+    .dewan-building-image {
       object-fit: cover;
       object-position: left;
       width: 100%;
@@ -291,10 +289,11 @@ export default function HomePage({ data }) {
     <Layout title="Welcome">
       <GridStyles>
         <div className="building-img-container">
-          <img
-            src={ImgBuilding}
+          <StaticImage
+            src="../assets/images/dewan-building-alt.jpg"
             alt="Front of DeWan Dental's office, a building with a modernist design"
-            className="dewan-building"
+            className="dewan-building-image"
+            placeholder="blurred"
           />
           <div className="building-img-content-mobile">
             <Link className="button" to={appointmentUrl}>
@@ -482,14 +481,16 @@ export default function HomePage({ data }) {
           </p>
         </AboutStyles>
         <AboutImageStyles>
-          <img
+          <StaticImage
+            placeholder="blurred"
             className="img-desk-plants"
-            src={ImgDeskPlants}
+            src="../assets/images/desk-plants.jpg"
             alt="An orchid flower on the office front desk"
           />
-          <img
+          <StaticImage
+            placeholder="blurred"
             className="img-patient-care"
-            src={ImgPatientCare}
+            src="../assets/images/patient-care.jpg"
             alt="A patient receiving dental care"
           />
         </AboutImageStyles>
