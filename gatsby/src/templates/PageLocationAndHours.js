@@ -1,4 +1,5 @@
 import React from 'react';
+import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import ContentComponent from '../components/ContentComponent';
 import ContentSideNav from '../components/ContentSideNav';

@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
-import Img from 'gatsby-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import ModalTeam from '../components/ModalTeam';
 import Layout from '../components/Layout';
@@ -127,7 +127,10 @@ export default function PageTeamBios({ data, pageContext, location }) {
                 </h3>
               </div>
               <div className="photo-button-container">
-                <Img className="photo" fluid={person.photo.asset.fluid} />
+                <GatsbyImage
+                  image={person.photo.asset.gatsbyImageData}
+                  className="photo"
+                />
                 <button className="button" type="button" onClick={openModal}>
                   View bio
                 </button>
@@ -175,9 +178,7 @@ export const query = graphql`
         role
         photo {
           asset {
-            fluid(maxWidth: 200) {
-              ...GatsbySanityImageFluid
-            }
+            gatsbyImageData(width: 200)
           }
         }
         _rawBio

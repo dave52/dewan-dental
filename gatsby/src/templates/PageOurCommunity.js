@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import ContentComponent from '../components/ContentComponent';
 import ContentSideNav from '../components/ContentSideNav';
@@ -123,14 +123,15 @@ export default function PageOurCommunity({ data, pageContext, location }) {
                 </ul>
               </div>
               <div className="gallery">
-                <Img
+                <GatsbyImage
+                  image={comm.images[0].asset.gatsbyImageData}
                   className="image"
-                  fluid={comm.images[0].asset.fluid}
                   alt={comm.images[0].imageCaption}
                 />
               </div>
             </div>
           ))}
+          <div>fart</div>
         </PageOurCommunityStyles>
       </ContentComponent>
       <BadgeAppointment />
@@ -151,9 +152,7 @@ export const query = graphql`
         images {
           imageCaption
           asset {
-            fluid(maxWidth: 200) {
-              ...GatsbySanityImageFluid
-            }
+            gatsbyImageData(width: 200)
           }
         }
       }

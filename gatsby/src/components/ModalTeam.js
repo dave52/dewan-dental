@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import BlockContent from '@sanity/block-content-to-react';
-import Img from 'gatsby-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 
 const ModalTeamStyles = styled.div`
   display: flex;
@@ -115,7 +115,10 @@ export default function ModalTeam({ person }) {
           {person.role}
         </h3>
         <div className="photo-and-bio-container">
-          <Img className="photo" fluid={person.photo.asset.fluid} />
+          <GatsbyImage
+            image={person.photo.asset.gatsbyImageData}
+            className="photo"
+          />
           <div className="bio">
             <BlockContent blocks={person._rawBio} />
           </div>
