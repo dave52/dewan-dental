@@ -60,35 +60,43 @@ export default function ContactForm({ formName, textAreaLabel, textAreaName }) {
         // data-netlify-recaptcha="true"
         // action="/submission-success"
       >
-        <div className="no-show">
+        {/* <div className="no-show">
           <label htmlFor="butter-field">
             <div>day bow bow, oh yeahhhh</div>
-            <input name="butter-field" />
+            <input name="butter-field" id="butter-field" />
           </label>
-        </div>
+        </div> */}
         <label htmlFor="first-name">
           <div className="label">First name</div>
           <input name="first-name" id="first-name" type="text" required />
         </label>
         <label htmlFor="last-name">
           <div className="label">Last name</div>
-          <input id="last-name" type="text" required />
+          <input name="last-name" id="last-name" type="text" required />
         </label>
         <label htmlFor="phone-number">
           <div className="label">Phone number</div>
-          <input id="phone-number" type="tel" required />
+          <input name="phone-number" id="phone-number" type="tel" required />
         </label>
         <label htmlFor="email-address">
           <div className="label">Email address</div>
-          <input id="email-address" type="email" required />
+          <input
+            name="email-address"
+            id="email-address"
+            type="email"
+            required
+          />
         </label>
         <label htmlFor={textAreaName ?? 'any-additional-information'}>
           <div className="label">
             {textAreaLabel ?? 'Any additional information'}
           </div>
-          <textarea id={textAreaName ?? 'any-additional-information'} />
+          <textarea
+            name={textAreaName ?? 'any-additional-information'}
+            id={textAreaName ?? 'any-additional-information'}
+          />
         </label>
-        <div data-netlify-recaptcha="true" />
+        {/* <div data-netlify-recaptcha="true" /> */}
         <button type="submit" className="button">
           Submit
         </button>
