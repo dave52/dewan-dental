@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -53,34 +52,55 @@ const ContactFormStyles = styled.div`
 export default function ContactForm({ formName, textAreaLabel, textAreaName }) {
   return (
     <ContactFormStyles>
-      <form name="contact" method="POST" data-netlify="true">
-        <p>
-          <label>
-            Your Name: <input type="text" name="name" />
+      <form
+        name={formName}
+        method="POST"
+        netlify="true"
+        // data-netlify="true"
+        // netlify-honeypot="butter-field"
+        // data-netlify-recaptcha="true"
+        // action="/submission-success"
+      >
+        {/* <div className="no-show">
+          <label htmlFor="butter-field">
+            <div>day bow bow, oh yeahhhh</div>
+            <input name="butter-field" id="butter-field" />
           </label>
-        </p>
-        <p>
-          <label>
-            Your Email: <input type="email" name="email" />
-          </label>
-        </p>
-        <p>
-          <label>
-            Your Role:{' '}
-            <select name="role[]" multiple>
-              <option value="leader">Leader</option>
-              <option value="follower">Follower</option>
-            </select>
-          </label>
-        </p>
-        <p>
-          <label>
-            Message: <textarea name="message" />
-          </label>
-        </p>
-        <p>
-          <button type="submit">Send</button>
-        </p>
+        </div> */}
+        <label htmlFor="first-name">
+          <div className="label">First name</div>
+          <input name="first-name" id="first-name" type="text" required />
+        </label>
+        <label htmlFor="last-name">
+          <div className="label">Last name</div>
+          <input name="last-name" id="last-name" type="text" required />
+        </label>
+        <label htmlFor="phone-number">
+          <div className="label">Phone number</div>
+          <input name="phone-number" id="phone-number" type="tel" required />
+        </label>
+        <label htmlFor="email-address">
+          <div className="label">Email address</div>
+          <input
+            name="email-address"
+            id="email-address"
+            type="email"
+            required
+          />
+        </label>
+        <label htmlFor={textAreaName ?? 'any-additional-information'}>
+          <div className="label">
+            {textAreaLabel ?? 'Any additional information'}
+          </div>
+          <textarea
+            name={textAreaName ?? 'any-additional-information'}
+            id={textAreaName ?? 'any-additional-information'}
+          />
+        </label>
+        {/* <div data-netlify-recaptcha="true" /> */}
+        <button type="submit" className="button">
+          Submit
+        </button>
       </form>
     </ContactFormStyles>
   );
