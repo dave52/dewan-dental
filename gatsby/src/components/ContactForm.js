@@ -58,7 +58,7 @@ export default function ContactForm({ formName, textAreaLabel, textAreaName }) {
         data-netlify="true"
         // netlify-honeypot="butter-field"
         // data-netlify-recaptcha="true"
-        action="/submission-success"
+        // action="/submission-success"
       >
         <div className="no-show">
           <label htmlFor="butter-field">
