@@ -56,7 +56,7 @@ export default function PageContactUs({ data, pageContext, location }) {
           </a>
           <hr />
           <h2>Fill out our online form</h2>
-          <ContactForm />
+          <ContactForm formName="contact-us-form" />
           <hr />
           <h2>Email us</h2>
           <a

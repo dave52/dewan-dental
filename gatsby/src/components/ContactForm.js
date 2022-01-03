@@ -49,11 +49,11 @@ const ContactFormStyles = styled.div`
   }
 `;
 
-export default function ContactForm() {
+export default function ContactForm({ formName, textAreaLabel, textAreaName }) {
   return (
     <ContactFormStyles>
       <form
-        name="contact"
+        name={formName}
         method="POST"
         data-netlify="true"
         netlify-honeypot="butter-field"
@@ -82,9 +82,11 @@ export default function ContactForm() {
           <div className="label">Email address</div>
           <input id="email-address" type="email" required />
         </label>
-        <label htmlFor="preferred-times">
-          <div className="label">Days and times that work best for you</div>
-          <textarea id="preferred-times" />
+        <label htmlFor={textAreaName ?? 'any-additional-information'}>
+          <div className="label">
+            {textAreaLabel ?? 'Any additional information'}
+          </div>
+          <textarea id={textAreaName ?? 'any-additional-information'} />
         </label>
         <div data-netlify-recaptcha="true" />
         <button type="submit" className="button">

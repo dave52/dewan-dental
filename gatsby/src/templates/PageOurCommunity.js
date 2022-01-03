@@ -131,7 +131,6 @@ export default function PageOurCommunity({ data, pageContext, location }) {
               </div>
             </div>
           ))}
-          <div>fart</div>
         </PageOurCommunityStyles>
       </ContentComponent>
       <BadgeAppointment />

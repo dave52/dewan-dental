@@ -61,7 +61,11 @@ export default function PageRequestADentistAppointment({
           </a>
           <hr />
           <h2>Fill out our online form</h2>
-          <ContactForm />
+          <ContactForm
+            formName="request-appointment-form"
+            textAreaLabel="Days and times that work best for you"
+            textAreaName="preferred-times"
+          />
         </RequestAnAppointmentPageStyles>
       </ContentComponent>
     </Layout>
