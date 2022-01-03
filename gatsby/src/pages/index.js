@@ -287,7 +287,7 @@ export default function HomePage({ data }) {
   )}/${data.appointmentPage.slug.current}`;
   return (
     <Layout title="Welcome">
-      <form name="contact" method="POST" data-netlify="true">
+      <form name="contact" method="POST" data-netlify="true" action="/">
         <p>
           <label>
             Your Name: <input type="text" name="name" />
