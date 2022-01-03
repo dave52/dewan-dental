@@ -55,7 +55,8 @@ export default function ContactForm({ formName, textAreaLabel, textAreaName }) {
       <form
         name={formName}
         method="POST"
-        data-netlify="true"
+        netlify="true"
+        // data-netlify="true"
         // netlify-honeypot="butter-field"
         // data-netlify-recaptcha="true"
         // action="/submission-success"
