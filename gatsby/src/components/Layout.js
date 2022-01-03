@@ -40,7 +40,7 @@ export default function Layout({ title, children }) {
       <ElementStyles />
       <FontStyles />
       <Nav />
-      <Splash />
+      {/* <Splash /> */}
       <ContainerStyles>{children}</ContainerStyles>
     </Frame>
   );
