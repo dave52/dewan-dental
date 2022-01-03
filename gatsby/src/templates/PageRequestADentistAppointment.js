@@ -62,7 +62,7 @@ export default function PageRequestADentistAppointment({
           <hr />
           <h2>Fill out our online form</h2>
           <ContactForm
-            formName="request-appointment-form"
+            formName="Appointment"
             textAreaLabel="Days and times that work best for you"
             textAreaName="preferred-times"
           />
