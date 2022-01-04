@@ -43,10 +43,6 @@ const ContactFormStyles = styled.div`
       }
     }
   }
-
-  .no-show {
-    display: none;
-  }
 `;
 
 export default function ContactForm({ formName, textAreaLabel, textAreaName }) {
@@ -56,23 +52,9 @@ export default function ContactForm({ formName, textAreaLabel, textAreaName }) {
         name={formName}
         method="POST"
         data-netlify="true"
-        // netlify-honeypot="butter-field"
-        // data-netlify-recaptcha="true"
         action="/submission-success"
-        id="netlify-form"
       >
-        <input
-          id="netlify-form-subject"
-          type="hidden"
-          name="form-name"
-          value={formName}
-        />
-        {/* <div className="no-show">
-          <label htmlFor="butter-field">
-            <div>day bow bow, oh yeahhhh</div>
-            <input name="butter-field" id="butter-field" />
-          </label>
-        </div> */}
+        <input type="hidden" name="form-name" value={formName} />
         <label htmlFor="first-name">
           <div className="label">First name</div>
           <input name="first-name" id="first-name" type="text" required />
@@ -103,7 +85,6 @@ export default function ContactForm({ formName, textAreaLabel, textAreaName }) {
             id={textAreaName ?? 'any-additional-information'}
           />
         </label>
-        {/* <div data-netlify-recaptcha="true" /> */}
         <button type="submit" className="button">
           Submit
         </button>
