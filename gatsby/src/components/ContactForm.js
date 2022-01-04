@@ -49,33 +49,6 @@ const ContactFormStyles = styled.div`
   }
 `;
 
-const handleFormSubmission = (e) => {
-  e.preventDefault();
-  console.log(e);
-  const formEl = document.getElementById('netlify-form');
-  const form = new FormData(formEl);
-  const subjectEl = document.getElementById('netlify-form-subject');
-  const firstName = form.get('first-name');
-  const lastName = form.get('last-name');
-  const emailAddress = form.get('email-address');
-  console.log(form);
-  console.log(form.get('first-name'));
-  console.log(form.get('last-name'));
-  // formEl.setAttribute(
-  //   'subject',
-  //   `${formEl.getAttribute(
-  //     'subject'
-  //   )}: ${firstName} ${lastName}, ${emailAddress}`
-  // );
-  console.dir(subjectEl);
-  subjectEl.value += ` form: ${firstName} ${lastName}, ${emailAddress}`;
-  console.log(formEl);
-  console.dir(formEl);
-  console.dir(form);
-  console.dir(subjectEl);
-  formEl.submit();
-};
-
 export default function ContactForm({ formName, textAreaLabel, textAreaName }) {
   return (
     <ContactFormStyles>
@@ -94,7 +67,6 @@ export default function ContactForm({ formName, textAreaLabel, textAreaName }) {
           name="form-name"
           value={formName}
         />
-        <input type="hidden" name="subject" value={`${formName} form`} />
         {/* <div className="no-show">
           <label htmlFor="butter-field">
             <div>day bow bow, oh yeahhhh</div>
@@ -132,7 +104,7 @@ export default function ContactForm({ formName, textAreaLabel, textAreaName }) {
           />
         </label>
         {/* <div data-netlify-recaptcha="true" /> */}
-        <button type="submit" className="button" onClick={handleFormSubmission}>
+        <button type="submit" className="button">
           Submit
         </button>
       </form>
