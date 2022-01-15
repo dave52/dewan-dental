@@ -7,6 +7,7 @@ import ContentSideNav from '../components/ContentSideNav';
 import Layout from '../components/Layout';
 import ConditionalWrapper from '../components/ConditionalWrapper';
 import BadgeAppointment from '../components/BadgeAppointment';
+import ImageCarousel from '../components/ImageCarousel';
 
 const PageOurCommunityStyles = styled.div`
   max-width: 120rem;
@@ -33,6 +34,7 @@ const PageOurCommunityStyles = styled.div`
       display: inline-flex;
       align-self: flex-start;
       justify-self: center;
+      text-align: center;
       padding: 2rem 3rem;
       background: var(--blue);
       color: var(--cream);
@@ -67,12 +69,19 @@ const PageOurCommunityStyles = styled.div`
     .gallery {
       width: 100%;
       max-width: 30rem;
-      margin: 2rem auto 0;
+      max-height: 30rem;
+      margin: 3rem auto;
+
+      .full-height {
+        height: 100%;
+        max-height: 30rem;
+      }
     }
   }
 `;
 
 export default function PageOurCommunity({ data, pageContext, location }) {
+  console.log(data.comm.nodes);
   return (
     <Layout title={pageContext.pageTitle}>
       {pageContext.pageTitle !== pageContext.parentTitle && (
@@ -123,11 +132,20 @@ export default function PageOurCommunity({ data, pageContext, location }) {
                 </ul>
               </div>
               <div className="gallery">
-                <GatsbyImage
-                  image={comm.images[0].asset.gatsbyImageData}
-                  className="image"
-                  alt={comm.images[0].imageCaption}
-                />
+                <ImageCarousel>
+                  {comm.images.map((image) => (
+                    <div className="full-height">
+                      <GatsbyImage
+                        className="full-height"
+                        key={image.imageCaption}
+                        image={image.asset.gatsbyImageData}
+                        alt={image.imageCaption}
+                        objectPosition={image.objectPosition}
+                      />
+                      <p className="legend">{image.imageCaption}</p>
+                    </div>
+                  ))}
+                </ImageCarousel>
               </div>
             </div>
           ))}
@@ -150,8 +168,9 @@ export const query = graphql`
         }
         images {
           imageCaption
+          imagePosition
           asset {
-            gatsbyImageData(width: 200)
+            gatsbyImageData(placeholder: BLURRED)
           }
         }
       }

@@ -488,6 +488,7 @@ export default function HomePage({ data }) {
             alt="An orchid flower on the office front desk"
           />
           <StaticImage
+            quality={100}
             placeholder="blurred"
             className="img-patient-care"
             src="../assets/images/patient-care.jpg"

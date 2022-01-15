@@ -55,17 +55,25 @@ export default function ContactForm({ formName, textAreaLabel, textAreaName }) {
         action="/submission-success"
       >
         <input type="hidden" name="form-name" value={formName} />
-        <label htmlFor="first-name">
-          <div className="label">First name</div>
-          <input name="first-name" id="first-name" type="text" required />
-        </label>
-        <label htmlFor="last-name">
-          <div className="label">Last name</div>
-          <input name="last-name" id="last-name" type="text" required />
+        <label htmlFor="patient-name">
+          <div className="label">First & last name</div>
+          <input
+            name="patient-name"
+            id="patient-name"
+            type="text"
+            placeholder="i.e. Eleanor Rigby"
+            required
+          />
         </label>
         <label htmlFor="phone-number">
           <div className="label">Phone number</div>
-          <input name="phone-number" id="phone-number" type="tel" required />
+          <input
+            name="phone-number"
+            id="phone-number"
+            type="tel"
+            placeholder="i.e. 414-221-3809"
+            required
+          />
         </label>
         <label htmlFor="email-address">
           <div className="label">Email address</div>
@@ -73,6 +81,7 @@ export default function ContactForm({ formName, textAreaLabel, textAreaName }) {
             name="email-address"
             id="email-address"
             type="email"
+            placeholder="i.e. smile@gmail.com"
             required
           />
         </label>
@@ -83,6 +92,7 @@ export default function ContactForm({ formName, textAreaLabel, textAreaName }) {
           <textarea
             name={textAreaName ?? 'any-additional-information'}
             id={textAreaName ?? 'any-additional-information'}
+            placeholder="Drop us note :)..."
           />
         </label>
         <button type="submit" className="button">

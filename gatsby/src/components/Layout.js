@@ -13,7 +13,7 @@ import bg from '../assets/images/background-paper-texture.jpg';
 const ContainerStyles = styled.main`
   display: flex;
   min-height: calc(100vh - 7.6rem);
-  background: url(${bg});
+  background: #fafafa url(${bg});
 
   @media (min-width: 68.75rem) {
     min-height: calc(100vh - 9rem);
@@ -40,7 +40,7 @@ export default function Layout({ title, children }) {
       <ElementStyles />
       <FontStyles />
       <Nav />
-      {/* <Splash /> */}
+      <Splash />
       <ContainerStyles>{children}</ContainerStyles>
     </Frame>
   );
