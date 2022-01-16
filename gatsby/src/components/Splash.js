@@ -78,11 +78,17 @@ const handleCloseModal = () => {
   setCovidAgreement();
 };
 
+const failSafeOpen = () => {
+  console.log('failSafeOpen');
+  setTimeout(handleOnAnimationEnd, 12000);
+};
+
 export default function Splash() {
   if (!isSustainedSession() || !hasAgreed()) {
     if (isBrowser) {
       document?.body.classList.toggle('overflow-hidden');
     }
+    failSafeOpen();
     return (
       <ContainerStyles className="splash">
         <SplashLogo onAnimationEnd={handleOnAnimationEnd} />
