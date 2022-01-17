@@ -2,20 +2,12 @@ import React from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import styled from 'styled-components';
-import Img1 from '../assets/images/image-carousel-1.svg';
-import Img2 from '../assets/images/image-carousel-2.svg';
-import Img3 from '../assets/images/image-carousel-3.svg';
-import Img4 from '../assets/images/image-carousel-4.svg';
-import Img5 from '../assets/images/image-carousel-5.svg';
 
 const ImageCarouselStyles = styled.div`
   display: flex;
-  /* height: 100%; */
 
   .carousel .slide img {
-    /* height: 100%; */
     border-radius: 8px;
-    /* object-fit: cover; */
   }
   .carousel .control-arrow:before,
   .carousel.carousel-slider .control-arrow:before {
@@ -62,26 +54,6 @@ export default function ImageCarousel({
         interval={interval ?? 6660}
       >
         {children}
-        {/* <div>
-          <img src={Img1} alt="who cares" />
-          <p className="legend">Legend 1</p>
-        </div>
-        <div>
-          <img src={Img2} alt="who cares" />
-          <p className="legend">Legend 2</p>
-        </div>
-        <div>
-          <img src={Img3} alt="who cares" />
-          <p className="legend">Legend 3</p>
-        </div>
-        <div>
-          <img src={Img4} alt="who cares" />
-          <p className="legend">Legend 4</p>
-        </div>
-        <div>
-          <img src={Img5} alt="who cares" />
-          <p className="legend">Legend 5</p>
-        </div> */}
       </Carousel>
     </ImageCarouselStyles>
   );

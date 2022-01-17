@@ -1,16 +1,11 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
+import { StaticImage } from 'gatsby-plugin-image';
 import ContentComponent from '../components/ContentComponent';
 import ContentSideNav from '../components/ContentSideNav';
 import Layout from '../components/Layout';
-import imgMap from '../assets/images/location-google-maps.jpg';
 import BadgeAppointment from '../components/BadgeAppointment';
-
-// urls
-// https://maps.googleapis.com/maps/api/staticmap?center=dewandentalwellness&zoom=17&size=400x400&key=AIzaSyBT7TwQd69gZXXKcxIY-U1Rs5uIzmIEUZ0
-// https://developers.google.com/maps/documentation/maps-static/start
-// https://developers.google.com/maps/documentation/javascript/overview?hl=en_US#maps_map_simple-html
 
 const PageLocationAndHoursStyles = styled.div`
   display: grid;
@@ -88,12 +83,6 @@ const PageLocationAndHoursStyles = styled.div`
         box-shadow: 0px 3px 8px #16457fbb;
       }
     }
-
-    img {
-      width: 100%;
-      max-width: 50rem;
-      height: 100%;
-    }
   }
 `;
 
@@ -161,7 +150,11 @@ export default function PageLocationAndHours({ data, pageContext, location }) {
               target="_blank"
               rel="noreferrer"
             >
-              <img src={imgMap} alt="Map view of Dewan Dental's location" />
+              <StaticImage
+                placeholder="blurred"
+                src="../assets/images/location-google-maps.jpg"
+                alt="Map view of Dewan Dental's location"
+              />
             </a>
           </div>
           <div className="directions">

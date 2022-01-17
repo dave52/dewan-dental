@@ -322,8 +322,8 @@ export default function HomePage({ data }) {
             <div className="hours">
               <h2>Hours</h2>
               <div className="grid">
-                {info.hours.map((item) => (
-                  <>
+                {info.hours.map((item, i) => (
+                  <React.Fragment key={`${item}-${i}`}>
                     <div>
                       {item.days.map((day, index) => {
                         const abbrDay = `${day.substring(0, 3)}.`;
@@ -342,7 +342,7 @@ export default function HomePage({ data }) {
                         ? item.timeOpen
                         : `${item.timeOpen} to ${item.timeClosed}`}
                     </div>
-                  </>
+                  </React.Fragment>
                 ))}
               </div>
             </div>
@@ -425,8 +425,11 @@ export default function HomePage({ data }) {
               Hours
             </h2>
             <div className="row">
-              {info.hours.map((item) => (
-                <p className="font-size-12 font-spacing-100 column">
+              {info.hours.map((item, i) => (
+                <p
+                  className="font-size-12 font-spacing-100 column"
+                  key={`${item}=${i}`}
+                >
                   <strong>
                     {item.days.map((day, index) => {
                       const { length } = item.days;

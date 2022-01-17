@@ -81,7 +81,6 @@ const PageOurCommunityStyles = styled.div`
 `;
 
 export default function PageOurCommunity({ data, pageContext, location }) {
-  console.log(data.comm.nodes);
   return (
     <Layout title={pageContext.pageTitle}>
       {pageContext.pageTitle !== pageContext.parentTitle && (
@@ -111,8 +110,8 @@ export default function PageOurCommunity({ data, pageContext, location }) {
               Your health means the world to us.
             </div>
           </div>
-          {data.comm.nodes.map((comm) => (
-            <div className="comm" key={comm.group}>
+          {data.comm.nodes.map((comm, i) => (
+            <div className="comm" key={`${comm.group}-${i}`}>
               <div className="text">
                 <h2>{comm.group}</h2>
                 <p>{comm.description}</p>
@@ -133,8 +132,8 @@ export default function PageOurCommunity({ data, pageContext, location }) {
               </div>
               <div className="gallery">
                 <ImageCarousel>
-                  {comm.images.map((image) => (
-                    <div className="full-height">
+                  {comm.images.map((image, i) => (
+                    <div className="full-height" key={`commImgz-${i}`}>
                       <GatsbyImage
                         className="full-height"
                         key={image.imageCaption}

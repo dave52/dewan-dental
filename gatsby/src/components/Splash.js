@@ -79,7 +79,6 @@ const handleCloseModal = () => {
 };
 
 const failSafeOpen = () => {
-  console.log('failSafeOpen');
   setTimeout(handleOnAnimationEnd, 12000);
 };
 

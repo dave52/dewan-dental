@@ -35,9 +35,9 @@ export default function PageRequestADentistAppointment({
         <RequestAnAppointmentPageStyles>
           <h1>{pageContext.pageTitle}</h1>
           <p>
-            Depending on your needs, we can usually schedule a routine exam and
-            cleaning within two weeks. If you have a dental emergency, or want
-            to speak with a member of our front office team, call us today at{' '}
+            We will schedule your appointment as soon as possible. If you have a
+            dental emergency, or want to speak with a member of our front office
+            team, call us today at{' '}
             <a href={`tel:1-${info.phoneNumber}`}>{info.phoneNumber}</a>.
           </p>
           <p>

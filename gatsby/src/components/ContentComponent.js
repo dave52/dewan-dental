@@ -11,6 +11,8 @@ const MinimalContentStyles = css`
   // 1100px
   @media (min-width: 68.75rem) {
     padding: 3rem 7rem;
+    // account for sidenav width 30rem
+    max-width: calc(100% - 30rem);
   }
 
   // 1600px
@@ -64,6 +66,7 @@ const FullContentStyles = css`
 
   a:not(.no-underscore) {
     z-index: 1;
+    display: inline;
     position: relative;
     overflow: hidden;
     white-space: nowrap;

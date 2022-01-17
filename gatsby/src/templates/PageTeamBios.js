@@ -20,10 +20,9 @@ const TeamStyles = styled.div`
       grid-template-columns: 60ch 1fr;
     }
 
-    /* @media (min-width: 1400px) {
-      gap: 6rem;
-      grid-template-columns: min(66%, 60ch) 1fr;
-    } */
+    .mission-statement {
+      line-height: 1.4;
+    }
 
     .img-wrapper {
       width: 100%;
@@ -39,12 +38,8 @@ const TeamStyles = styled.div`
   ul {
     --bio-card-width: 20rem;
     width: 100%;
-    /* max-width: 120rem; */
-    /* display: flex; */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(var(--bio-card-width), 1fr));
-    /* flex-wrap: wrap; */
-    /* justify-content: center; */
     gap: 1.5rem;
     margin: 4rem auto 0;
     padding: 0;
@@ -64,7 +59,6 @@ const TeamStyles = styled.div`
   }
 
   li {
-    /* flex: 0 1 13rem; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -74,15 +68,9 @@ const TeamStyles = styled.div`
     border: 3px solid var(--gray);
     border-radius: 6px;
 
-    @media (min-width: 31.25rem) {
-      // 500px
-      /* flex: 0 1 15rem; */
-    }
-
     @media (min-width: 37.5rem) {
       // 600px
       padding: 2rem;
-      /* flex: 0 1 20rem; */
     }
   }
 
@@ -160,7 +148,7 @@ export default function PageTeamBios({ data, pageContext, location }) {
           <h1>{pageContext.pageTitle}</h1>
           <div className="intro">
             <div>
-              <p className="font-size-20 font-color-blue font-serif">
+              <p className="mission-statement font-size-20 font-color-blue font-serif">
                 Your health means the world to us. <br />
                 We value your commitment to lifelong dental health and pledge
                 ourselves to caring for you.
@@ -196,11 +184,12 @@ export default function PageTeamBios({ data, pageContext, location }) {
                   <GatsbyImage
                     image={person.photo.asset.gatsbyImageData}
                     className="photo"
+                    alt={`Photo of ${person.name}`}
                   />
                   <button className="button" type="button" onClick={openModal}>
                     View bio
                   </button>
-                  <ModalTeam person={person} />
+                  <ModalTeam person={person} data={data} />
                 </div>
               </li>
             ))}
@@ -216,6 +205,24 @@ export const query = graphql`
   query ($parentTitle: String!, $slug: String!) {
     page: sanityPage(slug: { current: { eq: $slug } }) {
       _rawContent
+    }
+    allPages: allSanityPage {
+      nodes {
+        _id
+        title
+        slug {
+          current
+        }
+        navigation {
+          title
+          childNav {
+            title
+            grandchildNav {
+              title
+            }
+          }
+        }
+      }
     }
     navigation: sanityNavigation(title: { eq: $parentTitle }) {
       title

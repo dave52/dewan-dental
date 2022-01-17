@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import BlockContent from '@sanity/block-content-to-react';
 import { GatsbyImage } from 'gatsby-plugin-image';
+import serializer from '../utils/serializer';
 
 const ModalTeamStyles = styled.div`
   display: flex;
@@ -52,8 +53,8 @@ const ModalTeamStyles = styled.div`
       background: var(--blue);
     }
 
-    // 600px
     @media (min-width: 37.5rem) {
+      // 600px
       padding: 3rem 5rem;
     }
 
@@ -94,7 +95,7 @@ const ModalTeamStyles = styled.div`
     button {
       position: sticky;
       bottom: 0;
-      margin-top: 2rem;
+      margin: 2rem 0 0 auto;
       justify-self: end;
       align-self: end;
     }
@@ -106,7 +107,7 @@ const closeModal = (event) => {
   document.body.classList.remove('overflow-hidden');
 };
 
-export default function ModalTeam({ person }) {
+export default function ModalTeam({ data, person }) {
   return (
     <ModalTeamStyles className="modal is-hidden">
       <div className="modal-content-container">
@@ -118,9 +119,13 @@ export default function ModalTeam({ person }) {
           <GatsbyImage
             image={person.photo.asset.gatsbyImageData}
             className="photo"
+            alt={`Photo of ${person.name}`}
           />
           <div className="bio">
-            <BlockContent blocks={person._rawBio} />
+            <BlockContent
+              blocks={person._rawBio}
+              serializers={serializer(data)}
+            />
           </div>
         </div>
         <button className="button" type="button" onClick={closeModal}>
