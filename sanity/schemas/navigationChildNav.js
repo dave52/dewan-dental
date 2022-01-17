@@ -25,9 +25,4 @@ export default {
       of: [{ type: 'navigation.grandchildNav' }],
     },
   ],
-  // preview: {
-  //   select: {
-  //     title: 'page.title',
-  //   },
-  // },
 };
