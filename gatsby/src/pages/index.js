@@ -355,9 +355,8 @@ export default function HomePage({ data }) {
                 Appointments
               </h2>
               <p className="info-text font-color-black font-size-17">
-                For an appointment please call or fill out our online form, see
-                buttons below. We are welcome to serve both new and existing
-                patients!
+                For an appointment please call or fill out our online form
+                below. We are welcoming both new and existing patients!
               </p>
               <div className="banner-container-outer">
                 <div className="banner-container-inner font-color-cream-75">

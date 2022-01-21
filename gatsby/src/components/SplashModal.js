@@ -30,23 +30,18 @@ const SplashModalStyles = styled.div`
     padding: 3rem;
     background: white;
     border-radius: 0.7rem;
+    scrollbar-color: #9494a4 #f4f4f6;
+    scrollbar-width: thin;
 
-    @supports (scrollbar-width: thin) {
-      scrollbar-color: #9494a4 #f4f4f6;
-      scrollbar-width: thin;
+    &::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+      background-color: #f4f4f6;
     }
 
-    @supports not (scrollbar-width: thin) {
-      &::-webkit-scrollbar {
-        width: 7px;
-        height: 7px;
-        background-color: #f4f4f6;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: #9494a4;
-        border-radius: 10px;
-      }
+    &::-webkit-scrollbar-thumb {
+      background-color: #9494a4;
+      border-radius: 10px;
     }
 
     // 600px
