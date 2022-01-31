@@ -31,7 +31,7 @@ const ElementStyles = createGlobalStyle`
         position: relative;
         overflow: hidden;
         white-space: nowrap;
-        color: #4859be;
+        color: #12465e;
         font-weight: 600;
         transition: color 0.3s ease-out;
 

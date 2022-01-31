@@ -73,7 +73,49 @@ export default function PageContactUs({ data, pageContext, location }) {
 }
 
 export const query = graphql`
-  query {
+  query ($parentTitle: String!, $slug: String!) {
+    page: sanityPage(slug: { current: { eq: $slug } }) {
+      _rawContent
+    }
+    allPages: allSanityPage {
+      nodes {
+        _id
+        title
+        slug {
+          current
+        }
+        navigation {
+          title
+          childNav {
+            title
+            grandchildNav {
+              title
+            }
+          }
+        }
+      }
+    }
+    navigation: sanityNavigation(title: { eq: $parentTitle }) {
+      title
+      childNav {
+        title
+        page {
+          title
+          slug {
+            current
+          }
+        }
+        grandchildNav {
+          title
+          page {
+            title
+            slug {
+              current
+            }
+          }
+        }
+      }
+    }
     info: allSanityContactInfo {
       nodes {
         hours {

@@ -12,62 +12,62 @@ const PageLocationAndHoursStyles = styled.div`
   grid-template-columns: 1fr;
   grid-template-areas:
     'header'
+    'location'
+    'hours'
     'map'
-    'directions'
-    'parking';
-  gap: 3rem 5rem;
+    'directions';
+  gap: 4rem;
+  margin-bottom: 3rem;
 
   @media (min-width: 68.75rem) {
     // 1100px
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       'header header'
-      'directions map'
-      'parking .';
+      'location hours'
+      'directions map';
+  }
+
+  .tile {
+    padding: 4rem;
+    border: 1px solid var(--blue);
+    background: #fff4ee;
+    border-radius: 4px;
+
+    h2 {
+      margin-top: 0;
+    }
   }
 
   .header {
     grid-area: header;
+  }
 
-    .header-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 5rem;
-      font-size: 1.8rem;
+  .location {
+    grid-area: location;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem 3rem;
+  }
 
-      @media (min-width: 45rem) {
-        // 720px
-        grid-template-columns: 1fr 1fr;
-      }
+  .hours {
+    grid-area: hours;
+    display: inline-grid;
+    grid-template-columns: auto 1fr;
+    gap: 0rem 3rem;
 
-      .location {
-        display: inline-grid;
-        grid-template-columns: 1fr;
-        gap: 1rem 3rem;
-      }
-
-      .hours {
-        display: inline-grid;
-        grid-template-columns: auto 1fr;
-        gap: 0rem 3rem;
-
-        h2 {
-          grid-column: span 2;
-        }
-      }
+    h2 {
+      grid-column: span 2;
     }
   }
   .directions {
     grid-area: directions;
   }
-  .parking {
-    grid-area: parking;
-  }
   .map {
     grid-area: map;
     align-self: start;
     justify-self: center;
-    margin: 3rem 0;
 
     @media (min-width: 68.75rem) {
       // 1100px
@@ -99,50 +99,48 @@ export default function PageLocationAndHours({ data, pageContext, location }) {
       )}
       <ContentComponent>
         <PageLocationAndHoursStyles>
-          <div className="header">
-            <h1>{pageContext.pageTitle}</h1>
-            <div className="header-grid">
-              <div>
-                <h2>Location</h2>
-                <div>{info.name}</div>
-                <div>{info.streetAddress}</div>
-                <div>{info.cityStateZip}</div>
-                <a
-                  href="https://goo.gl/maps/bbWeEBpLvbZeGSej9"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underscore"
-                >
-                  Location on Google Maps
-                </a>
-              </div>
-              <div className="hours">
-                <h2>Hours</h2>
-                {info.hours.map((item) => (
-                  <>
-                    <div>
-                      {item.days.map((day, index) => {
-                        const abbrDay = `${day.substring(0, 3)}.`;
-                        const { length } = item.days;
-                        if (length === 1 || index === length - 1) {
-                          return abbrDay;
-                        }
-                        if (index === length - 2) {
-                          return `${abbrDay} & `;
-                        }
-                        return `${abbrDay}, `;
-                      })}
-                    </div>
-                    <div>
-                      {item.timeOpen === item.timeClosed
-                        ? item.timeOpen
-                        : `${item.timeOpen} to ${item.timeClosed}`}
-                    </div>
-                  </>
-                ))}
-                <div>&nbsp;</div>
-              </div>
+          <h1 className="header">{pageContext.pageTitle}</h1>
+          <div className="location tile">
+            <h2>Location</h2>
+            <div>{info.name}</div>
+            <div>{info.streetAddress}</div>
+            <div>{info.cityStateZip}</div>
+            <div>
+              <a
+                href="https://goo.gl/maps/bbWeEBpLvbZeGSej9"
+                target="_blank"
+                rel="noreferrer"
+                className="underscore"
+              >
+                Location on Google Maps
+              </a>
             </div>
+          </div>
+          <div className="hours tile">
+            <h2>Hours</h2>
+            {info.hours.map((item) => (
+              <>
+                <div>
+                  {item.days.map((day, index) => {
+                    const abbrDay = `${day.substring(0, 3)}.`;
+                    const { length } = item.days;
+                    if (length === 1 || index === length - 1) {
+                      return abbrDay;
+                    }
+                    if (index === length - 2) {
+                      return `${abbrDay} & `;
+                    }
+                    return `${abbrDay}, `;
+                  })}
+                </div>
+                <div>
+                  {item.timeOpen === item.timeClosed
+                    ? item.timeOpen
+                    : `${item.timeOpen} to ${item.timeClosed}`}
+                </div>
+              </>
+            ))}
+            <div>&nbsp;</div>
           </div>
           <div className="map">
             <a
@@ -157,42 +155,18 @@ export default function PageLocationAndHours({ data, pageContext, location }) {
               />
             </a>
           </div>
-          <div className="directions">
-            <h2>Directions</h2>
-            Our dentist office is located in Milwaukee two blocks north of North
-            Avenue, one block north of Whole Foods and across the street from
-            Maryland Avenue School and the Citgo station. Farwell is a one-way
-            street heading south.
-            <ul>
-              <li>
-                From the University of Wisconsin–Milwaukee: Take Maryland Avenue
-                south until it turns into Farwell Avenue.
-              </li>
-              <li>
-                From Lincoln Memorial Drive: Take Water Tower Road to North
-                Avenue. Turn right on Prospect and veer left on Maryland.
-              </li>
-              <li>
-                From I-43: Take the North Avenue exit east. Turn left on
-                Prospect and veer left on Maryland.
-              </li>
-              <li>
-                From the north: Take Lake Drive to North Avenue. Turn right on
-                North, right on Prospect and veer left on Maryland.
-              </li>
-            </ul>
-          </div>
-          <div className="parking">
-            <h2>Parking</h2>
+          <div className="directions tile">
+            <h2>Directions and Parking</h2>
             <p>
-              There is plenty of meter parking on the east and west sides of
-              Farwell Avenue. On Greenwich, parking is free. Just west of our
-              dentist office there is a parking slab that you can use—just pull
-              up as far as you can to accommodate other cars. You can also park
-              in the Whole Foods lot or the US Bank lot and walk a half-block
-              north to our dentist office.
+              Our dentist office is located in Milwaukee two blocks north of
+              North Avenue, one block north of Whole Foods and across the street
+              from Maryland Avenue School and the BP gas station.
             </p>
-            <p>If you need change for the parking meter, please ask!</p>
+            <p>
+              There is free, angled parking on Greenwich and metered parking on
+              the east and west sides of Farwell Avenue. If you need change for
+              the parking meter, please ask!
+            </p>
           </div>
         </PageLocationAndHoursStyles>
       </ContentComponent>
