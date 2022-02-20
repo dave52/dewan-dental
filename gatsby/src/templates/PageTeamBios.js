@@ -35,42 +35,47 @@ const TeamStyles = styled.div`
     }
   }
 
-  ul {
-    --bio-card-width: 20rem;
-    width: 100%;
+  ul.rows {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(var(--bio-card-width), 1fr));
-    gap: 1.5rem;
-    margin: 4rem auto 0;
-    padding: 0;
-    list-style-type: none;
+    grid-template-rows: auto;
 
-    @media (min-width: 37.5rem) {
-      // 600px
-      --bio-card-width: 21rem;
-      gap: 3rem;
-    }
+    ul {
+      --bio-card-width: 20rem;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, var(--bio-card-width));
+      gap: 1.5rem;
+      margin: 4rem auto 0;
+      padding: 0;
+      list-style-type: none;
 
-    @media (min-width: 112.5rem) {
-      // 1800px
-      --bio-card-width: 25rem;
-      gap: 3rem;
-    }
-  }
+      @media (min-width: 37.5rem) {
+        // 600px
+        --bio-card-width: 21rem;
+        gap: 3rem;
+      }
 
-  li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem;
-    background: #fff;
-    border: 3px solid var(--gray);
-    border-radius: 6px;
+      @media (min-width: 112.5rem) {
+        // 1800px
+        --bio-card-width: 25rem;
+        gap: 3rem;
+      }
 
-    @media (min-width: 37.5rem) {
-      // 600px
-      padding: 2rem;
+      li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem;
+        background: #fff;
+        border: 3px solid var(--gray);
+        border-radius: 6px;
+
+        @media (min-width: 37.5rem) {
+          // 600px
+          padding: 2rem;
+        }
+      }
     }
   }
 
@@ -133,7 +138,7 @@ const openModal = function (e) {
 };
 
 export default function PageTeamBios({ data, pageContext, location }) {
-  const orderedPeople = data.team.nodes.sort(sortNullishByProperty('order'));
+  const people = data.team.nodes;
   return (
     <Layout title={pageContext.pageTitle}>
       {pageContext.pageTitle !== pageContext.parentTitle && (
@@ -171,28 +176,46 @@ export default function PageTeamBios({ data, pageContext, location }) {
             </div>
           </div>
           <hr />
-          <ul>
-            {orderedPeople.map((person) => (
-              <li className="font-color-blue" key={person.name}>
-                <div className="text">
-                  <h2 className="font-size-20 font-serif">{person.name}</h2>
-                  <h3 className="font-size-14 font-weight-medium font-uppercase font-spacing-100">
-                    {person.role}
-                  </h3>
-                </div>
-                <div className="photo-button-container">
-                  <GatsbyImage
-                    image={person.photo.asset.gatsbyImageData}
-                    className="photo"
-                    alt={`Photo of ${person.name}`}
-                  />
-                  <button className="button" type="button" onClick={openModal}>
-                    View bio
-                  </button>
-                  <ModalTeam person={person} data={data} />
-                </div>
-              </li>
-            ))}
+          <ul className="rows">
+            {people.map((person, index) => {
+              if (person.rowOrder !== people[index - 1]?.rowOrder) {
+                return (
+                  <li className={`row row-${person.rowOrder}`}>
+                    <ul className="row">
+                      {people.map((person2) =>
+                        person.rowOrder === person2.rowOrder ? (
+                          <li className="font-color-blue" key={person2.name}>
+                            <div className="text">
+                              <h2 className="font-size-20 font-serif">
+                                {person2.name}
+                              </h2>
+                              <h3 className="font-size-14 font-weight-medium font-uppercase font-spacing-100">
+                                {person2.role}
+                              </h3>
+                            </div>
+                            <div className="photo-button-container">
+                              <GatsbyImage
+                                image={person2.photo.asset.gatsbyImageData}
+                                className="photo"
+                                alt={`Photo of ${person2.name}`}
+                              />
+                              <button
+                                className="button"
+                                type="button"
+                                onClick={openModal}
+                              >
+                                View bio
+                              </button>
+                              <ModalTeam person={person2} data={data} />
+                            </div>
+                          </li>
+                        ) : null
+                      )}
+                    </ul>
+                  </li>
+                );
+              }
+            })}
           </ul>
         </TeamStyles>
       </ContentComponent>
@@ -245,9 +268,12 @@ export const query = graphql`
         }
       }
     }
-    team: allSanityTeam {
+    team: allSanityTeam(
+      sort: { order: [ASC, ASC], fields: [rowOrder, order] }
+    ) {
       nodes {
         name
+        rowOrder
         order
         role
         photo {

@@ -9,8 +9,14 @@ export default {
       type: 'string',
     },
     {
+      title: 'Row order',
+      description: 'Row order',
+      name: 'rowOrder',
+      type: 'number',
+    },
+    {
       title: 'Order',
-      description: 'Order on page',
+      description: 'Order within row',
       name: 'order',
       type: 'number',
     },
