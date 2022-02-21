@@ -6,6 +6,7 @@ const MinimalContentStyles = css`
   flex-wrap: wrap;
   gap: 2rem 4rem;
   align-content: start;
+  align-items: start;
 
   max-width: 100%;
   padding: 3rem 5rem;
