@@ -119,6 +119,7 @@ export default function ModalTeam({ data, person }) {
           <GatsbyImage
             image={person.photo.asset.gatsbyImageData}
             className="photo"
+            quality={100}
             alt={`Photo of ${person.name}`}
           />
           <div className="bio">

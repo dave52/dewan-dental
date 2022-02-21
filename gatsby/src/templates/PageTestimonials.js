@@ -12,6 +12,7 @@ const PageTestimonialsStyles = styled.ul`
   grid-template-columns: 1fr;
   gap: 2rem;
   margin: 0;
+  padding: 0;
   list-style-type: none;
 
   @media (min-width: 50rem) {
@@ -61,6 +62,12 @@ export default function PageTestimonials({ data, pageContext, location }) {
       )}
       <ContentComponent>
         <h1>{pageContext.pageTitle}</h1>
+        <p>
+          We’re honored to come so highly rated and receive so many personal
+          referrals. We always want to make sure we show our appreciation by
+          sending out monthly prizes and entering you in a drawing to win a $100
+          gift card to a place of your choice! Thank you!
+        </p>
         <PageTestimonialsStyles>
           {data.testimonials.nodes.map((testimonial, index) => (
             <li key={`${testimonial.name}-${index}`}>

@@ -43,6 +43,33 @@ export default {
       name: 'content',
       type: 'blockContent',
     },
+    {
+      title: 'Should page have a hero image?',
+      description:
+        'Image is optional, placed to the right of text block on desktop, and is below directly below page title on mobile',
+      name: 'hasContentImage',
+      type: 'boolean',
+      default: false,
+    },
+    {
+      title: 'Add a hero image',
+      name: 'contentImage',
+      type: 'image',
+      hidden: ({ document }) => !document?.hasContentImage,
+    },
+    {
+      title: 'Hero image descriptive text for SEO',
+      name: 'contentImageAlt',
+      type: 'string',
+      hidden: ({ document }) => !document?.hasContentImage,
+    },
+    {
+      title: 'Hero image max width supported in pixels',
+      description: 'Optional, only use if needed',
+      name: 'contentImageMaxWidth',
+      type: 'number',
+      hidden: ({ document }) => !document?.hasContentImage,
+    },
   ],
   preview: {
     select: {

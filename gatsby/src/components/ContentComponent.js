@@ -2,6 +2,11 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 const MinimalContentStyles = css`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem 4rem;
+  align-content: start;
+
   max-width: 100%;
   padding: 3rem 5rem;
   font-size: 1.6rem;
@@ -11,13 +16,62 @@ const MinimalContentStyles = css`
   // 1100px
   @media (min-width: 68.75rem) {
     padding: 3rem 7rem;
-    // account for sidenav width 30rem
     max-width: calc(100% - 30rem);
   }
 
   // 1600px
   @media (min-width: 100rem) {
     padding: 3rem max(7rem, 7vw);
+  }
+
+  .content-heading {
+    width: 100%;
+    max-width: 95rem;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .content-block {
+    margin: 0 auto;
+  }
+
+  // .content-wide conditionally added based on hero image in cms, wide layout to support image
+  &.content-wide {
+    max-width: 100%;
+
+    .content-heading {
+      max-width: unset;
+    }
+
+    .content-image {
+      flex: 0 1 80%;
+      margin: 0 auto;
+
+      // 700px
+      @media (min-width: 43.75rem) {
+        flex-basis: 50%;
+      }
+
+      // 1100px
+      @media (min-width: 68.75rem) {
+        flex-basis: 30%;
+      }
+    }
+
+    .content-block {
+      order: 1;
+      flex: 1 0 100%;
+
+      // 1100px
+      @media (min-width: 68.75rem) {
+        order: 0;
+        flex: 1;
+      }
+
+      div > *:first-child {
+        margin-top: 0;
+      }
+    }
   }
 
   *:not(h1, h2, h3, h4, h5, h6) {
@@ -57,7 +111,7 @@ const FullContentStyles = css`
 
   p,
   ul {
-    max-width: 100ch;
+    max-width: 95rem;
   }
 
   img {
@@ -104,10 +158,14 @@ const ContentComponentStyles = styled.div`
   ${({ fullContentStyles }) => fullContentStyles && FullContentStyles}
 `;
 
-export default function ContentComponent({ fullContentStyles, children }) {
+export default function ContentComponent({
+  fullContentStyles,
+  contentWide,
+  children,
+}) {
   return (
     <ContentComponentStyles
-      className="content"
+      className={contentWide ? 'content content-wide' : 'content'}
       fullContentStyles={fullContentStyles}
     >
       {children}

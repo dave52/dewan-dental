@@ -7,18 +7,14 @@ import Layout from '../components/Layout';
 import ContentComponent from '../components/ContentComponent';
 import BadgeAppointment from '../components/BadgeAppointment';
 import ContentSideNav from '../components/ContentSideNav';
-import sortNullishByProperty from '../utils/sortNullishByProperty';
 
 const TeamStyles = styled.div`
   .intro {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 4rem;
-
-    @media (min-width: 1300px) {
-      gap: 6rem;
-      grid-template-columns: 60ch 1fr;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
 
     .mission-statement {
       line-height: 1.4;
@@ -26,7 +22,7 @@ const TeamStyles = styled.div`
 
     .img-wrapper {
       width: 100%;
-      max-width: 30rem;
+      max-width: 50rem;
       margin: 0 auto;
 
       img {
@@ -38,34 +34,26 @@ const TeamStyles = styled.div`
   ul.rows {
     display: grid;
     grid-template-rows: auto;
+    padding: 0;
+    list-style-type: none;
 
     ul {
-      --bio-card-width: 20rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       width: 100%;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, var(--bio-card-width));
       gap: 1.5rem;
       margin: 4rem auto 0;
       padding: 0;
       list-style-type: none;
-
-      @media (min-width: 37.5rem) {
-        // 600px
-        --bio-card-width: 21rem;
-        gap: 3rem;
-      }
-
-      @media (min-width: 112.5rem) {
-        // 1800px
-        --bio-card-width: 25rem;
-        gap: 3rem;
-      }
 
       li {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
+        width: 18rem;
+        flex-grow: 0;
         padding: 1.5rem;
         background: #fff;
         border: 3px solid var(--gray);
@@ -73,6 +61,7 @@ const TeamStyles = styled.div`
 
         @media (min-width: 37.5rem) {
           // 600px
+          width: 20rem;
           padding: 2rem;
         }
       }
@@ -150,30 +139,28 @@ export default function PageTeamBios({ data, pageContext, location }) {
       )}
       <ContentComponent fullContentStyles>
         <TeamStyles>
-          <h1>{pageContext.pageTitle}</h1>
           <div className="intro">
-            <div>
-              <p className="mission-statement font-size-20 font-color-blue font-serif">
-                Your health means the world to us. <br />
-                We value your commitment to lifelong dental health and pledge
-                ourselves to caring for you.
-              </p>
-              <p>
-                Our wellness team created this mission statement to guide our
-                service to you. We take pride in bringing you first-class,
-                modern and cost-effective dental care by constantly updating our
-                skills and techniques, and by putting you and your individual
-                needs first.
-              </p>
-            </div>
+            <h1>{pageContext.pageTitle}</h1>
             <div className="img-wrapper">
               <StaticImage
-                quality={75}
+                quality={100}
                 placeholder="blurred"
-                src="../assets/images/team-abbey-road.jpg"
-                alt="Photo of the DeWan Team imitating the cover of the Beatle's Abbey Road, walking through a crosswalk on a street"
+                src="../assets/images/dewan-group-in-office.jpg"
+                alt="Photo of the DeWan Team in the office, all wearing green scrubs other than Mike DeWan"
               />
             </div>
+            <p className="mission-statement font-size-26 font-color-blue font-serif">
+              Your health means the world to us. <br />
+              We value your commitment to lifelong dental health and pledge
+              ourselves to caring for you.
+            </p>
+            <p>
+              Our wellness team created this mission statement to guide our
+              service to you. We take pride in bringing you first-class, modern
+              and cost-effective dental care by constantly updating our skills
+              and techniques, and by putting you and your individual needs
+              first.
+            </p>
           </div>
           <hr />
           <ul className="rows">
@@ -195,8 +182,9 @@ export default function PageTeamBios({ data, pageContext, location }) {
                             </div>
                             <div className="photo-button-container">
                               <GatsbyImage
-                                image={person2.photo.asset.gatsbyImageData}
+                                image={person2.photo?.asset?.gatsbyImageData}
                                 className="photo"
+                                quality={100}
                                 alt={`Photo of ${person2.name}`}
                               />
                               <button
