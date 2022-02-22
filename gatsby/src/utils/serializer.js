@@ -18,7 +18,7 @@ const serializer = (data) => ({
       >
         <>
           <GatsbyImage
-            quality={80}
+            quality={90}
             image={getGatsbyImageData(
               node.asset,
               { placeholder: 'blurred' },

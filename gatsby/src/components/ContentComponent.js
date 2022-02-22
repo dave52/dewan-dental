@@ -25,9 +25,13 @@ const MinimalContentStyles = css`
     padding: 3rem max(7rem, 7vw);
   }
 
-  .content-heading {
+  .content-heading,
+  .content-block {
     width: 100%;
     max-width: 95rem;
+  }
+
+  .content-heading {
     margin-right: auto;
     margin-left: auto;
   }
