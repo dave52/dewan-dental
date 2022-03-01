@@ -4,20 +4,16 @@ export default {
   type: 'document',
   fields: [
     {
-      title: 'Group name',
-      name: 'group',
+      title: 'Community Partnerships',
+      name: 'communityTitle',
       type: 'string',
-    },
-    {
-      title: 'Group description',
-      name: 'description',
-      type: 'text',
+      readOnly: true,
     },
     {
       type: 'array',
-      name: 'partners',
-      title: 'Partnerships',
-      of: [{ type: 'community.partners' }],
+      name: 'groups',
+      title: 'Groups',
+      of: [{ type: 'community.groups' }],
     },
     {
       type: 'array',
@@ -26,4 +22,7 @@ export default {
       of: [{ type: 'community.images' }],
     },
   ],
+  initialValue: {
+    communityTitle: 'Community Partnerships',
+  },
 };

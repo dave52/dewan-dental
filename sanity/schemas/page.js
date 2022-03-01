@@ -65,7 +65,7 @@ export default {
     },
     {
       title: 'Hero image max width supported in pixels',
-      description: 'Optional, only use if needed',
+      description: 'Optional: only use if needed',
       name: 'contentImageMaxWidth',
       type: 'number',
       hidden: ({ document }) => !document?.hasContentImage,

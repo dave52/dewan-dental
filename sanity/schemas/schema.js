@@ -4,6 +4,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type';
 import blockContent from './blockContent';
 import blockContentImage from './blockContentImage';
 import community from './community';
+import communityGroups from './communityGroups';
 import communityImages from './communityImages';
 import communityPartners from './communityPartners';
 import contactInfo from './contactInfo';
@@ -22,6 +23,7 @@ export default createSchema({
     blockContent,
     blockContentImage,
     community,
+    communityGroups,
     communityImages,
     communityPartners,
     contactInfo,

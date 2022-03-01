@@ -42,6 +42,7 @@ export default function ImageCarousel({
   infiniteLoop,
   autoPlay,
   interval,
+  dynamicHeight,
   children,
 }) {
   return (
@@ -52,6 +53,7 @@ export default function ImageCarousel({
         infiniteLoop={infiniteLoop ?? true}
         autoPlay={autoPlay ?? true}
         interval={interval ?? 6660}
+        dynamicHeight={dynamicHeight ?? true}
       >
         {children}
       </Carousel>

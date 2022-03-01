@@ -57,7 +57,8 @@ const PageOurCommunityStyles = styled.div`
     @media (min-width: 62.5rem) {
       // 1000px
       grid-template-columns: 1fr 1fr;
-      gap: max(10vw, 40rem);
+      /* gap: max(10vw, 40rem); */
+      gap: 4rem;
 
       &:nth-of-type(odd) {
         .gallery {
@@ -67,15 +68,24 @@ const PageOurCommunityStyles = styled.div`
     }
 
     .gallery {
+      grid-column: span 2;
       width: 100%;
-      max-width: 30rem;
-      max-height: 30rem;
-      margin: 3rem auto;
+      max-width: 80rem;
+      margin: 0 auto;
+      /* height: 100%; */
+      /* max-width: 30rem; */
+      /* max-height: 30rem; */
+      /* margin: 3rem auto; */
+      /* position: relative; */
 
-      .full-height {
-        height: 100%;
-        max-height: 30rem;
-      }
+      /* img {
+        max-height: 70rem;
+      } */
+
+      /* .full-height { */
+      /* height: 100%; */
+      /* max-height: 30rem; */
+      /* } */
     }
   }
 `;
@@ -110,13 +120,30 @@ export default function PageOurCommunity({ data, pageContext, location }) {
               Your health means the world to us.
             </div>
           </div>
-          {data.comm.nodes.map((comm, i) => (
-            <div className="comm" key={`${comm.group}-${i}`}>
-              <div className="text">
-                <h2>{comm.group}</h2>
-                <p>{comm.description}</p>
+          <div className="comm">
+            <div className="gallery">
+              <ImageCarousel>
+                {data.comm.nodes[0].images.map((image, i) => (
+                  // <div className="full-height" key={`commImgz-${i}`}>
+                  <div key={`commImgz-${i}`}>
+                    <GatsbyImage
+                      // className="full-height"
+                      key={image.imageCaption}
+                      image={image.asset.gatsbyImageData}
+                      alt={image.imageCaption}
+                      objectPosition={image.objectPosition}
+                    />
+                    <p className="legend">{image.imageCaption}</p>
+                  </div>
+                ))}
+              </ImageCarousel>
+            </div>
+            {data.comm.nodes[0].groups.map((group, i) => (
+              <div className="text" key={`group-${i}`}>
+                <h2>{group.name}</h2>
+                <p>{group.description}</p>
                 <ul>
-                  {comm.partners.map((partner) => (
+                  {group.partners.map((partner) => (
                     <li key={partner.title}>
                       <ConditionalWrapper
                         condition={!!partner.link}
@@ -130,24 +157,8 @@ export default function PageOurCommunity({ data, pageContext, location }) {
                   ))}
                 </ul>
               </div>
-              <div className="gallery">
-                <ImageCarousel>
-                  {comm.images.map((image, i) => (
-                    <div className="full-height" key={`commImgz-${i}`}>
-                      <GatsbyImage
-                        className="full-height"
-                        key={image.imageCaption}
-                        image={image.asset.gatsbyImageData}
-                        alt={image.imageCaption}
-                        objectPosition={image.objectPosition}
-                      />
-                      <p className="legend">{image.imageCaption}</p>
-                    </div>
-                  ))}
-                </ImageCarousel>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </PageOurCommunityStyles>
       </ContentComponent>
       <BadgeAppointment />
@@ -159,11 +170,13 @@ export const query = graphql`
   query {
     comm: allSanityCommunity {
       nodes {
-        group
-        description
-        partners {
-          title
-          link
+        groups {
+          name
+          description
+          partners {
+            title
+            link
+          }
         }
         images {
           imageCaption

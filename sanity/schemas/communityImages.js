@@ -1,7 +1,7 @@
 export default {
   name: 'community.images',
   type: 'image',
-  title: 'Image gallery',
+  title: 'Image',
   description:
     'Images should be a X b pixels in dimension to display correctly',
   fields: [
