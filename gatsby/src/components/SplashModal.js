@@ -174,7 +174,7 @@ export default function SplashModal({ closeModal }) {
           </div>
           <div className="care-container">
             <StaticImage
-              quality={80}
+              quality={100}
               className="care"
               placeholder="blurred"
               src="../assets/images/care.jpg"

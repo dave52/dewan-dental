@@ -6,9 +6,23 @@ import styled from 'styled-components';
 const ImageCarouselStyles = styled.div`
   display: flex;
 
+  .carousel.carousel-slider {
+    overflow: unset;
+  }
+
   .carousel .slide img {
     border-radius: 8px;
   }
+
+  .carousel.carousel-slider .control-arrow {
+    opacity: 1;
+
+    @media (min-width: 43.75rem) {
+      // 1000px
+      opacity: 0.8;
+    }
+  }
+
   .carousel .control-arrow:before,
   .carousel.carousel-slider .control-arrow:before {
     border-top: 1.2rem solid transparent;
@@ -35,7 +49,16 @@ const ImageCarouselStyles = styled.div`
     border-top-right-radius: 0;
     opacity: 0.75;
   }
+
+  .carousel .control-dots {
+    bottom: -4rem;
+
+    .dot {
+      background: gray;
+    }
+  }
 `;
+
 export default function ImageCarousel({
   showStatus,
   showIndicators,
@@ -43,6 +66,7 @@ export default function ImageCarousel({
   autoPlay,
   interval,
   dynamicHeight,
+  showThumbs,
   children,
 }) {
   return (
@@ -53,7 +77,9 @@ export default function ImageCarousel({
         infiniteLoop={infiniteLoop ?? true}
         autoPlay={autoPlay ?? true}
         interval={interval ?? 6660}
-        dynamicHeight={dynamicHeight ?? true}
+        dynamicHeight={dynamicHeight ?? false}
+        showArrows
+        showThumbs={showThumbs ?? false}
       >
         {children}
       </Carousel>

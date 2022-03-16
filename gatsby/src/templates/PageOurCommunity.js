@@ -51,13 +51,12 @@ const PageOurCommunityStyles = styled.div`
 
   .comm {
     display: grid;
-    grid-template-columns: auto;
+    grid-template-columns: 1fr;
     gap: 4rem;
 
     @media (min-width: 62.5rem) {
       // 1000px
       grid-template-columns: 1fr 1fr;
-      /* gap: max(10vw, 40rem); */
       gap: 4rem;
 
       &:nth-of-type(odd) {
@@ -68,24 +67,20 @@ const PageOurCommunityStyles = styled.div`
     }
 
     .gallery {
-      grid-column: span 2;
       width: 100%;
       max-width: 80rem;
-      margin: 0 auto;
-      /* height: 100%; */
-      /* max-width: 30rem; */
-      /* max-height: 30rem; */
-      /* margin: 3rem auto; */
-      /* position: relative; */
+      margin: 0 auto 4rem;
 
-      /* img {
-        max-height: 70rem;
-      } */
+      @media (min-width: 62.5rem) {
+        // 1000px
+        grid-column: span 2;
+      }
 
-      /* .full-height { */
-      /* height: 100%; */
-      /* max-height: 30rem; */
-      /* } */
+      .image {
+        height: 100%;
+        max-height: 70vh;
+        min-width: 100%;
+      }
     }
   }
 `;
@@ -122,15 +117,14 @@ export default function PageOurCommunity({ data, pageContext, location }) {
           </div>
           <div className="comm">
             <div className="gallery">
-              <ImageCarousel>
+              <ImageCarousel className="image" showIndicators>
                 {data.comm.nodes[0].images.map((image, i) => (
-                  // <div className="full-height" key={`commImgz-${i}`}>
-                  <div key={`commImgz-${i}`}>
+                  <div className="image" key={`commImgz-${i}`}>
                     <GatsbyImage
-                      // className="full-height"
+                      className="image"
                       key={image.imageCaption}
                       image={image.asset.gatsbyImageData}
-                      alt={image.imageCaption}
+                      alt={image.imageCaption ?? `Missing photo description`}
                       objectPosition={image.objectPosition}
                     />
                     <p className="legend">{image.imageCaption}</p>
