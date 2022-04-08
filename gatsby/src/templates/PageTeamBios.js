@@ -99,10 +99,17 @@ const TeamStyles = styled.div`
     margin-top: 0;
   }
 
+  .photo-button-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
   .photo {
     width: 100%;
     max-width: 15rem;
     flex-shrink: 0;
+    flex-grow: 1;
   }
 
   .button {
@@ -186,6 +193,8 @@ export default function PageTeamBios({ data, pageContext, location }) {
                                 className="photo"
                                 quality={100}
                                 alt={`Photo of ${person2.name}`}
+                                objectFit="cover"
+                                objectPosition="50% 50%"
                               />
                               <button
                                 className="button"
