@@ -92,7 +92,7 @@ export default function ContactForm({ formName, textAreaLabel, textAreaName }) {
           <textarea
             name={textAreaName ?? 'any-additional-information'}
             id={textAreaName ?? 'any-additional-information'}
-            placeholder="Drop us note :)..."
+            placeholder="Drop us a note :)..."
           />
         </label>
         <button type="submit" className="button">
