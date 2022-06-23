@@ -87,14 +87,14 @@ export default function PageRequestADentistAppointment({
               </p>
               <p>
                 After you make a dentist appointment for your first visit, we
-                will send you registration materials that you can complete prior
-                to your visit. You can also download our pre-registration form.
+                will send you registration materials that you can complete
+                online prior to your visit.
               </p>
               <p>
                 We do our best to accommodate your schedule when making
                 appointments. If your needs change, we appreciate as much
                 advance notice as possible. We kindly request at least 48 hours
-                notice within the business week
+                notice within the business week.
               </p>
             </div>
             <StaticImage

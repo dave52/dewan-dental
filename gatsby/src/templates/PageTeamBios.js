@@ -18,6 +18,10 @@ const TeamStyles = styled.div`
 
     .mission-statement {
       line-height: 1.4;
+
+      & + p {
+        margin-top: 0;
+      }
     }
 
     .img-wrapper {
@@ -157,16 +161,14 @@ export default function PageTeamBios({ data, pageContext, location }) {
               />
             </div>
             <p className="mission-statement font-size-26 font-color-blue font-serif">
-              Your health means the world to us. <br />
-              We value your commitment to lifelong dental health and pledge
-              ourselves to caring for you.
+              Your health means the world to us.
             </p>
             <p>
-              Our wellness team created this mission statement to guide our
-              service to you. We take pride in bringing you first-class, modern
-              and cost-effective dental care by constantly updating our skills
-              and techniques, and by putting you and your individual needs
-              first.
+              We value your commitment to lifelong dental health and pledge
+              ourselves to caring for you. We take pride in bringing you
+              first-class, modern and cost-effective dental care by constantly
+              updating our skills and techniques, and by putting you and your
+              individual needs first.
             </p>
           </div>
           <hr />

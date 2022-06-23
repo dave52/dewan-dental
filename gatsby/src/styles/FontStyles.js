@@ -43,6 +43,10 @@ const FontStyles = createGlobalStyle`
         font-size: 2.2rem;
     }
 
+    .font-size-26 {
+        font-size: 2.6rem;
+    }
+
     .font-size-32 {
         font-size: 3.2rem;
     }

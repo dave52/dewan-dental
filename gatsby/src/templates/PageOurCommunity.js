@@ -142,7 +142,9 @@ export default function PageOurCommunity({ data, pageContext, location }) {
                       <ConditionalWrapper
                         condition={!!partner.link}
                         wrapper={(children) => (
-                          <a href={partner.link}>{children}</a>
+                          <a className="underscore" href={partner.link}>
+                            {children}
+                          </a>
                         )}
                       >
                         <>{partner.title}</>
