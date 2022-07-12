@@ -43,15 +43,15 @@ const isBrowser = typeof window !== 'undefined';
 
 const closeSplash = () => {
   if (isBrowser) {
-    document?.body.classList.remove('overflow-hidden');
-    document?.querySelector('.splash').classList.add('hidden');
+    document?.body?.classList?.remove('overflow-hidden');
+    document?.querySelector('.splash')?.classList?.add('hidden');
   }
 };
 
 const openModal = () => {
   if (isBrowser) {
     setTimeout(() => {
-      document?.querySelector('.modal').classList.remove('hidden');
+      document?.querySelector('.modal')?.classList?.remove('hidden');
     }, 500);
   }
 };
@@ -85,7 +85,7 @@ const failSafeOpen = () => {
 export default function Splash() {
   if (!isSustainedSession() || !hasAgreed()) {
     if (isBrowser) {
-      document?.body.classList.toggle('overflow-hidden');
+      document?.body?.classList?.toggle('overflow-hidden');
     }
     failSafeOpen();
     return (
