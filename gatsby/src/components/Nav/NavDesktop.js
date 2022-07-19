@@ -57,7 +57,7 @@ const NavDesktopStyles = styled.nav`
         &:after {
           -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
-          border: 1px solid rgba(255, 255, 255, 0);
+          border-top: 2px solid rgba(255, 255, 255, 0);
           bottom: 0;
           content: ' ';
           display: block;
