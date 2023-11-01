@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import SplashLogo from './SplashLogo';
-import SplashModal from './SplashModal';
 
 const ContainerStyles = styled.div`
   &.hidden {
@@ -48,50 +47,24 @@ const closeSplash = () => {
   }
 };
 
-const openModal = () => {
-  if (isBrowser) {
-    setTimeout(() => {
-      document?.querySelector('.modal')?.classList?.remove('hidden');
-    }, 500);
-  }
-};
-
-const hasAgreed = () => isBrowser && localStorage.getItem('covidAgreement');
-const setCovidAgreement = (val = true) =>
-  isBrowser && localStorage.setItem('covidAgreement', val);
 const isSustainedSession = () =>
   isBrowser && sessionStorage.getItem('sustainedSession');
 const setSession = (val = true) =>
   isBrowser && sessionStorage.setItem('sustainedSession', val);
 
 const handleOnAnimationEnd = () => {
-  if (hasAgreed()) {
-    closeSplash();
-  } else {
-    openModal();
-  }
+  closeSplash();
   setSession();
 };
 
-const handleCloseModal = () => {
-  closeSplash();
-  setCovidAgreement();
-};
-
-const failSafeOpen = () => {
-  setTimeout(handleOnAnimationEnd, 12000);
-};
-
 export default function Splash() {
-  if (!isSustainedSession() || !hasAgreed()) {
+  if (!isSustainedSession()) {
     if (isBrowser) {
       document?.body?.classList?.toggle('overflow-hidden');
     }
-    failSafeOpen();
     return (
       <ContainerStyles className="splash">
         <SplashLogo onAnimationEnd={handleOnAnimationEnd} />
-        {!hasAgreed() && <SplashModal closeModal={handleCloseModal} />}
       </ContainerStyles>
     );
   }
